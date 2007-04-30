@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Perl 101 - Things Every Perl Programmer Should Know</title>
@@ -47,6 +46,7 @@
                 </div><!-- Sidebar header -->
                 <div id="sidebar">
                     <!-- Start sidebar content -->
+                    [% INCLUDE 'sidebar.tt' %]
                     XXX Navbar goes here
                 </div><!-- End sidebar content -->
             </div><!-- End sidebar wrapper -->
@@ -59,7 +59,7 @@
                     If we can improve perl101.org in any way, please let us know with this form.
                     <p>
                     </p>
-                    XXX INCLUDE FEEDBACK FORM
+                    [% INCLUDE 'feedback.tt' %]
                     <div id="footer">
                         <!-- Start Footer -->
                         <p>&copy; 2007 Andy Lester</p>
