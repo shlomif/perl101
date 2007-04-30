@@ -1,0 +1,28 @@
+<form method="post" action="/cgi-sys/formmail.pl" enctype="application/x-www-form-urlencoded">
+    <input name="subject" value="Feedback: index.html" type="hidden">
+    <input name="recipient" value="andy@petdance.com" type="hidden" />
+
+    <input name="return_link_url" value="http://perl101.org/strings" type="hidden" />
+    <input name="return_link_title" value="Return to Perl 101" type="hidden" />
+    <table>
+        <tbody>
+            <tr>
+                <th align="right">Your name</th>
+                <td><input name="realname" type="text"></td>
+            </tr>
+
+            <tr>
+                <th align="right">Your email</th>
+                <td><input name="email" type="text"></td>
+            </tr>
+            <tr valign="top">
+                <th align="right">Your comment</th>
+                <td>
+                    <textarea name="text" rows="10" cols="50"></textarea>
+                    <br />
+                    <input name=".submit" value="Send" type="submit">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
