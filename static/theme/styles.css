@@ -1,0 +1,690 @@
+/*<group=General Styles>*/
+
+body {
+	color: #333333;
+	font: 0.75em/1.8em Helvetica, Arial, sans-serif;
+	margin: 0 20px 20px;
+	text-align: center;
+	background: repeat url(images/body_bg.png);
+	padding: 0;
+}
+
+p {
+}
+
+b, strong {
+
+}
+
+a:link, a:visited {
+}
+
+a:hover, a:active {
+
+}
+
+img {
+	border: none;
+}
+
+.image-left {
+	float: left;
+	margin: 3px 3px 3px 0;
+	padding: 3px 3px 3px 0;
+	position: relative;
+	z-index: 5;
+}
+
+.image-right {
+	float: right;
+	margin: 3px 0 3px 3px;
+	padding: 3px 0 3px 3px;
+	position: relative;
+	z-index: 5;
+}
+	
+/*</group>*/
+
+/*<group=Layout>*/
+
+#container { 
+	background: #ffffff repeat-y right url(images/sidebar_left.png); /* This Is The BG Color Of The Main Div */
+	margin: 0px auto; /* Right And Left Margin Widths To Auto */
+	text-align: left; /* Hack To Keep IE5 Windows Happy */
+	border-right: 1px solid #a0a9a7;
+	border-left: 1px solid #a0a9a7;
+	border-bottom: 1px solid #a0a9a7;
+	position: relative;
+}
+
+.clearer {
+	clear: both;
+}
+
+#pageHeader {
+	background: #6b7b91;
+	border-bottom: 2px solid #818fa1;
+	padding: 10px 10px;
+	position: relative;
+	margin-top: -1px;
+	margin-bottom: -1px;
+	z-index: 0;
+}
+
+#pageHeader img {
+	position: absolute;
+	left: 10;
+	top: 0;
+}
+
+#pageHeader h1 {
+	color: #ffffff;
+	font-size: 2.5em;
+	letter-spacing: 1px;
+	margin: 0 0 5px;
+}
+
+#pageHeader h2 {
+	color: #b5bdc8;
+	font-size: 0.9em;
+	margin-top: 25px;
+	margin-bottom: 0px;
+	margin-left: 5px;
+    padding: 0px;
+}
+
+#contentContainer {
+	margin-right: 150px;
+	position: relative;
+	z-index: 99;
+}
+
+#contentContainer #content {
+	padding-top: 10px;
+	padding-right: 40px;
+	padding-left: 10px;
+}
+
+#sidebarContainer {
+	float: right;
+	width: 150px;
+}
+
+#sidebarContainer #sidebar {
+	padding: 10px;
+	color: #505050;
+}
+
+#sidebarContainer .sideHeader {
+	background: #d5dfd6;
+	color: #797f7a;
+	font-weight: bold;
+	height: 20px;
+	padding-left: 10px;
+}
+
+#footer {
+	border-top: 1px solid #eeeeee;
+	margin-top: 20px;
+	color: #909090;
+}
+
+#footer p {
+	margin: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#footer a:link, #footer a:visited {
+
+}
+
+#footer a:hover, #footer a:active {
+}
+	
+/*</group>*/
+
+/*<group=Bread-crumb>*/
+
+#breadcrumbcontainer {
+	background: #97a8bc;
+	font-size: 0.9em;
+	color: #808ea0;
+	font-weight: bold;
+	height: 20px;
+	padding-left: 40px;
+	padding-right: 20px;
+	display: block;
+}
+
+#breadcrumbcontainer ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#breadcrumbcontainer li {
+	display: inline;
+}
+
+#breadcrumbcontainer a {
+	color: #ffffff;
+}
+
+#breadcrumbcontainer a:hover {
+	color: #6a7a90;
+}
+	
+/*</group>*/
+
+/*<group=Toolbar>*/
+
+/* Toolbar Styles */
+#navcontainer {
+	background: repeat-x url(images/toolbar_bg.png);
+	height: 34px;
+	position: relative;
+	z-index: 500;
+}
+
+#navcontainer #current {
+	text-shadow: 0px 1px 1px #666666;
+}
+
+#navcontainer .currentAncestor {
+	text-shadow: 0px 1px 1px #666666;
+}
+/* Parent - Level 0 */
+
+#navcontainer ul {
+	padding: 0;
+	list-style: none;
+	margin: 0px;
+}
+
+#navcontainer li {
+	position: relative;
+	width: 120px;
+	display: inline;
+	float: left;
+}
+
+#navcontainer a {
+	display: block;
+	padding-top: 7px;
+	color: #ffffff;
+	text-shadow: 1px 1px 2px #333333;
+	text-decoration: none;
+	width: 120px;
+	text-align: center;
+	height: 27px;
+}
+
+#navcontainer a:hover { 
+	color: #ffffff;
+	text-shadow: 0px 1px 1px #666666;
+	text-decoration: none;
+}
+
+/* Fix IE. Hide from IE Mac \*/
+* html #navcontainer ul li { float: left; height: 1%; }
+* html #navcontainer ul li a { height: 27px; }
+/* End */
+
+/* Child - Level 1 */
+
+#navcontainer ul ul {
+	position: absolute;
+	left: 0;
+	top: 32px;
+	display: none;
+	z-index: 100;
+}
+
+#navcontainer ul ul a { 
+	height: 20px;
+	padding-top: 7px;
+	text-shadow: 2px 2px 2px #999999;
+	background: url(images/sub_button.png) repeat;
+	text-align: left;
+	text-indent: 20px;
+}
+
+#navcontainer ul ul a:hover {
+	background: repeat url(images/sub_button_over.png);
+}
+
+
+html>body #navcontainer ul ul a {
+	background: repeat url(images/sub_button_trans.png);
+	height: 23px;
+}
+
+html>body #navcontainer ul ul a:hover {
+	background: repeat url(images/sub_button_over_trans.png);
+}
+
+#navcontainer ul ul #current{
+	background: repeat url(images/sub_button_over.png);
+}
+
+html>body #navcontainer ul ul #current{
+	background: repeat url(images/sub_button_over_trans.png);
+}
+
+/* Child Level 3 */
+
+#navcontainer ul ul ul {
+	position: absolute;
+	left: 120px;
+	top: 0;
+}
+
+#navcontainer ul ul ul ul li { 
+}
+
+#navcontainer ul ul ul ul a{
+}
+
+#navcontainer ul ul ul ul a:hover{
+
+}
+
+div#navcontainer ul ul, div#navcontainer ul ul ul, div#navcontainer ul li:hover ul ul, div#navcontainer ul li:hover ul ul ul, div#navcontainer ul li:hover ul ul ul ul, div#navcontainer ul li:hover ul ul ul ul ul{
+display:none;
+}
+
+div#navcontainer ul li:hover ul, div#navcontainer ul ul li:hover ul, div#navcontainer ul ul ul li:hover ul, div#navcontainer ul ul ul ul li:hover ul, div#navcontainer ul ul ul ul ul li:hover ul{
+display:block;
+}
+/*</group>*/
+
+/*<group=Global Classes>*/
+
+blockquote, .standout {
+	color: #96a7bb;
+	border-top: 1px solid #eeeeee;
+	border-bottom: 1px solid #eeeeee;
+}
+
+h1 {
+}
+
+h2 {
+}
+
+h3 {
+}
+
+h4 {
+}
+
+.imageStyle {
+
+}
+
+/* Main content area unordered list styles */
+#contentContainer #content ul {
+}
+
+#contentContainer #content li {
+}
+
+/* Sidebar area unordered list styles */
+#sidebarContainer #sidebar ul {
+	margin: 0px;
+	padding: 0 10px;
+    list-style: none;
+}
+
+#sidebarContainer #sidebar li {
+}
+
+/* Table Styles */
+table {
+	font-size: 1em;
+}
+	
+/*</group>*/
+
+/*<group=Blog>*/
+
+/*<group=Archive Page>*/
+
+.blog-archive-background {
+}
+
+.blog-entry-summary {
+	margin-bottom: 10px;
+}
+
+.blog-archive-headings-wrapper {
+	margin-bottom: 30px;
+	border-bottom: 1px solid #eeeeee;
+	padding-bottom: 15px;
+}
+
+.blog-archive-entries-wrapper {
+
+}
+
+.blog-archive-entries-wrapper .blog-entry {
+	
+}
+
+.blog-archive-month {
+	font-size: 1.9em;
+	letter-spacing: 1px;
+	font-weight: bold;
+	margin-bottom: 3px;
+}
+
+.blog-archive-link {
+	
+}
+
+.blog-archive-link a:link, .blog-archive-link a:visited {
+}
+
+/*</group>*/
+
+.blog-entry {
+	margin-bottom: 30px;
+	border-bottom: 1px solid #eeeeee;
+	padding-bottom: 15px;
+}
+
+.blog-entry-title {
+	font-size: 1.9em;
+	letter-spacing: 1px;
+	font-weight: bold;
+	margin-bottom: 3px;
+}
+
+.blog-entry-date {
+	color: #b3b3b3;
+	margin-bottom: 10px;
+}
+
+.blog-read-more {
+	display: block;
+	padding-top: 10px;
+	font-style: italic;
+}
+
+.blog-entry-body {
+}
+
+.blog-entry-comments {
+	padding-top: 10px;
+}
+
+/*styles the category link in the main entry */
+.blog-entry-category {
+	color: #6a7a90;
+}
+
+.blog-entry-category a:link, .blog-entry-category a:visited {
+}
+
+/*styles the permalink link in the main entry */
+.blog-entry-permalink {
+	color: #6a7a90;
+}
+
+.blog-entry-permalink a:link, .blog-entry-permalink a:visited {
+}
+
+/* styles the archives in the blog sidebar */
+#blog-archives {
+	margin-bottom: 10px;
+}
+
+.blog-archive-link-enabled {
+}
+
+.blog-archive-link-disabled {
+}
+
+/* Styles the blog categories in the blog sidebar */
+#blog-categories {
+	margin-bottom: 10px;
+}
+
+.blog-category-link-enabled {
+}
+
+.blog-category-link-disabled {
+}
+
+/* Styles the blog RSS feeds in the blog sidebar */
+#blog-rss-feeds {
+	margin-bottom: 10px;
+}
+
+.blog-rss-link {
+}
+
+.blog-comments-rss-link {
+}
+	
+/*</group>*/
+
+/*<group=File Sharing>*/
+
+.filesharing-description {
+}
+
+.filesharing-item {
+	background: #f5f5f5;
+	margin-bottom: 10px;
+	padding: 5px;
+}
+
+.filesharing-item-title a:link {
+}
+
+.filesharing-item-title a:hover {
+}
+
+.filesharing-item-title a:visited {
+
+}
+
+.filesharing-item-description {
+	color: #b3b3b3;
+}
+
+/*</group>*/
+
+/*<group=Photo Album>*/
+
+/*<group=Index Page (Thumbnail view)>*/
+
+.album-title {
+	font-size: 1.9em;
+	letter-spacing: 1px;
+	font-weight: bold;
+	margin-bottom: 3px;
+}
+
+.album-description {
+	margin-bottom: 70px;
+}
+
+.album-wrapper {
+	display: block;
+	width: 99%;
+	position: relative;
+}
+
+.thumbnail-wrap {
+	text-align: center;
+	position: relative;
+	float: left;
+	margin-bottom: 60px;
+	margin-right: 10px;
+}
+
+.thumbnail-frame {
+	position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.thumbnail-frame:hover {
+}
+
+.thumbnail-frame a {
+}
+
+.thumbnail-frame a:hover {
+}
+
+.thumbnail-frame img {
+	margin: auto;
+    border: none;
+}
+
+.thumbnail-caption {
+	font-size: 0.9em;
+	color: #96a7bb;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 38px;
+	display: block;
+}
+	
+/*</group>*/
+
+/*<group=Single Page (Photo view)>*/
+
+.photo-background {
+	margin: 0;
+
+}
+
+.photo-navigation {
+	background: #6b7b91;
+	border-bottom: 2px solid #818fa1;
+	padding: 20px 40px 10px;
+	margin-bottom: 20px;
+	text-align: left;
+}
+
+.photo-links {
+}
+
+.photo-navigation a:link, .photo-navigation a:visited {
+
+}
+
+.photo-navigation a:hover {
+
+}
+
+.photo-frame{
+	padding: 2px;
+	background: #949b98;
+}
+
+.photo-title {
+	color: #ffffff;
+	font-size: 2.5em;
+	letter-spacing: 1px;
+	margin: 0 0 5px;
+}
+
+.photo-caption {
+	color: #b5bdc8;
+	font-size: 1.1em;
+	margin: 0;
+}
+
+/*</group>*/
+	
+/*</group>*/
+
+/*<group=Quicktime Page>*/
+
+.movie-description {
+
+}
+	
+/*</group>*/
+
+/*<group=Quicktime Album>*/
+
+/*<group=Index Page (Movie Thumbnail view)>*/
+
+.movie-page-title {
+	font-size: 1.9em;
+	letter-spacing: 1px;
+	font-weight: bold;
+	margin-bottom: 3px;
+}
+
+.movie-page-description {
+	margin-bottom: 8px;
+}
+
+.movie-thumbnail-frame {
+	width: 132px;
+	float: left;
+	text-align: center;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	background: #f5f5f5;
+	position: relative;
+	z-index: 205;
+}
+
+.movie-thumbnail-frame:hover {
+}
+
+.movie-thumbnail-caption {
+}
+	
+/*</group>*/
+
+/*<group=Single Page (Movie View)>*/
+
+.movie-background {
+}
+
+.movie-title {
+	font-size: 1.9em;
+	letter-spacing: 1px;
+	font-weight: bold;
+}
+
+.movie-frame {
+
+}
+	
+/*</group>*/
+
+
+/*</group>*/
+
+/*<group=Contact Form>*/
+.message-text { 
+} 
+
+.required-text {
+} 
+
+.form-input-field {
+} 
+
+.form-input-button { 
+} 
+/*</group>*/
+
+
+pre, code {
+    font: fixed;
+    font-size: 8pt;
+    color: blue;
+}

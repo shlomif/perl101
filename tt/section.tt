@@ -1,8 +1,0 @@
-<html>
-    <head>
-        <title>101 Things Every Perl Programmer Should Know</title>
-    </head>
-    <body bgcolor="white">
-        [% guts %]
-    </body>
-</html>

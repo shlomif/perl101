@@ -1,0 +1,43 @@
+a:link, a:visited {
+	color: #8ecf0b;
+}
+
+#navcontainer #current {
+	background: url(../../images/green/button_over.png) repeat-x left top;
+}
+
+#navcontainer #current:hover {
+}
+
+#navcontainer .currentAncestor {
+	background: url(../../images/green/button_over.png) repeat-x left top;
+}
+
+#navcontainer a:hover {
+	background: url(../../images/green/button_over.png) repeat-x left top;
+}
+
+#navcontainer ul ul {
+	border-bottom: 3px solid #8ecf0b;
+}
+
+#navcontainer ul ul a:hover{
+	color: #8ecf0b;
+}
+
+#navcontainer ul ul .currentAncestor {
+	color: #8ecf0b;
+	background: url(../../images/sub_button.png) repeat;
+}
+
+html>body #navcontainer ul ul .currentAncestor {
+	background: repeat url(../../images/sub_button_trans.png);
+}
+
+.blog-entry-title {
+	color: #313534;
+}
+
+.blog-entry-date {
+	color: #b3b3b3;
+}

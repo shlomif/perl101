@@ -1,5 +1,6 @@
 .PHONY: \
 	crank \
+	clean
 
 default: crank
 
@@ -9,7 +10,13 @@ crank:
 	perl crank 101.pod
 	rsync -azu --delete \
 		--exclude=.svn --exclude='*~' \
+		static/ 101/static/
+	rsync -azu --delete \
+		--exclude=.svn --exclude='*~' \
 		s/ 101/s/
+
+clean:
+	rm -fr 101/
 
 # This is only useful for Andy
 rsync:

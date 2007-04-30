@@ -2,84 +2,67 @@
 
 use strict;
 use warnings;
-use Pod::Simple::HTMLBatch 3.02;
-use CGI qw( :standard );
+use Carp::Always;
 
-use File::Slurp qw( write_file );
+use Template ();
+use Template::Constants qw( :debug :chomp );
+
+use Pod::Simple::HTML;
 
 $/ = "";
 
-my @sections;
+my %defaults = (
+    INCLUDE_PATH    => [ qw( tt ) ],
+    OUTPUT_PATH     => '101/',
+    DEBUG           => DEBUG_UNDEF,
+    TRIM            => CHOMP_ALL,
+    PRE_CHOMP       => 1,
+    POST_CHOMP      => 1,
+);
+
+my $tt = Template->new( \%defaults );
+my $vars = {};
+
+my @podfiles;
+my @sidelinks;
+push( @sidelinks, {
+    filename => './',
+    text => 'Home',
+} );
+
+push( @podfiles, {
+    section => 'Home',
+    podfile => '101.pod',
+    htmlfile => 'index.html',
+} );
+
 while ( my $para = <> ) {
     chomp $para;
 
     $para =~ s/=head1 // or next;
 
-    push( @sections, $para );
-}
+    my $section = $para;
+    my $sectionfile = make_filename( $section );
 
-my $batch= Pod::Simple::HTMLBatch->new;
-$batch->batch_convert( ['s/'] , '101/' );
-
-my @toplinks;
-for my $section ( @sections ) {
-    my $section_file = make_filename( $section );
-    if ( -s "s/$section.pod" ) {
-        push( @toplinks, qq{<a href="$section_file.html">$section</a><br>\n} );
+    my $podfile = "s/$sectionfile.pod";
+    if ( -s $podfile ) {
+        my $htmlfile = "$sectionfile.html";
+        push( @sidelinks, {
+            filename => $htmlfile,
+            text => $section,
+        } );
+        push( @podfiles, {
+            section => $section,
+            podfile => $podfile,
+            htmlfile => $htmlfile,
+        } );
     }
 }
 
-my $header = <<'EOF';
-<html>
-    <head>
-        <title>101 Things Every Perl Programmer Should Know</title>
-    </head>
-    <body bgcolor="white">
-    <h1>101 Things Every Perl Programmer Should Know</h1>
-EOF
-
-my $footer = <<'EOF';
-    </body>
-</html>
-EOF
-
-write_file( '101/index.html', $header, @toplinks, feedback( 'index.html' ), $footer );
-
-sub feedback {
-    my $source_page = shift;
-
-    my $form = join( '',
-        start_form( -method => 'POST', -action => '/cgi-sys/formmail.pl' ),
-        hidden( 'subject' => "Feedback: $source_page" ),
-        hidden( 'recipient' => 'andy@petdance.com' ),
-        hidden( 'return_link_url' => 'http://perl101.org/' ),
-        hidden( 'return_link_title' => 'Return to Perl 101' ),
-        table(
-            Tr(
-                th( {align=>'right'}, 'Your name' ),
-                td( textfield( 'realname' ) ),
-            ),
-            Tr(
-                th( {align=>'right'}, 'Your email' ),
-                td( textfield( 'email' ) ),
-            ),
-            Tr( {valign=>'top'},
-                th( {align=>'right'}, 'Your comment' ),
-                td(
-                    textarea( 'text', '', 10, 70 ), br(),
-                    submit( -value => 'Send' ),
-                ),
-            ),
-        ), # table
-        end_form(),
-    );
-    return <<"EOF";
-    <hr>
-    <h3>We want your feedback</h3>
-    If we can improve perl101.org in any way, please let us know with this form.
-    <p>
-    $form
-EOF
+for my $vars ( @podfiles ) {
+    $vars->{pod} = pod2html( $vars->{podfile} );
+    $vars->{sidelinks} = \@sidelinks;
+    $tt->process( 'section.tt', $vars, $vars->{htmlfile} ) || die $tt->error;
 }
 
 sub make_filename {
@@ -90,4 +73,21 @@ sub make_filename {
     $name =~ s/-$//;
 
     return $name;
+}
+
+sub pod2html {
+    my $podfile = shift;
+
+    my $html;
+
+    my $parser = Pod::Simple::HTML->new;
+    $parser->html_header_before_title( '' );
+    $parser->html_header_after_title( '' );
+    $parser->html_footer( '' );
+
+    $parser->complain_stderr( 1 );
+    $parser->output_string( \$html );
+    $parser->parse_file( $podfile );
+
+    return $html;
 }
