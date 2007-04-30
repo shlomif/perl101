@@ -1,0 +1,163 @@
+=head1 Regular Expressions
+
+Regular expressions are too huge of a topic to introduce here, but
+make sure that you understand these concepts.
+
+=head2 XXX capture variables are only valid if the regex matches
+
+=head2 XXX m// in list context gives a list of matches
+
+=head2 Common match flags
+
+=over
+
+=item * C</i> - case insensitive match
+
+=item * C</g> - match multiple times
+
+    $var = "match match match";
+
+    while ($var =~ /match/g) { $a++; }
+    print "$a\n"; # prints 3
+
+    $a = 0;
+    $a++ foreach ($var =~ /match/g);
+    print "$a\n"; # prints 3
+
+=item * C</m> - C<^> and C<$> change meaning
+
+=over
+
+=item * Ordinarily, C<^> means "start of string" and C<$>, "end of string"
+
+=item * C</m> makes them mean start and end of line, respectively
+
+    $str = "one\ntwo\nthree";
+    @a = $str =~ /^\w+/g;  # @a = ("one");
+    @b = $str =~ /^\w+/gm; # @b = ("one","two","three")
+
+=item * Use C<\A> and C<\z> for start and end of string regardless of C</m>
+
+=item * C<\Z> is the same as C<\z> except it will ignore a final newline
+
+=back
+
+=item * C</s> - C<.> also matches newline
+
+    $str = "one\ntwo\nthree\n";
+    $str =~ /^(.{8})/s;
+    print $1; # prints "one\ntwo\n"
+
+=back
+
+=head2 Capture variables C<$1> and friends
+
+=over
+
+=item * Sets of capturing parentheses are stored in numeric variables
+
+=item * Parenthesis are assigned left to right:
+
+    my $str = "abc";
+    $str =~ /(((a)(b))(c))/;
+    print "1: $1 2: $2 3: $3 4: $4 5: $5\n";
+    # prints: 1: abc 2: ab 3: a 4: b 5: c
+
+=item * No upper limit on number of capturing parenthesis and variables
+
+=back
+
+=head2 Avoid capture with C<?:>
+
+=over
+
+=item * If a parenthesis is followed by C<?:>, the group will not be captured
+
+=item * Useful if you don't want the matches to be saved
+
+    my $str = "abc";
+    $str =~ /(?:a(b)c)/;
+    print "$1\n"; # prints "b"
+
+=back
+
+=head2 Allow easier reading with the C</x> switch
+
+=over
+
+=item * If you're doing something tricky with a regex, comment it.
+
+=item * You can do this with the C</x> flag.
+
+This ugly behemoth
+
+    my ($num) = $ARGV[0] =~ m/^\+?((?:(?<!\+)-)?(?:\d*.)?\d+)$/x;
+
+is more readable with whitespace and comments, as allowed by the
+C</x> flag.
+
+    my ($num) =
+        $ARGV[0] =~ m/^ \+?        # An optional plus sign, to be discarded
+                    (              # Capture...
+                    (?:(?<!\+)-)? # a negative sign, if there's no plus behind it,
+                    (?:\d*.)?     # an optional number, followed by a point if a decimal,
+                    \d+           # then any number of numbers.
+                    )$/x;
+
+=item * Whitespace and comments are stripped unless escaped.
+
+=back
+
+=head2 Automatically quote your regexes with C<\Q> and C<\E>
+
+=over
+
+=item * Automatically escapes regex metacharacters
+
+=item * Won't escape dollar signs
+
+    my $num = '3.1415';
+    print "ok 1\n" if $num =~ /\Q3.14\E/;
+    $num = '3X1415';
+    print "ok 2\n" if $num =~ /\Q3.14\E/;
+    print "ok 3\n" if $num =~ /3.14/;
+
+prints
+
+    ok 1
+    ok 3
+
+=back
+
+=head2 Execute code with C</e> flag to C<s///>
+
+=over
+
+=item * Allows arbitrary code to replace a string in a regular expression
+
+    my $str = "AbCdE\n";
+    $str =~ s/(\w)/lc $1/eg;
+    print $str; # prints "abcde"
+
+=item * Use C<$1> and friends if necessary
+
+=back
+
+=head2 Know when to use C<study>
+
+study is not helpful in the vast majority of cases.  All it does
+is make a table of where the first occurrence of each of 256 bytes
+is in the string.  This means that if you have a 1,000-character
+string, and you search for lots of strings that begin with a constant
+character, then the matcher can jump right to it.  For example:
+
+"This is a very long [... 900 characters skipped...] string that I
+have here, ending at position 1000"
+
+Now, if you are matching this against the regex /Icky/, the matcher
+will try to find the first letter "I" that matches.  That may take
+scanning through the first 900+ characters until you get to it.
+But what study does is build a table of the 256 possible bytes and
+where they first appear, so that in this case, the scanner can jump
+right to that position and start matching.
+

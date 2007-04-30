@@ -1,0 +1,96 @@
+=head1 Community
+
+=head2 The Perl Foundation
+
+The Perl Foundation is dedicated to the advancement of the Perl
+programming language through open discussion, collaboration, design,
+and code. The Perl Foundation is a non-profit, 501(c)(3) organization
+based in Holland, Michigan.
+
+=over
+
+=item * L<http://perlfoundation.org>
+
+=item * L<http://news.perlfoundation.org>
+
+=back
+
+
+=head2 Perl Mongers
+
+The Perl user groups around the world.  Helped out The Perl Foundation.
+
+=over
+
+=item * L<http://www.pm.org>
+
+=back
+
+
+=head2 OSCON
+
+=over
+
+=item * O'Reilly's Open Source Conference
+
+=item * Started out as The Perl Conference and expanded
+
+=item * L<http://conferences.oreilly.com>
+
+=back
+
+
+=head2 YAPC
+
+=over
+
+=item * Yet Another Perl Conference
+
+=item * Inexpensive, TPF-driven alternative to OSCON
+
+=item * L<http://www.yapc.org>
+
+=back
+
+
+=head2 IRC channels
+
+=over
+
+=item * Online chat channels
+
+=item * Freenode (irc.freenode.net) is least obnoxious
+
+=item * MAGnet (irc.perl.org) has most hardcore Perl folks, but most obnoxious
+
+=back
+
+
+=head2 Perlmonks
+
+=over
+
+=item * L<http://perlmonks.org>
+
+=item * Half message board, half Q&A session
+
+=item * Most likely to be helpful to newbies
+
+=back
+
+
+=head2 use.perl
+
+=over
+
+=item * L<http://use.perl.org>
+
+=item * Slash-based site where Perl people keep journals.  Front page publishes Perl news of the day.
+
+=back
+
+=head2 Perlcast
+
+Perlcast is a podcast for the Perl community created by Josh McAdams.
+
+L<http://perlcast.com>

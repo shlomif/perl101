@@ -1,0 +1,81 @@
+=head1 Objects, Modules and Packages
+
+=head2 Package basics
+
+=over
+
+=item * A package is a collection of methods
+
+=item * Lives in its own namespace
+
+=item * Package methods can be exported or called directly
+
+=over
+
+=item * C<Foo::bar()>
+
+=item * C<< Foo->bar() >>
+
+=item * C<bar()> (if C<Foo> exports it)
+
+=back
+
+=back
+
+=head2 Module basics
+
+=over
+
+=item * A module is a file containing one or more packages
+
+=item * Most people use "module" and "package" interchangably
+
+=back
+
+=head2 Object basics
+
+=over
+
+=item * An object is a C<bless>ed reference to a hash
+
+=over
+
+=item * It doesn't have to be a hash reference, but it's most common.
+
+=back
+
+=item * Blessing assigns a single class to an object
+
+=item * An object can be re-blessed
+
+=item * You can muck with the internals, but that doesn't mean you should
+
+=back
+
+=head2 1;
+
+=over
+
+=item * Modules must end with a true value
+
+=item * It doesn't have to be 1
+
+=item * Packages don't have the same restriction
+
+=back
+
+=head2 @ISA
+
+Perl's object inheritance methods use C<@ISA> to determine what
+classes a module inherits from.  Years ago, inheritance was
+declared by modifying C<@ISA> directly; now, most programs use
+the L<base> pragma to declare inheritance.
+
+The following are mostly equivalent:
+
+    package Foo;
+    require Wango;
+    @ISA = ( "Wango" );
+
+    package Foo;
+    use base "Wango";

@@ -1,0 +1,87 @@
+=head1 Strings
+
+=head2 Embed strings in other strings with interpolation
+
+Double-quoted strings can interpolate other variables inside.
+
+    my $name = "Inigo Montoya";
+    my $relative = "father";
+
+    print "My name is $name, you killed my $relative";
+
+=head2 Non-interpolating strings
+
+If you don't want interpolation, use single-quotes:
+
+    print 'You may have won $1,000,000';
+
+Or you can escape the special characters (sigils):
+
+    print "You may have won \$1,000,000";
+
+=head2 Be careful with email addresses in strings
+
+This email address won't be what you want it to be:
+
+    my $email = "andy@foo.com";
+    print $email;
+    # Prints "andy.com"
+
+The problem is that C<@foo> is interpolated as an array.  This
+problem is obvious if you have C<use warnings> turned on:
+
+    $ perl foo.pl
+    Possible unintended interpolation of @foo in string at foo line 1.
+    andy.com
+
+The solution is either to use non-interpolating quotes:
+
+    my $email = 'andy@foo.com';
+    my $email = q{andy@foo.com};
+
+or escape the C<@>
+
+    my $email = "andy\@foo.com";
+
+A good color-coding editor will help you prevent this problem in
+the first place.
+
+=head2 Use C<substr()> to extract strings
+
+C<substr()> does all kinds of cool string extraction.
+
+    my $x = "Chicago Perl Mongers";
+
+    print substr( $x, 0, 4 );   # Chic
+
+    print substr( $x, 13 );     # Mongers
+
+    print substr( $x, -4 );     # gers
+
+=head2 Don't worry (too much) about strings vs. numbers
+
+Unlike other languages, Perl doesn't know a "string" from a "number".
+It will do its best to DTRT.
+
+    my $phone = "312-588-2300";
+
+    my $exchange = substr( $phone, 4, 3 ); # 588
+    print sqrt( $exchange ); # 24.2487113059643
+
+=head2 Increment non-numeric strings with the C<++> operator
+
+You can increment a string with C<++>.  The string C<"abc"> incremented
+becomes C<"abd">.
+
+    $ cat foo.pl
+    $a = 'abc'; $a = $a + 1;
+    $b = 'abc'; $b += 1;
+    $c = 'abc'; $c++;
+
+    print join ", ", ( $a, $b, $c );
+
+    $ perl -l foo.pl
+    1, 1, abd
+
+Note that you must use the C<++> operator.  In the other two cases
+above, the string C<"abc"> is converted to C<0> and then incremented.

@@ -1,0 +1,68 @@
+=head1 Terminology
+
+=head2 Perl, perl, PERL
+
+"Perl" is the language.
+
+F<perl> is the compiler on disk.
+
+PERL is wrong.
+
+=head2 Perl is not an acronym
+
+The backronyms "Practical Extraction and Reporting Language" and
+"Pathologically Eclectic Rubbish Lister" came along after the name
+was created.
+
+=head2 There Is More Than One Way To Do It.
+
+The Perl motto is spelled C<TMTOWTDI>, and pronounced "Tim Toady".
+
+=head2 Larry
+
+Larry is Larry Wall, inventor of Perl and its representative
+figurehead.  He mostly lives in Perl 6 land these days, but
+he still makes important contributions to Perl 5.
+
+=head2 Randal
+
+Randal is Randal Schwartz, owner of one of the largest Perl
+consulting and training businesses, Stonehenge.  He also takes
+time to help newcomers on IRC and in other forums.
+
+Larry and Randal are also the primary authors of I<Programming Perl>.
+
+=head2 Damian
+
+Damian is Damian Conway, eccentric evil genius and master
+of Perl 6.  The book I<Perl Best Practices> has been his
+seminal work, inspiring people to improve their code writing.
+
+=head2 Laziness, Impatience, Hubris
+
+The three virtues of a programmer: Laziness, Impatience, Hubris.
+
+The lazy programmer will reuse whatever they can to get their work
+done.  This virtue leads to code reuse by encouraging code to
+be written only once.
+
+The impatient programmer will use whatever is available to them
+to get the job done quicker, and will use the machine for tasks
+they don't want to do manually.
+
+The programmer with hubris will write their code efficiently,
+cleanly and readably, so that it is something they can be proud of.
+
+Perl is built on these values.
+
+=head2 DWIM
+
+Do What I Mean is closely related, but implies an intelligence
+in the machine that isn't there.
+
+=head2 DTRT
+
+Do The Right Thing
+
+Perl tries to DTRT, where the Right Thing is often as close as
+possible to DWIM.

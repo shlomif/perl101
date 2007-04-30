@@ -1,0 +1,67 @@
+=head1 Documentation
+
+=head2 perldoc
+
+=over
+
+=item * Perldoc is the complete language reference for Perl
+
+=item * C<perldoc perldoc> for usage instructions
+
+=item * C<perldoc perl> for an overview of the documentation
+
+=item * C<perldoc Module> for a module's documentation
+
+=back
+
+=head2 Look up any function with C<perldoc -f>
+
+    $ perldoc -f system
+
+       system LIST
+       system PROGRAM LIST
+               Does exactly the same thing as "exec LIST", except that a fork
+               is done first, and the parent process waits for the child
+       ...
+
+=head2 Search the Perl FAQ with C<perldoc -q>
+
+    $ perldoc -q database
+
+    Found in /System/Library/Perl/5.8.6/pods/perlfaq8.pod
+       How do I use an SQL database?
+
+       The DBI module provides an abstract interface to most database servers
+       and types, including Oracle, DB2, Sybase, mysql, Postgresql, ODBC, and
+
+=head2 Look up module documents with C<perldoc I<modulename>>
+
+If a module is installed on your system, you can see the docs for it.
+
+    $ perldoc WWW::Mechanize
+
+    NAME
+       WWW::Mechanize -- Handy web browsing in a Perl object
+
+    VERSION
+       Version 1.20
+
+    SYNOPSIS
+       "WWW::Mechanize", or Mech for short, helps you automate interaction
+       with a website. It supports performing a sequence of page fetches
+
+For modules that you haven't installed, you'll need to use
+L<http://search.cpan.org>.
+
+=head2 Online documentation
+
+There are some websites that HTMLify the Perl documentation.  Thw
+two biggest ones:
+
+=over
+
+=item * L<http://perldoc.perl.org/>
+
+=item * L<http://search.cpan.org/> for modules
+
+=back

@@ -1,0 +1,47 @@
+=head1 To be filed
+
+These are topics to discuss that have yet to be written up or moved to a page.
+
+=head2 $!
+
+=head2 use diagnostics
+
+=head2 Perl is compiled
+
+=head2 Perl is not a scripting language
+
+=head2 Larry & p5p: Howstuff gets done
+
+=head2 Various *.perl.org sites
+
+=head2 perl -MCPAN -e shell (cpan); touch on cpanplus
+
+=head2 CPANTS
+
+=head2 CPAN Ratings
+
+=head2 AnnoCPAN
+
+=head2 Advent Calendar
+
+=head2 Benchmark.pm doesn't.
+
+=head2 Find a module with perldoc -l or perldoc -M
+
+=head2 Perl is compiled
+
+=head2 How do I?
+
+Templating systems
+
+Rails-like frameworks
+
+=head2 Examine %INC
+
+=head2 What's the best IDE for Perl?
+
+=head2 How to do custom sorts
+
+=head2 Getopt::Long
+
+=head2 Modules vs. distributions

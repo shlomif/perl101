@@ -1,0 +1,40 @@
+=head1 Modules: Making your own
+
+=head2 Create new modules with Module::Starter
+
+Module::Starter and its command-line tool F<module-starter> creates
+the basic framework for a module distribution suitable for putting
+on the CPAN.  It includes basic code layout, POD directives and
+documentation skeleton, basic tests, the F<Makefile.PL> and F<MANIFEST>
+files, and the start of F<README> and F<Changes> logs.
+
+    $ module-starter --module=Magic::Foo --module=Magic::Foo::Internals \
+        --author="Andy Lester" --email="andy@perl.org" --verbose
+    Created Magic-Foo
+    Created Magic-Foo/lib/Magic
+    Created Magic-Foo/lib/Magic/Foo.pm
+    Created Magic-Foo/lib/Magic/Foo
+    Created Magic-Foo/lib/Magic/Foo/Internals.pm
+    Created Magic-Foo/t
+    Created Magic-Foo/t/pod-coverage.t
+    Created Magic-Foo/t/pod.t
+    Created Magic-Foo/t/boilerplate.t
+    Created Magic-Foo/t/00-load.t
+    Created Magic-Foo/.cvsignore
+    Created Magic-Foo/Makefile.PL
+    Created Magic-Foo/Changes
+    Created Magic-Foo/README
+    Created Magic-Foo/MANIFEST
+    Created starter directories and files
+
+=head2 Create XS modules with F<h2xs>
+
+If you're creating an XS module, where you're interfacing Perl code
+with external C code, you'll need to use the original module-starting
+tool, F<h2xs>.  F<h2xs> is included with every Perl distribution,
+and many was originally grown into a generic module starter, but
+it's not nearly as up-to-date in what it does as Module::Starter.
+Unless you need XS code, stick with Module::Starter.
+
+=head2 Put your module on the CPAN
+

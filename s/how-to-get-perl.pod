@@ -1,0 +1,40 @@
+=head1 Where to get Perl
+
+=head2 Do you have Perl?
+
+Try typing "perl -v" at the command line.  You should get a version
+statement.
+
+    $ perl -v
+
+    This is perl, v5.8.6 built for darwin-thread-multi-2level
+    (with 3 registered patches, see perl -V for more detail)
+    ....
+
+=head2 Perl source
+
+L<http://www.cpan.org/src>
+
+You will need a compiler, a shell, and some system libraries.  Perl's
+C<Configure> script will tell you if you're missing something.
+
+If you're on Windows, you may not have a compiler to use.  Look
+onward to Vanilla, Strawberry and ActiveState.
+
+=head2 Windows Perl: Vanilla/Strawberry
+
+L<http://www.vanillaperl.com>
+
+Vanilla and Strawberry Perl are two Windows Perl distributions that
+come with a compiler and enough of an environment to get Perl compiling
+and running on that platform.
+
+Unless you have a very specific need, you want the Strawberry Perl
+distribution.
+
+=head2 Windows Perl: ActiveState
+
+Originators of Windows on Perl, and still very much involved in the
+community, ActiveState releases their own version of Perl with a
+module installation system called PPM.  If you don't want to deal with
+the "hassle" of managing your Perl install yourself, this may be for you.

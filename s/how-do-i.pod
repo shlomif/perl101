@@ -1,0 +1,49 @@
+=head1 Common Modules
+
+=head2 How do I get data from a database?
+
+DBI, and its DBD children, like DBD::SQLite
+
+=head2 How do I get data from a web page?
+
+LWP stands for "libwww-perl", and is the standard way of talking
+to web pages.
+
+WWW::Mechanize is a superset of LWP that makes HTML processing
+easier.
+
+=head2 How do I do date calculations?
+
+Use C<Date::Manip>, C<Date::Calc> or C<DateTime>.  All have different
+styles and different capabilities.
+
+=head2 How do I handle command-line arguments in my program?
+
+Use C<Getopt::Long>.
+
+=head2 How do I write CGI programs?
+
+Use C<CGI>.
+
+=head2 How do I parse HTML?
+
+Whatever you do, don't use regular expressions.  Use C<HTML::Parser>
+or one of the many classes that uses it.  Look around on
+L<http://search.cpan.org>.
+
+If you're parsing HTML so that you can extract links or images from
+a web page, use C<WWW::Mechanize> which handles it for you.
+
+=head2 How do I see if an email address is valid?
+
+In general, you can't.  You can write a regular expression to see
+if it looks reasonable.
+
+    # Match basically blah@blah.blah
+    if ( $addr =~ /^\S+\@\S+\.\S+$/ ) {
+        print "Looks OK";
+    }
+
+If you're doing any real work, look at Email::Address.
+
+In no case will it tell you if an email address is actually valid.

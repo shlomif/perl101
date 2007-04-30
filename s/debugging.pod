@@ -1,0 +1,114 @@
+=head1 Debugging
+
+=head2 Turn on C<strict> and C<warnings>
+
+The very first thing you must always check when debugging your code
+is whether the C<strict> and C<warnings> pragmata are turned on.
+Make sure you have
+
+    use strict;
+    use warnings;
+
+at the top of any program you're trying to debug, or may want to
+debug in the future.  That really means every program ever, no?
+
+See L<http://www.perlmonks.org/?node_id=482733> for another story
+of C<strict> and C<warnings>.
+
+=head2 Check the return of every C<open>
+
+It's amazing how often you'll see people complaining that a piece
+of code doesn't work:
+
+    open( my $file, $filename );
+    while ( <$file> ) {
+        ...
+    }
+
+and then complain that the C<while> loop is broken.  The problem
+here is often that the file C<$filename> doesn't actually exist,
+and the C<open> fails, but without a check, you'll never know.
+Replace it with:
+
+    open( my $file, '<', $filename ) or die "Can't open $filename: $!";
+
+=head2 Expand warnings with C<diagnostics>
+
+Sometimes the warning message doesn't explain as much as you'd like.
+For instance, why might you get this warning?
+
+    Use of uninitialized value in string eq at /Library/Perl/5.8.6/WWW/Mechanize.pm line 695.
+
+Try running the code again with
+
+    use diagnostics;
+
+at the top of the program.  Now the warning looks like this:
+
+    Use of uninitialized value in string eq at /Library/Perl/5.8.6/WWW/Mechanize.pm
+        line 695 (#1)
+    (W uninitialized) An undefined value was used as if it were already
+    defined.  It was interpreted as a "" or a 0, but maybe it was a mistake.
+    To suppress this warning assign a defined value to your variables.
+
+    To help you figure out what was undefined, perl tells you what operation
+    you used the undefined value in.  Note, however, that perl optimizes your
+    program and the operation displayed in the warning may not necessarily
+    appear literally in your program.  For example, "that $foo" is
+    usually optimized into "that " . $foo, and the warning will refer to
+    the concatenation (.) operator, even though there is no . in your
+    program.
+
+That's a lot more information to help you on your way finding the
+program.
+
+Remember that you can specify modules and pragmata to be included
+on the command line, so you don't even have to edit your source
+code to use C<diagnostics>.  Run it again with the C<-M> command
+line switch:
+
+    perl -Mdiagnostics mycode.pl
+
+=head2 Get a stack trace
+
+Sometimes you'll get a warning but you can't tell how it got there.
+It'll say something like:
+
+    Use of uninitialized value in string eq at /Library/Perl/5.8.6/WWW/Mechanize.pm line 695.
+
+So you can go see what the code at line 93 of that module is doing,
+but it doesn't tell you what your code was doing to get to that
+point.  What you'd like to see is a trace of what subroutines were called.
+
+When Perl calls C<die> or C<warn>, it goes through the subroutines
+specified in C<$SIG{__DIE__}> and C<$SIG{__WARN__}>, respectively.
+If you modify those to be more useful functions than C<CORE::die>
+and C<CORE::warn>, you've got a handy debugging tool.  In this case,
+use the C<Carp> module's C<confess> function.
+
+At the top of your program, add these lines:
+
+    use Carp qw( confess );
+    $SIG{__DIE__} =  \&confess;
+    $SIG{__WARN__} = \&confess;
+
+Now, when the code calls C<warn> or C<die>, the C<Carp::confess>
+function handles it.  In this case, C<confess> prints the original
+warning, followed by a stack trace, and then stops execution of the
+program.
+
+    Use of uninitialized value in string eq at /Library/Perl/5.8.6/WWW/Mechanize.pm line 695.
+     at /Library/Perl/5.8.6/WWW/Mechanize.pm line 695
+            WWW::Mechanize::find_link('WWW::Mechanize=HASH(0x180e5bc)', 'n', 'undef') called at foo.pl line 17
+            main::go_find_link('http://www.cnn.com') called at foo.pl line 8
+
+Now we have much more information to debug our code, including
+exactly what functions were called, and what parameters were passed.
+From here, we can easily see that the third argument to C<find_link>
+is C<undef>, which is a great place to start investigating.
+
+XXX Carp::Always
+
+=head2 Use the Perl debugger if you must
+
+XXX

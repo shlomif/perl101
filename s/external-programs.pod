@@ -1,0 +1,36 @@
+=head1 External programs
+
+There are three ways to call external programs.
+
+=head2 C<system()> returns the exit status of the program
+
+    my $rc = system("/bin/cp $file1 $file2"); # returns exit status values
+    die "system() failed with status $rc" unless $rc == 0;
+
+If possible, pass your arguments as a list, rather than a single string.
+
+    my $rc = system("/bin/cp", $file1, $file2 );
+
+This makes sure that nothing goes wrong in the shell if C<$file1>
+or C<$file2> have spaces or other special characters.
+
+The output from C<system()> is not captured.
+
+XXX Discuss lower 8-bits of return code.
+
+XXX Discuss running through a pipe
+
+=head2 Backticks (C<``>) and C<qx()> operator return the output of the program
+
+When you want the output, use one of these.
+
+    my $output = `myprogram foo bar`.
+
+You'll need to check the error code in C<$!>.
+
+If you're using backticks or C<qx()>, prefer L<IPC::Open2> or
+L<IPC::Open3> instead, since they'll give you the same argument
+control and allow you to capture the output as well.
+
+C<IPC::Open3> is the only way to capture C<STDERR> in Perl without
+using shell commands.

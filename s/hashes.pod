@@ -1,0 +1,114 @@
+=head1 Hashes
+
+=head2 Hashes are key/value pairs
+
+If you can look it up by name, you want a hash.
+
+They used to be called "associative arrays", but don't think of them as arrays.
+
+=head2 Create hashes as lists of key/value pairs
+
+Create a hash with a list of key/value pairs.
+
+    my %stooges = (
+        'Moe', 'Howard',
+        'Larry', 'Fine',
+        'Curly', 'Howard',
+        'Iggy', 'Pop',
+    );
+
+The C<< => >> is a "fat comma", and is identical to a comma, plus
+it quotes the previous word:
+
+    my %stooges = (
+        Moe => 'Howard',
+        Larry => 'Fine',
+        Curly => 'Howard',
+        Iggy => 'Pop',
+    );
+
+=head2 Access individual hash entries with squiggle braces
+
+Get hash values with squiggly braces instead of square braces.
+
+    print $stooge{'Iggy'};
+    # Prints "Pop"
+
+Set values that way, too.
+
+    $stooge{'Shemp'} = 'Howard';
+
+Overwrite existing values:
+
+    $stooge{'Iggy'} = 'Ignatowski';
+
+Delete an entry from the hash:
+
+    delete $stooge{'Curly'};
+
+Note that C<delete> does not delete a file.  C<unlink> does that.
+
+    unlink $stooge{'Moe'};
+    # Deletes a file called 'Howard';
+
+=head2 Get the keys/values of a hash
+
+Use the C<keys> and C<values> keywords:
+
+    my @stooge_first_names = keys %stooges;
+
+    my @stooge_last_names = values %stooges;
+
+The order of the keys and values are guaranteed to match up to each other.
+
+=head2 Hash keys autoquote words
+
+If your hash key is a single word, you don't need quotes around it.
+
+    $stooge{Curly} = 'Howard';
+
+=head2 Hash keys are unique.
+
+=head2 Hashes can only contain scalars
+
+The values in a Perl hash may only be scalars.  It is not possible
+to contain an array or a list in an array.
+
+    $hash{comedians} = @stooges;
+    # Assigns the length of @stooges to the value
+
+If you want to store an array in a hash, you'll need to use L<references>.
+
+=head2 Hashes are unordered
+
+The order of C<keys %hash> and C<values %hash> is effectively random.
+They will differ between runs of the program.  It is not related
+to the order in which things were added.
+
+The idea of "sorting a hash" does not exist in Perl.
+
+=head2 When to use hash, when to use array
+
+If you have things in a line, ordered, in a sequence, use an array.
+
+=over
+
+=item * A list of files to read
+
+=item * A list of people in a queue
+
+=back
+
+If you have a bag of things, unordered, that you want to look up, use a hash.
+
+=over
+
+=item * An index of last names, looked up by first name
+
+=item * An index showing the size of files, looked up by name
+
+=back
+
+=head1 To add
+
+=head2 Access hash slices

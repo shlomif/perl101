@@ -1,0 +1,109 @@
+=head1 Constructs
+
+=head2 Heredocs
+
+=over
+
+=item * Allows unbroken text until the next marker
+
+=item * Interpolated unless marker is in single quotes
+
+=back
+
+    my $page = <<HERE;
+    <html>
+        <head><title>$title</title></head>
+        <body>This is a page.</body>
+    </html>
+    HERE
+
+XXX Discuss dangers of heredocs.
+
+=head2 C-style loops are usually unnecessary
+
+=over
+
+=item * You can do C-style for loops, but you often don't need them
+
+=item * Don't use them where a foreach will do
+
+    for (my $i = 0; $i <= $#foo; $i++) { # BAD
+
+    foreach (@foo) { # BETTER
+
+=item * Don't use them where a while will do
+
+    for (my $i = <STDIN>; $i; $i = <STDIN>) { # BAD
+
+    while (my $i = <STDIN>) { # BETTER
+
+=item * Think about what you're coding and do what makes sense
+
+=back
+
+=head2 Anonymous hashes & arrays
+
+=over
+
+=item * Create an anonymous array reference, and assign it:
+
+    my $array = [ 'one', 'two', 'three' ];
+
+=item * This is "anonymous" because we didn't have to create an array
+
+=item * Hashes have a similar constructor
+
+    my $hash = { one => 1, two => 2, three => 3 };
+
+=item * Treat as you'd otherwise treat a reference
+
+=back
+
+=head2 q[qrwx]?//, m//, s/// and y///
+
+=over
+
+=item * Perl lets you specify your own delimiters for:
+
+=over
+
+=item * Single quotes: 'text' => q/text/
+
+=item * Double quotes: "text" => qq/text/
+
+=item * Regular expressions: qr/text/
+
+There is no other way to specify a regular expression match
+like this in Perl outside of a match or substitution operation.
+
+=item * Words: ("text", "text") => qw(text text);
+
+=item * Backticks: `text` => qx/text/
+
+=item * Regex match (C<m//>), Regex substitute (C<s///>), and translate (C<tr///>, C<y///>) work the same way
+
+=back
+
+=item * You can use any character except whitespace.
+
+=item * But use something balanced like parens or braces
+
+    qq//
+    qq#A decent <html> delimiter </html> #
+    qq( man perl(1) for details ) # valid!
+
+=back
+
+=head2 global, local, my, our
+
+=over
+
+=item * Declare global variables with C<use vars>.
+
+=item * Declare lexical variables with C<my>
+
+=item * C<local> is not what you think, use C<my> instead unless you know why you're using local
+
+=item * Use C<our> only when your package needs a global variable
+
+=back

@@ -1,0 +1,27 @@
+=head1 Numbers
+
+=head2 Test for equality of floating point numbers carefully.
+
+IEEE floating point numbers are wrongly over-trusted in calculations.
+Observe:
+
+    print "---\n";
+    print "A: ", 2.4, "\n";
+    print "B: ", 0.2*12, "\n";
+    if ( 0.2*12 == 2.4 ) {
+        print "These are equal.\n";
+    }
+    else {
+        print "These are not equal.\n";
+    }
+
+    A: 2.4
+    B: 2.4
+    These are not equal.
+
+This is the result of the fact that 0.2 ( 1/5 ) cannot be represented
+as a binary fraction in IEEE space.
+
+Thus, if you're checking floating-point equality, use C<sprintf> or similar.
+
+See L<http://perldoc.perl.org/perlfaq4.html> for details.

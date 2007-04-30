@@ -1,0 +1,13 @@
+=head1 Modules
+
+=head2 Search for modules in non-standard places with C<use lib>
+
+To search for a module that is not installed in any of the paths
+specified in C<@INC>, use the C<lib> pragma.
+
+    use lib '/home/andy/private-lib/';
+    use Magic::Foo;
+
+Note that the C<use lib> must come before trying to use C<Magic::Foo>.
+
+

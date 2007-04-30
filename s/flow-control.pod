@@ -1,0 +1,129 @@
+=head1 Flow control
+
+=head2 postfix controls
+
+A simple C<if> or C<unless> block might look like this:
+
+    if ($is_frobnitz) {
+        print "FROBNITZ DETECTED!\n";
+    }
+
+In these cases, simple statements can have the C<if>
+or C<unless> appended to the end.
+
+    print "FROBNITZ DETECTED!\n" if $is_frobnitz;
+    die "BAILING ON FROBNITZ!\n" unless $deal_with_frobnitz;
+
+This also works for C<while> and C<for>.
+
+    print $i++ . "\n" while $i < 10;
+
+=head2 For loops (for and foreach are really synonyms)
+
+There are three styles of for loops.
+
+    my @array;
+
+    # Old style C for loops
+    for (my $i = 0; $i < 10; $i++) {
+        $array[$i] = $i;
+    }
+
+    # Iterating loops
+    for my $i (@array) {
+        print "$i\n";
+    }
+
+    # Postfix for loops
+    print "$_\n" for @array;
+
+You may see C<foreach> used in place of C<for>.  The two
+are interchangable.  Most people use C<foreach> for the
+last two styles of loops above.
+
+=head2 do
+
+C<do> allows Perl to use a block where a statement is expected.
+
+    open( my $file, '<', $filename ) or die "Can't open $filename: $!"
+
+But if you need to do something else:
+
+    open( my $file, '<', $filename ) or do {
+        close_open_data_source();
+        die "Aborting: Can't open $filename: $!\n";
+    };
+
+The following are also equivalent:
+
+    if ($condition) { action(); }
+    do { action(); } if $condition;
+
+As a special case, C<while> runs the block at least once.
+
+    do { action(); } while action_needed;
+
+=head2 if/elsif/else BUT NO case
+
+If you're coming from another language, you might be used
+to C<case> statements.  Perl doesn't have them.
+
+The closest we have is C<elsif>:
+
+    if ($condition_one) { 
+        action_one();
+    }
+    elsif ($condition_two) {
+        action_two();
+    }
+    ...
+    else {
+        action_n();
+    }
+
+There is no way to fall through cases cleanly.
+
+=head2 Four values of false
+
+There are four ways to have a false value in Perl:
+
+    my  $false = undef;
+        $false = "";
+        $false = 0;
+        $false = "0";
+
+The last one is false because "0" becomes 0 in numeric
+context, which is false by the third rule.
+
+=head2 next/last/continue/redo
+
+Consider the following loop:
+
+    $i = 0;
+    while ( 1 ) {
+        last if $i > 3;
+        $i++;
+        next if $i == 1;
+        redo if $i == 2;
+    }
+    continue {
+        print "$i\n";
+    }
+
+prints
+
+    1
+    3
+    4
+
+=over
+
+=item * C<next> skips to the end of the block and continues or restarts
+
+=item * C<redo> jumps back to the beginning of the loop immediately
+
+=item * C<last> skips to the end of the block and stops the loop from executing again
+
+=item * C<continue> is run at the end of the block
+
+=back

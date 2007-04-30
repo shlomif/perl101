@@ -1,0 +1,67 @@
+=head1 Style
+
+=head2 camelCase is bad
+
+Have you ever had to maintain someone else's code?
+
+Have you ever had to maintain code like this?
+
+    my $variableThatContainsData =
+        someSubroutineThatMucksWithData( $someAwfulVariable );
+
+The mixed-case-for-words is called camelCase in the Perl world,
+and it's generally frowned upon because it makes reading code
+difficult.
+
+Even with the horrible names, using underscores makes things
+more readable:
+
+    my $variable_that_contains_data = 
+        some_subroutine_that_mucks_with_data( $some_awful_variable );
+
+=head2 warnings & strict
+
+For any program you expect to maintain, reuse, or distribute
+(that is, for any program), you should have the following
+lines of code:
+
+    #!/usr/bin/perl
+
+    use strict;
+    use warnings;
+
+Although, if your Perl is older than 5.6, you need to do this
+instead:
+
+    #!/usr/bin/perl -w
+
+    use strict;
+
+Enabling C<strict> makes Perl complain about uncertain coding
+constructs, such as undeclared variables, barewords, and "soft"
+references.  These warnings will cause Perl to die.
+
+    #!/usr/bin/perl
+    use strict;
+
+    $foo = 4; # undeclared variable error
+    $foo = Bar; # bareword error
+    my $bat = "foo";
+    print $$bat; # reference error
+
+Enabling C<warnings> makes Perl complain even more verbosely,
+but unlike C<strict>, these complaints are not fatal under
+ordinary circumstances.
+
+    #!/usr/bin/perl
+    use warnings;
+    $a + 0; # void context warning
+            # name used once warning
+            # undef warning
+    print "program continued\n"; # prints
+
+If you want C<warnings> to be fatal, tell it so:
+
+    use warnings FATAL => 'all';
+    $a + 0; # void warning and then exits
+    print "program continued\n"; # doesn't print

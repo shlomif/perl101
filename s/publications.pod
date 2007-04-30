@@ -1,0 +1,40 @@
+=head1 Important publications
+
+=head2 Programming Perl, 3rd ed.
+
+The Camel, the real Bible of Perl.
+
+L<http://www.amazon.com/dp/0596000278>
+
+=head2 Learning Perl, 4th ed.
+
+The Llama, the standard Perl tutorial
+
+L<http://www.amazon.com/dp/0596101058>
+
+=head2 Perl Cookbook, 2nd ed.
+
+Now in its 2nd edition, a problem-oriented book of how to do just
+about everything.
+
+L<http://www.amazon.com/dp/0596003137/>
+
+=head2 Object Oriented Perl
+
+By Damian Conway, the best explantion of how to do standard Perl 5
+object-oriented programming.
+
+L<http://www.amazon.com/dp/1884777791/>
+
+=head2 Perl Best Practices
+
+Damian's follow-up to I<Object Oriented Perl> shows how to write
+good, maintainable Perl code.
+
+L<http://www.amazon.com/dp/0596001738/>
+
+=head2 The Perl Review
+
+Published here in Chicago, it's the only magazine devoted to Perl.
+
+L<http://theperlreview.com/>

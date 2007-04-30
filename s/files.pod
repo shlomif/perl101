@@ -1,0 +1,45 @@
+=head1 Files and directories
+
+=head2 How can I get a list of all my files?
+
+    my @files = glob( "*" );
+
+=head2 How about files without directories?
+
+    my @files = grep { -f } glob( "*" );
+
+=head2 Unlink to remove a file
+
+The Perl built-in C<delete> deletes elements from a hash, not files from the filesystem.
+
+    my %stats;
+
+    $stats{filename} = 'foo.txt';
+
+    unlink $stats{filename}; # RIGHT: Removes "foo.txt" from the filesystem
+
+    delete $stats{filename}; # WRONG: Removes the "filename" element from %stats
+
+=head2 Always check the return code from C<open>
+
+C<open()> can fail for most any reason.  You always want to check
+the return code for truthiness.  If there's a failure, the result
+is in C<$!>
+
+    open(my $file, '<', $filename) or die "Error opening $filename: $!\n";
+
+=head2 while(<>) not foreach (<>)
+
+Instead of slurping in an entire file and then working on it, you should
+read one line of the file at a time and process it (if you can.)  Doing this
+is significantly less memory intensive for little cost.
+
+Consider:
+
+    $ cat /dev/random | perl -e 'foreach (<>) { $i++; last if $i > 10; }; print "ok\n"'
+    Out of memory!
+    $ cat /dev/random | perl -e 'while (<>) { $i++; last if $i > 10; }; print "ok\n"'
+    ok
+    $
+
+In short: Use C<while> for file fetches when possible.

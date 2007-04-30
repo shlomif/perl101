@@ -1,0 +1,124 @@
+=head1 Special Variables
+
+=head2 C<$_>
+
+C<$_> is the "it" variable.  It's often the default parm that built-in functions use, or return into.
+
+    while ( <> ) {  # Read a line into $_
+        print lc;   # print lc($_)
+    }
+
+This is the same as
+
+    while ( $it = <> ) {
+        print lc($it);
+    }
+
+=head2 C<$0>
+
+C<$0> contains the name of the program being run, as
+given to the shell.  If the program was run directly
+through the Perl interpreter, C<$0> contains the
+file name.
+
+    $ cat file.pl
+    #!/usr/bin/perl
+    print $0, "\n";
+    $ ./file.pl
+    file.pl
+    $ perl file.pl
+    file.pl
+    $ perl ./file.pl
+    ./file.pl
+    $ cat file.pl | perl
+    -
+
+C<$0> is what C programmers would expect to find as
+the first element of the C<argv> array.
+
+=head2 @ARGV
+
+C<@ARGV> contains the arguments given to the program,
+as ordered by the shell.
+
+    $ perl -e 'print join( ", ", @ARGV), "\n"' 1 2 3
+    1, 2, 3
+    $ perl -e 'print join( ", ", @ARGV), "\n"' 1 "2 3" 4
+    1, 2 3, 4
+
+C programmers may be confused, since C<$ARGV[0]> is
+really their C<argv[1]>.  Don't let this mistake
+happen to you!
+
+=head2 C<@INC>
+
+C<@INC> contains all the paths that Perl will search
+to find a module.
+
+Perl programmers used to append or prepend to C<@INC>
+to add a library path; these days, C<use lib> is used
+instead.  The following are mostly equivalent:
+
+    BEGIN { unshift @INC, "local/lib" };
+
+    use lib "local/lib";
+
+=head2 %ENV
+
+C<%ENV> contains a copy of the current environment.
+It is the environment that will be given to any subshell
+created by Perl.
+
+This is significant in taint mode, as C<%ENV> will have
+entries that can alter the shell's behavior.  For that
+reason, L<perlsec> recommends the following code be used
+prior to executing a command in taint mode:
+
+    $ENV{'PATH'} = '/bin:/usr/bin'; # change to your real path
+    delete @ENV{'IFS', 'CDPATH', 'ENV', 'BASH_ENV'};
+
+=head2 C<%SIG>
+
+Perl has rich signal handling capabilities; using the C<%SIG>
+variable, you can make any subroutine run when a signal is sent
+to the running process.
+
+This is especially useful if you have a long-running process,
+and would like to reload configuration files by sending a signal
+(usually C<SIGHUP>) instead of having to start and stop the process.
+
+You can also change the behavior of L<die|perlfunc/die> and
+L<warn|perlfunc/warn> by assigning to C<$SIG{__DIE__}> and
+C<$SIG{__WARN__}>, respectively.
+
+=head2 C<< <> >>
+
+The "diamond operator", C<< <> >> is used when a program is
+expecting input, but isn't concerned how it arrives.
+
+If the program receives any arguments, they are taken to be file
+names and their contents are sent through C<< <> >>.  Otherwise,
+standard input (C<STDIN>) is used.
+
+C<< <> >> is especially useful for filter programs.
+
+=head2 C<< <DATA> >> and C<__DATA__>
+
+If a program contains the magic token C<__DATA__> on a line
+by itself, anything following it will be available to the
+program through the magic C<< <DATA> >> filehandle.
+
+This is useful if you want to include data with your program,
+but want to keep it separated from the main program logic.
+
+=head2 $!
+
+When running any command that uses the system, C<$!> will be
+true if the command returned a non-true status, or otherwise
+could not be run.  C<$!> will contain the error.
+
+=head2 $@
+
+If using L<eval|perlfunc/eval>, C<$@> contains the syntax error
+that the C<eval> threw, if any.
+

@@ -1,0 +1,136 @@
+=head1 Arrays & Lists
+
+=head2 Arrays of words are easily created
+
+The C<qw> operator makes creating arrays easy.  It means "quote on
+whitespace into a list":
+
+    my @stooges = qw( Larry Curly Moe Iggy );
+
+    my @stooges = qw(
+        Larry
+        Curly
+        Moe
+        Iggy
+    );
+
+The elements do not interpolate, so:
+
+    my @array = qw( $100,000 );
+
+The one element is '$100,000'.
+
+=head2 The length of a list is its scalar value
+
+    my $stooge_count = scalar @stooges;
+
+    my $stooge_count = @stooges;
+
+Some people like the explicit C<scalar>.  Some don't.
+
+=head2 Arrays have no boundaries
+
+Arrays don't have any finite size, and don't have to be predeclared.
+Arrays change in size as necessary.
+
+Arrays are also not sparse.  This code makes a 10,000-element array.
+
+    my @array = ();
+    $array[10000] = 'x';
+
+C<@array> is now 10,001 elements long (0-10,000), of which only one
+is populated.  The other 10,000 are C<undef>.
+
+=head2 Arrays flatten out and do not nest
+
+Unlike PHP, arrays flatten into one big list when combined:
+
+    my @sandwich = ( 'PB', 'J' );
+    my @other_sandwich = ( 'B', 'L', 'T' );
+    my @ingredients = ( @other_sandwich, @sandwich );
+    # ( 'B', 'L', 'T', 'PB', 'J' )
+
+This means you can't have an array "contain" another array, or a
+hash.  To do that, you need references.
+
+=head2 Lists can have extra commas
+
+One of the greatest features of Perl is the ability to have an extra
+comma at the end of a list.
+
+    my @array = (
+        'This thing',
+        'That thing',
+    );
+
+Then when you add another thing
+
+    my @array = (
+        'This thing',
+        'That thing',
+        'The other thing',
+    );
+
+=head2 Use arrays like queues and stacks
+
+C<shift> removes from the beginning of the array:
+
+    my $next_customer = shift @customers;
+
+C<unshift> adds to the beginning of an array:
+
+    unshift @customers, $line_jumper;
+
+C<push> adds to the end of an array:
+
+    push @customers, $dio; # The last in line
+
+C<pop> removes from the end of an array:
+
+    my $went_home = pop @customers;
+
+=head2 XXX Explain array slices
+
+=head2 Process arrays easily with C<map>
+
+C<map> is essentially a C<foreach> loop that returns a list.
+
+You can use it to convert an array into a hash:
+
+    my @array = ( 1, 2, 3, 4, 5 );
+    my %hash = map { $_ => $_ * 9 } @array;
+    # %hash = ( 1 => 9, 2 => 18, 3 => 27, 4 => 36, 5 => 45 )
+
+or to transform a list:
+
+    my @array = ( 'ReD', 'bLue', 'GrEEN' );
+    my @fixed_array = map(ucfirst, map(lc, @array));
+    # @fixed_array = ( 'Red', 'Blue', 'Green' )
+
+Watch out, though: If you modify C<$_>, you will modify the
+source data.  This means the above might be changed to:
+
+    my @array = ( 'ReD', 'bLue', 'GrEEN' );
+    map { $_ = ucfirst lc $_ } @array;
+    # @array = ( 'Red', 'Blue', 'Green' )
+
+if you don't care about C<@array>.
+
+=head2 Select items out of an array with C<grep>
+
+C<grep> is essentially a foreach loop that returns a list, but
+unlike C<grep>, will only return elements that cause the condition
+to return true.
+
+    my @array = ( 0, 1, 2, 3, 4, 5 );
+    my @new_array = grep { $_ * 9 } @array;
+    # @new_array = ( 1, 2, 3, 4, 5 );
+
+It will modify the source data the same way as C<map>, however:
+
+    my @array = ( 0, 1, 2, 3, 4, 5 );
+    my @new_array = grep { $_ *= 9 } @array;
+    # @array = ( 0, 9, 18, 27, 36, 45 );
+    # @new_array = ( 9, 18, 27, 36, 45 );
+
+XXX Put an example about regexes

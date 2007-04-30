@@ -1,0 +1,53 @@
+=head1 "Advanced" functions
+
+=head2 context and wantarray
+
+Perl has three contexts: void, scalar and list.
+
+                func(); # void
+    my $ret   = func(); # scalar
+    my ($ret) = func(); # list
+    my @ret   = func(); # list
+
+If you're in a subroutine or L<eval|perlfunc/eval> block, you can use
+L<wantarray|perlfunc/wantarray> to determine which is
+wanted.
+
+An example of where context affects return values is
+in dealing with regular expressions:
+
+    my $str = 'Perl 101 Perl Context Demo';
+    my @ret = $str =~ /Perl/g; # @ret = ('Perl','Perl');
+    my $ret = $str =~ /Perl/g; # $ret is true
+
+=head2 .. and ...
+
+These are called the L<range operators|perlfunc/Range Operators>, and
+they can help with code that deals with ranges of integers or characters.
+
+In the previous example, C<@array> was filled by hand.  But these are
+equivalent:
+
+    my @array = ( 0, 1, 2, 3, 4, 5 );
+    my @array = 0..5;
+
+Oddly enough, it works with characters, too.  If you want to get a
+list of letters from C<a> to C<z>, you can do:
+
+    my @array = 'a'..'z';
+
+When used in this way, C<..> and C<...> are equivalent
+
+The range operators only increment.  This will produce a zero-size
+list:
+
+    my @array = 10..1; # @array is empty
+
+If you want the reverse, ask for it.
+
+    my @array = reverse 1..10; # @array descends from 10 to 1
+
+You can also use the range operator in a scalar context, but that
+is outside the scope of this presentation.  Check the man page for
+more details.
+

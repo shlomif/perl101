@@ -1,0 +1,54 @@
+=head1 IT'S A TRAP!
+
+=head2 while(<STDIN>)
+
+Be very careful of this!  If somehow, you were to get a false value
+(e.g. an empty line, or a line with only a zero on it), your file
+would stop processing.  This doesn't normally happen if you're dealing
+with file reading (unless you've modified C<$/>), but it's possible.
+
+You're more likely to run into this:
+
+    while(readdir(DIR)) {
+
+If you have a file name of C<0>, your program will stop and not continue
+processing files.
+
+A more appropriate C<while> loop looks like this:
+
+    while ( defined( my $line = <STDIN> ) ) {
+    while ( defined( my $file = readdir(DIR) ) ) {
+
+=head2 arrays are not hashes: $a[time()]++;
+
+If you are using arrays with large numbers, Perl will create an array
+of that size automatically.  Thus, if you're trying to make a count
+of things that happened during a particular second, avoid the temptation
+of using L<perlfunc/time> as an array key.
+
+Perl does not support sparse arrays.  The closest thing is a hash.
+
+=head2 DateTime::TimeZone (!)
+
+If you're like me, you either installed the L<DateTime> module for
+a specific need, or you had it installed as part of your OS.
+
+Did you know there's a seperate dependency, called L<DateTime::TimeZone>,
+that is a dump of time zone data?
+
+If C<DateTime> can't figure out your time zone environment, it uses
+C<DateTime::TimeZone>, which can be years out of date!
+
+Update your C<DateTime::TimeZone> today!
+
+=head2 Time::HiRes might not be
+
+Don't depend on L<Time::HiRes> for millisecond (or smaller) calculations.
+
+Some systems have a C<clock_getres> that can only go to hundredths of a
+second, even in this day and age - a recent installation of Red Hat
+Enterprise Linux 4 on an AMD 64 platform provided only that level of
+granularity.
+
+So, check your target's C<Time::HiRes> before relying on it.
+

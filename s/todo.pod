@@ -1,0 +1,17 @@
+=head1 Things to do here at perl101.org
+
+=head1 Site functionality
+
+=head2 Include the FAQ
+
+=head2 Link page
+
+=head2 Feedback per page
+
+=head2 Explain use strict
+
+In the debugging page, we say to use warnings and strict always.  Explain why.
+
+=head2 precedence
+
+or/and vs ||/&&

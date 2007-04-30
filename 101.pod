@@ -1,0 +1,82 @@
+=head1 How to get Perl
+
+How to get it, download it, and install it.
+
+=head1 Terms
+
+Talk about Perl like you know your Perl.
+
+=head1 Documentation
+
+Documentation for Perl abounds.  Here's where to find it.
+
+=head1 Strings
+
+=head1 Numbers
+
+=head1 Arrays
+
+=head1 Hashes
+
+=head1 Regexes
+
+=head1 Flow Control
+
+=head1 Subroutines
+
+=head1 POD
+
+POD is Perl's documentation format, and will change the way you write code.
+
+=head1 Files
+
+=head1 Debugging
+
+=head1 Modules
+
+=head1 Modules: Making your own
+
+=head1 External programs
+
+=head1 CPAN
+
+=head1 Constructs
+
+=head1 References
+
+=head1 Objects
+
+=head1 Special Variables
+
+=head1 Command-line Switches
+
+=head1 Advanced Functions
+
+=head1 Style
+
+=head1 Traps
+
+=head1 How do I...?
+
+=head1 Developer Tools
+
+=head1 Publications
+
+Crucial books and magazines for the Perl programmer.
+
+=head1 Community
+
+Perl folks around the world working together.
+
+=head1 Random
+
+A mixed bag of stuff we haven't written yet, or need to move somewhere else.
+
+=head1 TODO
+
+=head1 Thanks
+
+Thanks to the following folks for their contributions:
+Elliot Shank,
+Mike O'Regan,
+and Pete Krawczyk

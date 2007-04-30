@@ -1,0 +1,32 @@
+=head1 CPAN
+
+CPAN is the magic bullet that all other languages envy.
+
+It's a vast repository of modules that people have contributed.
+
+It stands for Comprehensive Perl Archive Network.
+
+=head2 Search for modules at search.cpan.org
+
+L<http://search.cpan.org> is the standard front-end to search the
+CPAN.  It also includes links to most of the rest of these sites.
+
+=head2 Find opinions about modules at cpanratings.perl.org
+
+L<http://cpanratings.perl.org> lets you rate and comment on modules
+and see what others thought of them, before you try.
+
+=head2 Report bugs at rt.cpan.org
+
+Submit your bug to RT at L<http://rt.cpan.org>.
+
+=head2 Annotate module documentation at annocpan.org
+
+L<http://annocpan.org> lets you annotate the documentation for a
+module, with the hope that the author will incorporate the changes
+in the future.
+
+=head2 Find old versions of modules on the BackPAN
+
+L<http://backpan.cpan.org/> has every module ever on CPAN, even if
+it's old and out of date.

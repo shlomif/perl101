@@ -1,0 +1,136 @@
+=head1 Command Line Switches
+
+=head2 The shebang line
+
+Almost every Perl program starts out like this:
+
+    #!/usr/bin/perl
+
+This is a UNIX construct, which tells a shell that executes
+the file directly what program to pass the rest of the input
+to.
+
+You can add any of Perl's command line switches to this line,
+and they will be treated as if they were part of the command
+line after the switches provided there.  That is, if you
+had a program containing
+
+    #!/usr/bin/perl -T
+
+as its first line, and executed it as
+
+    perl -l program.pl
+
+both the C<-l> and C<-T> switches are used, but C<-l> is used
+first.  (This can matter in certain circumstances.)
+
+Perl's command line switches are documented in L<perlrun>.
+Here are some of the most useful.
+
+=head2 perl -T
+
+Perl allows you to run in a special mode, called "taint" mode.
+While in taint mode, variables are expected to be sanitized
+("untainted") before being used for an "unsafe operation".
+
+What is unsafe?
+
+=over
+
+=item * Running a program
+
+=item * Writing a file
+
+=item * Making a directory
+
+=item * ...basically, anything that modifies the system.
+
+=back
+
+If you have not "untainted" your data, these operations
+will be fatal errors in your program.
+
+How do you untaint?  Use a regular expression to match
+valid values, and then assign that match to a variable.
+
+    my ($ok_filename) = $filename =~ /^(\w+\.log)$/;
+
+You should have the goal of making your programs taint safe.
+
+=head2 perl -c file.{pl,pm}
+
+This command-line switch allows you to check the given file
+for syntax errors.  It also runs any code in BEGIN blocks
+and will check any modules you have C<use>d in your program.
+
+You should check your code's syntax with C<-c> after every
+change.
+
+=head2 perl -e 'code'
+
+This command-line switch allows you to run code from the command
+line, instead of having to write your program to a file and then
+execute it.
+
+    $ perl -e 'print "1\n"'
+    1
+
+This is highly useful for small programs, quick calculations,
+and in combination with other switches.
+
+=head2 -n, -p, -i
+
+Perl's C<-n> switch allows you to run a program (usually specified
+with C<-e>) against every line on standard input.  These are equivalent:
+
+    $ cat /etc/passwd | perl -e 'while (<>) { if (/^(\w+):/) { print "$1\n"; } }'
+    root
+    ...
+    $ cat /etc/passwd | perl -n -e 'if (/^(\w+):/) { print "$1\n" }'
+    root
+    ...
+
+The C<-p> switch is the same as C<-n>, except that it prints whatever
+is in C<$_> after every line.
+
+If you combine the C<-i> switch, Perl will edit your file in place.
+So, to convert a bunch of files from DOS to UNIX line endings, you can
+do this:
+
+    $ perl -p -i -e 's/\r\n/\n/' file1 file2 file3
+
+=head2 perl -M
+
+Perl's C<-M> switch allows you to use a module from the command line.
+There are several modules that prefer to be run this way (such as
+L<CPAN> and L<Devel::Cover>).  It's also a convenient shortcut with C<-e>
+if you need to include a module:
+
+    $ perl -e 'use Data::Dumper; print Dumper( 1 );'
+    $VAR1 = 1;
+    $ perl -MData::Dumper -e 'print Dumper( 1 );'
+    $VAR1 = 1;
+
+=head2 Figure out if you have a module installed
+
+Try to load the module from the command line.  The C<-e1> is just
+an empty program that exits immediately.  If you get an error, the
+module must not be there:
+
+    $ perl -MWWW::Mechanize::JavaScript -e 1
+    Can't locate WWW/Mechanize/JavaScript.pm in @INC...
+    BEGIN failed--compilation aborted.
+    $
+
+Returning without an error means it's installed.
+
+    $ perl -MWWW::Mechanize -e 1
+    $
+
+While you're at it, check the version:
+
+    $ perl -MWWW::Mechanize -e'print $WWW::Mechanize::VERSION'
+
+Not all modules have a C<$VERSION> variable, so this may not always
+work.
+

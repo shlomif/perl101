@@ -1,0 +1,109 @@
+=head1 POD
+
+Plain Ol' Documentation
+
+=head2 Inline documentation & formatting
+
+POD allows you to create documentation with markup in your Perl code.
+
+If you've seen Javadoc or PHPdoc, it's like that.
+
+Rather, Javadoc and PHPdoc are like POD.
+
+Except that POD is part of the language, not an add-on spec.
+
+=head2 Headings
+
+    =head1 MOST IMPORTANT
+
+    Blah blah
+
+    =head2 Subheading
+
+    blah blah
+
+    =head2 Subhading
+
+    blah blah
+
+=head2 Lists
+
+To create this list:
+
+=over
+
+=item * Wango
+
+=item * Tango
+
+=item * Fandango
+
+=back
+
+Use
+
+    =head2 PARAMETERS
+
+    You must pass in three parms:
+
+    =over
+
+    =item * Wango
+
+    =item * Tango
+
+    =item * Fandango
+
+    =back
+
+=head2 Style markup
+
+    B<This is bolded>
+
+    I<This is italics>
+
+    C<This is code>
+
+B<bold>
+
+I<italics>
+
+C<code>
+
+Your markup formats can nest.
+
+=head2 Link with C<< L<> >>
+
+The C<< L<> >> links either to keywords in your document, as in
+C<< L<Methods> >>, or to a specific URL, as in
+C<< L<http://search.cpan.org> >>.
+
+=head2 Paragraph mode vs. literal blocks
+
+Everything in a paragraph word-wraps automatically.  A paragraph
+is separated by at least one blank line.
+
+    A literal block is indented at least one space
+    and does not
+    get
+    wrapped.
+
+This came from:
+
+    Everything in a paragraph word-wraps automatically.  A paragraph
+    is separated by at least one blank line.
+
+        A literal block is indented at least one space
+        and does not
+        get
+        wrapped.
+
+=head2 POD does not make anything run slower.
+
+It's stripped out at compile time.
+
+=head2 TODO
+
+Talk about double-bracketing
+
+

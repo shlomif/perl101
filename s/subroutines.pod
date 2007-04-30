@@ -1,0 +1,135 @@
+=head1 Subroutines
+
+=head2 Retrieving arguments to a subroutine with C<shift>
+
+A subroutine's arguments come in via the special C<@_> array.  The
+C<shift> without an argument defaults to C<@_>.
+
+    sub volume {
+        my $height = shift;
+        my $width = shift;
+        my $depth = shift;
+
+        return $height * $width * $depth;
+    }
+
+=head2 Assign arguments to a subroutine with list assignment
+
+You can also assign arguments I<en masse> with list assignment:
+
+    sub volume {
+        my ($height, $width, $depth) = @_;
+
+        return $height * $width * $depth;
+    }
+
+=head2 Handle arguments directly by accessing C<@_>
+
+In some cases, but we hope very few, you can access arguments
+directly in the C<@_> array.
+
+    sub volume {
+        return $_[0] * $_[1] * $_[2];
+    }
+
+=head2 Arguments passed can get modified
+
+The arguments passed to a subroutine are aliases to the real arguments.
+
+    my $foo = 3;
+    print incr1($foo) . "\n"; # prints 4
+    print "$foo\n"; # prints 3
+
+    sub incr1 {
+        return $[0]+1;
+    }
+
+This can be good if you want it to be:
+
+    sub incr2 {
+        return ++$_[0];
+    }
+
+=head2 Subroutines have no argument checking
+
+You can pass any anything to a subroutine that you want.
+
+    sub square {
+        my $number = shift;
+
+        return $number * $number;
+    }
+
+    my $n = square( 'Dog food', 14.5, 'Blah blah blah' );
+
+Only the first argument is used by the function.  For that matter, you can do this:
+
+    my $n = square();
+
+XXX Param::Validate
+
+=head2 Perl has "prototypes".  Ignore them.
+
+Somewhere along the way, prototypes got added, so you can do things like this:
+
+    sub square($) {
+        ...
+    }
+
+    my $n = square( 1, 2, 3 ); # run-time error
+
+However, don't use them.  They don't work on objects, and they
+require that the subroutines be declared before they're called.
+They're a nice idea, but just not practical.
+
+=head2 Make things happen at compile time with the C<BEGIN> block
+
+C<BEGIN> is a special type of code block.  It allows programmers
+to execute code during Perl's compile phase, allowing for
+initializations and other things to happen.
+
+Perl uses C<BEGIN> any time you C<use> a module; the following
+two statements are equivalent:
+
+    use WWW::Mechanize;
+
+    BEGIN {
+        require WWW::Mechanize;
+        import WWW::Mechanize;
+    }
+
+=head2 Pass in arrays and hashes as references
+
+Remember that the parameters passed into a subroutine are passed
+as one big array.  If you do something like the following:
+
+    my @stooges = qw( Moe Larry Curly );
+    my @sandwiches = qw( tuna ham-n-cheese PBJ );
+
+    lunch( @stooges, @sandwiches );
+
+Then what's passed in to C<lunch> is the list
+
+    ( "Moe", "Larry", "Curly", "tuna", "ham-n-cheese", "PBJ" );
+
+Inside C<lunch>, how can you tell where the stooges end and the
+sandwiches begin?  You can't.  If you try this:
+
+    sub lunch {
+        my (@stooges, @sandwiches) = @_;
+
+then all six elements go into C<@stooges> and C<@sandwiches> gets
+nothing.
+
+The answer is to use references, as in:
+
+    lunch( \@stooges, \@sandwiches );
+
+    sub lunch {
+        my $stoogeref = shift;
+        my $sandwichref = shift;
+
+        my @stooges = @{$stoogeref};
+        my @sandwichref = @{$sandwichref};
+        ...
+    }

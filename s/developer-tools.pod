@@ -1,0 +1,13 @@
+=head1 Developer tools
+
+=head2 Profiling performance
+
+Use Devel::DProf
+
+=head2 Analyzing code quality
+
+Use Perl::Critic.  It's basically F<lint> for Perl.
+
+=head2 Analyzing a variable's structure
+
+Use Data::Dumper

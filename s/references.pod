@@ -1,0 +1,68 @@
+=head1 References
+
+=head2 References are scalars that refer to other variables
+
+References are like pointers in C in that they refer to other
+variables.  Create a reference with the C<\> operator.
+
+    my $sref = \$scalar;
+    my $aref = \@array;
+    my $href = \%hash;
+    my $cref = \&subroutine;
+
+The thing the reference point to is the "referent".
+
+Dereference a reference with the appropriate sigil, preferably in
+squiggly braces.
+
+    my $other_scalar = ${$sref};
+    my @other_array  = @{$aref};
+    my %other_hash   = %{$href};
+    &{$cref} # Call the referent.
+
+=head2 Arrow pointer is easier way to dereference.
+
+To access array and hashrefs, use the C<< -> >> operator.
+
+    my $stooge = $aref->[1];
+    my $stooge = $href->{Curly};
+
+=head2 ref vs isa
+
+=over
+
+=item * A reference belongs to one class
+
+=item * You can check this class with C<ref>
+
+=item * An object reference can inherit from other classes
+
+=item * You can ask an object if it inherited from a class with C<isa>
+
+=item * Don't use C<ref> without a good reason
+
+=item * C<isa> is part of the UNIVERSAL package, so you can call it on objects
+
+    my $mech = WWW::Mechanize->new;
+    print "ok\n" if $mech->isa('LWP::UserAgent');
+
+=back
+
+=head2 References to anonymous subroutines
+
+Subroutines can be assigned to a variable, then called,
+allowing code references to be passed around and used at will.
+This can come in handy if, for example, you're writing a
+subroutine that needs to execute supplied code as part of
+its work.
+
+    my $casefix = sub { return ucfirst lc $_[0] };
+
+    my $color = $casefix->("rED");
+    print "Color: $color\n"; # prints Red
+
+=head2 TODO
+
+Arrays of arrayrefs, hashes of hashrefs
+
+C<< perldoc L<perlreftut> >>
