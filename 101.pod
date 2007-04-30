@@ -74,6 +74,12 @@ A mixed bag of stuff we haven't written yet, or need to move somewhere else.
 
 =head1 TODO
 
+=head1 perl101.org source
+
+The source for this site is kept at Google Code, at
+L<http://code.google.com/p/perl101/>.  If you'd like to help add
+to this site, drop Andy Lester a note at andy [at] perl.org.
+
 =head1 Thanks
 
 Thanks to the following folks for their contributions:
