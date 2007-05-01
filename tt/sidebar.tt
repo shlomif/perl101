@@ -1,0 +1,6 @@
+<!--- This is the sidebar -->
+<ul>
+[% FOR link IN sidelinks %]
+    <li><a href="[% link.filename %]">[% link.text %]</a></li>
+[% END %]
+</ul>
