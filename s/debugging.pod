@@ -69,7 +69,7 @@ line switch:
 
     perl -Mdiagnostics mycode.pl
 
-=head2 Get a stack trace
+=head2 Get a stack trace with signal-tweaking
 
 Sometimes you'll get a warning but you can't tell how it got there.
 It'll say something like:
@@ -107,8 +107,14 @@ exactly what functions were called, and what parameters were passed.
 From here, we can easily see that the third argument to C<find_link>
 is C<undef>, which is a great place to start investigating.
 
-XXX Carp::Always
+=head2 Get stack traces with Carp::Always
 
-=head2 Use the Perl debugger if you must
+If you don't want to go through all the hoohah with overriding
+signal handlers, you can install the CPAN module Carp::Always.
 
-XXX
+After installing Carp::Always, adding one line to your code
+
+    use Carp::Always;
+
+or calling your program with C<-MCarp::Always> on the command line
+will always give a stack trace.
