@@ -1,0 +1,22 @@
+=head1 Welcome to perl101.org
+
+Thanks for visiting perl101.org.  We hope to provide you with
+everything that every Perl programmer should know.
+
+Our goal is not to cover everything in Perl, or make you an expert.
+What we've found, though, is that many Perl programmers don't know
+what they don't know.  Perl101.org hopes to change that.
+
+=head1 perl101.org source
+
+The source for this site is kept at Google Code, at
+L<http://code.google.com/p/perl101/>.  If you'd like to help add
+to this site, drop Andy Lester a note at andy [at] perl.org.
+
+=head1 Thanks
+
+Thanks to the following folks for their contributions:
+Elias Lutfallah,
+Elliot Shank,
+Mike O'Regan,
+and Pete Krawczyk
