@@ -74,3 +74,29 @@ The Perl built-in C<delete> deletes elements from a hash, not files from the fil
 The term "unlink" comes from the Unix idea of removing a link to
 the file from the directory nodes.
 
+=head2 Use Unix-style directories under Windows
+
+Even though Unix uses paths like F</usr/local/bin> and Windows uses
+F<C:\foo\bar\bat>, you can still use forward slashes in your
+filenames.
+
+    my $filename = 'C:/foo/bar/bat';
+    open( my $fh, '<', $filename ) or die "Can't open $filename: $!";
+
+In this case, Perl magically changes the F<C:/foo/bar/bat> to
+F<C:\foo\bar\bat> before opening the file.  This also prevents the
+problem where an unquoted backslash screws up a filename, as in:
+
+    my $filename = "C:\tmp";
+
+In this case, C<$filename> contains five characters: 'C', ':', a
+tab character, 'm' and 'p'.  Instead, it should have been written
+as one of:
+
+    my $filename = 'C:\tmp';
+    my $filename = "C:\\tmp";
+
+Or, you can let Perl take care of it for you with:
+
+    my $filename = 'C:/tmp';
+    
