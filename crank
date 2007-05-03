@@ -2,7 +2,10 @@
 
 use strict;
 use warnings;
-use Carp::Always;
+
+BEGIN {
+    eval 'use Carp::Always';
+}
 
 use Template ();
 use Template::Constants qw( :debug :chomp );
