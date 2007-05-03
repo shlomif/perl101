@@ -1,0 +1,27 @@
+=head1 Performance
+
+Perl lets you do just about whatever you want, and that includes
+things that may be slow or memory-intensive.  Here's how to avoid
+some of these.
+
+=head2 Use C<while> to iterate over files, not C<for>
+
+Instead of slurping in all lines of a file and then working on the
+array with C<for>, read in one line at a time with C<while>.
+
+These two loops are functionally the same:
+
+    for ( <> ) {
+        # do something
+    }
+
+    while ( <> ) {
+        # do something
+    }
+
+The difference is that the C<for> reads the entire file into a
+temporary array, and the C<while> reads one at a time.  For small
+files this may not matter, but for larger ones it may eat up all
+your available memory.
+
+Using C<while> in this case is just good practice.

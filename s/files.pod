@@ -14,6 +14,9 @@ expression, and print the lines that match.
     }
     close $fh;
 
+B<Always> check the return code from C<open()> for truthiness.
+If there's a failure, the result is in C<$!>.
+
 =head2 Remove trailing linefeeds with C<chomp>
 
 Lines read from a file have their trailing linefeed still attached.
@@ -56,7 +59,7 @@ get files and not directories:
 
     my @files = grep { -f } glob( "*" );
 
-=head2 Unlink to remove a file
+=head2 Use C<unlink> to remove a file
 
 The Perl built-in C<delete> deletes elements from a hash, not files from the filesystem.
 
@@ -68,26 +71,6 @@ The Perl built-in C<delete> deletes elements from a hash, not files from the fil
 
     delete $stats{filename}; # WRONG: Removes the "filename" element from %stats
 
-=head2 Always check the return code from C<open>
+The term "unlink" comes from the Unix idea of removing a link to
+the file from the directory nodes.
 
-C<open()> can fail for most any reason.  You always want to check
-the return code for truthiness.  If there's a failure, the result
-is in C<$!>
-
-    open(my $file, '<', $filename) or die "Error opening $filename: $!\n";
-
-=head2 while(<>) not foreach (<>)
-
-Instead of slurping in an entire file and then working on it, you should
-read one line of the file at a time and process it (if you can.)  Doing this
-is significantly less memory intensive for little cost.
-
-Consider:
-
-    $ cat /dev/random | perl -e 'foreach (<>) { $i++; last if $i > 10; }; print "ok\n"'
-    Out of memory!
-    $ cat /dev/random | perl -e 'while (<>) { $i++; last if $i > 10; }; print "ok\n"'
-    ok
-    $
-
-In short: Use C<while> for file fetches when possible.
