@@ -1,0 +1,40 @@
+=head1 Email Addressing, Processing, and Handling
+
+=head2 How do I see if an email address is valid?
+
+In general, you can't.  There are several methods available to see
+if it looks reasonable, but there is no way to determine if an
+address is actually deliverable without actually attempting 
+delivery.
+
+Using regular expressions:
+
+    # Match basically blah@blah.blah
+    if ( $addr =~ /^\S+\@\S+\.\S+$/ ) {
+        print "Looks OK";
+    }
+
+If you're doing any real work, you may wish to look to one of
+the modules available on L<http://search.cpan.org>, such as:
+
+=over 4
+
+=item C<Email::Address>
+
+=item C<Email::Valid>
+
+C<Email::Valid> makes it easy to determine if an email address is
+well-formed:
+    
+    use Email::Valid;
+
+    print ( Email::Valid->address( 'someone@gmail.com' ) ? 'Yes' : 'No' ); # prints Yes
+    print ( Email::Valid->address( 'someone#gmail.com' ) ? 'Yes' : 'No' ); # prints No
+
+C<Email::Valid> can also tell you why an address is invalid:
+    
+    print "Invalid address: $Email::Valid::Details \n"
+        unless Email::Valid->address( 'you#foo.bar' );
+
+=back
+

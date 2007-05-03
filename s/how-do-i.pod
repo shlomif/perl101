@@ -34,16 +34,3 @@ L<http://search.cpan.org>.
 If you're parsing HTML so that you can extract links or images from
 a web page, use C<WWW::Mechanize> which handles it for you.
 
-=head2 How do I see if an email address is valid?
-
-In general, you can't.  You can write a regular expression to see
-if it looks reasonable.
-
-    # Match basically blah@blah.blah
-    if ( $addr =~ /^\S+\@\S+\.\S+$/ ) {
-        print "Looks OK";
-    }
-
-If you're doing any real work, look at Email::Address.
-
-In no case will it tell you if an email address is actually valid.
