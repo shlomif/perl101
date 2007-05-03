@@ -1,10 +1,58 @@
 =head1 Files and directories
 
-=head2 How can I get a list of all my files?
+=head2 Read files easily with C<open> and the C<< <> >> operator
+
+Opening and reading files with Perl is simple.  Here's how to open
+a file, read it line-by-line, check it for text matching a regular
+expression, and print the lines that match.
+
+    open( my $fh, '<', $filename ) or die "Can't open $filename: $!";
+    while ( my $line = <$fh> ) {
+        if ( $line =~ /wanted text/ ) {
+            print $line;
+        }
+    }
+    close $fh;
+
+=head2 Remove trailing linefeeds with C<chomp>
+
+Lines read from a file have their trailing linefeed still attached.
+If you have a text file where the first line is
+
+    Aaron
+
+"Aaron", is actually "Aaron\n", six characters.  This code will fail:
+
+    my $line = <$fh>;
+    if ( $line eq 'Aaron' ) {
+        # won't reach here, because it's really "Aaron\n";
+    }
+
+
+To remove the C<"\n">, and any other trailing whitespace, call
+C<chomp>.
+
+    my $line = <$fh>;
+    chomp $line;
+
+Now C<$line> is five characters long.
+
+=head2 Change your line delimiter with C<$/>
+
+It's possible to change your input record separator, C<$/>.  It's
+only set to "\n" by default.
+
+Set C<$/> to read a paragraph at a time.  Set C<$/> to C<undef> to
+read the entire file at once.  See P<perlvar> for details.
+
+=head2 Get lists of files with C<glob()>
+
+Use standard shell globbing patterns to get a list of files.
 
     my @files = glob( "*" );
 
-=head2 How about files without directories?
+Pass them through C<grep> to do quick filtering.  For example, to
+get files and not directories:
 
     my @files = grep { -f } glob( "*" );
 
