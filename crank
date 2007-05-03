@@ -95,6 +95,7 @@ sub pod2html {
 # http://search.cpan.org/~arandal/Pod-Simple-3.05/lib/Pod/Simple/Subclassing.pod
 package Pod::Simple::Perl101;
 
+#use Pod::Simple::Debug(5);
 use base 'Pod::Simple::HTML';
 
 sub VERSION { '0.01' };
@@ -104,7 +105,23 @@ sub new {
 
     $self->accept_codes( qw( P ) );
 
+    {use Data::Dumper; local $Data::Dumper::Sortkeys=1;
+    print Dumper( $self->{Tagmap})}
+
+    my $tagmap = $self->{Tagmap};
+
+    $tagmap->{P} = qq{<a href="http://perldoc.perl.org/};
+    $tagmap->{'/P'} = qq{.html">this page</a>};
+
     return $self;
+}
+
+
+sub _handle_element_start {
+    my($parser, $element_name, $attr_hash_r) = @_;
+
+
+    return $parser->SUPER::_handle_element_start( $element_name, $attr_hash_r );
 }
 
 1;

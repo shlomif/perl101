@@ -1,7 +1,10 @@
 =head1 Regular Expressions
 
 Regular expressions are too huge of a topic to introduce here, but
-make sure that you understand these concepts.
+make sure that you understand these concepts.  For tutorials, see
+P<perlrequick> or P<perlretut>.  For the definitive documentation,
+see P<perlre>.
+
 
 =head2 XXX capture variables are only valid if the regex matches
 
