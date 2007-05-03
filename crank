@@ -48,7 +48,7 @@ sub get_sections {
     my $sourcedir = shift;
 
     opendir my $dh, $sourcedir or die "Can't open $sourcedir";
-    my %pod = map { ($_,1) } grep { !/~$/ && -f "$sourcedir/$_" } readdir $dh;
+    my %pod = map { ($_,1) } grep { /\.pod$/ && -f "$sourcedir/$_" } readdir $dh;
 
     my @ordered_sections;
     for my $section ( <DATA> ) {
@@ -104,9 +104,6 @@ sub new {
     my $self = shift->SUPER::new(@_);
 
     $self->accept_codes( qw( P ) );
-
-    {use Data::Dumper; local $Data::Dumper::Sortkeys=1;
-    print Dumper( $self->{Tagmap})}
 
     my $tagmap = $self->{Tagmap};
 
