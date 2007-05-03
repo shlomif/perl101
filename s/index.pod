@@ -19,4 +19,5 @@ Thanks to the following folks for their contributions:
 Elias Lutfallah,
 Elliot Shank,
 Mike O'Regan,
-and Pete Krawczyk
+Pete Krawczyk
+and the Chicago Perl Mongers (L<http://chicago.pm.org>).

@@ -7,8 +7,6 @@ use Carp::Always;
 use Template ();
 use Template::Constants qw( :debug :chomp );
 
-use Pod::Simple::HTML;
-
 my %defaults = (
     INCLUDE_PATH    => [ qw( tt ) ],
     OUTPUT_PATH     => '101/',
@@ -41,7 +39,7 @@ for ( get_sections( 's/' ) ) {
 }
 
 for my $vars ( @podfiles ) {
-    $vars->{pod} = pod2html( $vars->{podfile} );
+    $vars->{content} = pod2html( $vars->{podfile} );
     $vars->{sidelinks} = \@sidelinks;
     $tt->process( 'section.tt', $vars, $vars->{htmlfile} ) || die $tt->error;
 }
@@ -81,7 +79,7 @@ sub pod2html {
 
     my $html;
 
-    my $parser = Pod::Simple::HTML->new;
+    my $parser = Pod::Simple::Perl101->new;
     $parser->html_header_before_title( '' );
     $parser->html_header_after_title( '' );
     $parser->html_footer( '' );
@@ -92,6 +90,26 @@ sub pod2html {
 
     return $html;
 }
+
+# Subclassing Pod::Simple::HTML:
+# http://search.cpan.org/~arandal/Pod-Simple-3.05/lib/Pod/Simple/Subclassing.pod
+package Pod::Simple::Perl101;
+
+use base 'Pod::Simple::HTML';
+
+sub VERSION { '0.01' };
+
+sub new {
+    my $self = shift->SUPER::new(@_);
+
+    $self->accept_codes( qw( P ) );
+
+    return $self;
+}
+
+1;
+
+package main;
 
 __DATA__
 Index

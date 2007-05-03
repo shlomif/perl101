@@ -51,7 +51,7 @@
                 <!-- Start main content wrapper -->
                 <div id="content">
                     <!-- Start content -->
-                    [% pod %]
+                    [% content %]
                     [% INCLUDE 'feedback.tt' %]
                     <div id="footer">
                         <!-- Start Footer -->
