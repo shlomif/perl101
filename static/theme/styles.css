@@ -3,7 +3,6 @@ body {
     font: 0.75em/1.8em Helvetica, Arial, sans-serif;
     margin: 0 20px 20px;
     text-align: center;
-    background: repeat url(images/body_bg.png);
     padding: 0;
 }
 
@@ -26,7 +25,7 @@ img {
 }
 
 #container {
-    background: #ffffff repeat-y left url(images/sidebar_left_bg.png); 
+    background: #ffffff repeat-y left;
     margin: 0px auto; /* Right And Left Margin Widths To Auto */
     text-align: left; /* Hack To Keep IE5 Windows Happy */
     border-right: 1px solid #a0a9a7;
@@ -34,6 +33,8 @@ img {
     border-bottom: 1px solid #a0a9a7;
     position: relative;
     width: auto;
+    font-family: serif;
+    font-size: 12pt;
 }
 
 #pageHeader {
@@ -85,12 +86,17 @@ img {
     position: relative;
     z-index: 100;
     float: left;
-    width: 150px;
+    width: 20%;
 }
 
 #sidebarContainer #sidebar {
     padding: 10px;
     color: #505050;
+    font-family: sans-serif;
+    text-indent: -20%;
+    padding-left: +20%;
+    background: #d5dfd6;
+    width: 160px;
 }
 
 #sidebarContainer .sideHeader {
@@ -98,7 +104,7 @@ img {
     color: #797f7a;
     font-weight: bold;
     height: 20px;
-    padding-left: 10px;
+    padding-left: 0px;
 }
 
 #footer {
@@ -126,15 +132,19 @@ blockquote {
 }
 
 h1 {
+    font-family: sans-serif;
 }
 
 h2 {
+    font-family: sans-serif;
 }
 
 h3 {
+    font-family: sans-serif;
 }
 
 h4 {
+    font-family: sans-serif;
 }
 
 /* Main content area unordered list styles */
@@ -155,12 +165,7 @@ h4 {
 }
 
 /* Table Styles */
-table {
-    font-size: 1em;
-}
-
 pre, code {
     font: fixed;
-    font-size: 150%;
     color: blue;
 }
