@@ -31,7 +31,6 @@ If you have a text file where the first line is
         # won't reach here, because it's really "Aaron\n";
     }
 
-
 To remove the C<"\n">, and any other trailing whitespace, call
 C<chomp>.
 
@@ -99,4 +98,3 @@ as one of:
 Or, you can let Perl take care of it for you with:
 
     my $filename = 'C:/tmp';
-    

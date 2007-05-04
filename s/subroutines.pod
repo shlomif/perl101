@@ -62,15 +62,18 @@ You can pass any anything to a subroutine that you want.
 
     my $n = square( 'Dog food', 14.5, 'Blah blah blah' );
 
-Only the first argument is used by the function.  For that matter, you can do this:
+Only the first argument is used by the function.  For that matter,
+you can do this:
 
     my $n = square();
 
-XXX Param::Validate
+The module M<Params::Validate> solves many of these validation
+problems.
 
 =head2 Perl has "prototypes".  Ignore them.
 
-Somewhere along the way, prototypes got added, so you can do things like this:
+Somewhere along the way, prototypes got added, so you can do things
+like this:
 
     sub square($) {
         ...

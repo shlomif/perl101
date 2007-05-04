@@ -106,23 +106,21 @@ sub VERSION { '0.01' };
 sub new {
     my $self = shift->SUPER::new(@_);
 
-    $self->accept_codes( qw( P ) );
+    $self->accept_codes( qw( P M ) );
 
     my $tagmap = $self->{Tagmap};
 
+    # Perldoc links
     $tagmap->{P} = qq{<a href="http://perldoc.perl.org/};
     $tagmap->{'/P'} = qq{.html">this page</a>};
+
+    # Module links
+    $tagmap->{M} = qq{<a href="http://search.cpan.org/perldoc?};
+    $tagmap->{'/M'} = qq{">here</a>};
 
     return $self;
 }
 
-
-sub _handle_element_start {
-    my($parser, $element_name, $attr_hash_r) = @_;
-
-
-    return $parser->SUPER::_handle_element_start( $element_name, $attr_hash_r );
-}
 
 1;
 
@@ -139,9 +137,9 @@ Arrays
 Hashes
 Regexes
 Flow Control
+Files
 Subroutines
 POD
-Files
 Debugging
 Modules
 Modules: Making your own
