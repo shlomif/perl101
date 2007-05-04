@@ -14,10 +14,11 @@ b, strong {
 }
 
 a:link, a:visited {
+    color: #e7800e;
 }
 
 a:hover, a:active {
-
+    color: #000000;
 }
 
 img {
