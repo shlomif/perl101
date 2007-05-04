@@ -25,15 +25,15 @@ The one element is '$100,000'.
 To get a single scalar out of an array, access it with the C<[]>
 and a C<$> sigil.  All arrays in Perl start at 0.
 
-    $stooge[1] # Curly
+    $stooges[1] # Curly
 
 Arrays can also be accessed from the end by using negative offsets from the end.
 
-    $stooge[-1] # Iggy
+    $stooges[-1] # Iggy
 
 Reading a non-existent element gives C<undef>.
 
-    $stooge[47] # undef
+    $stooges[47] # undef
 
 =head2 The length of an array is its scalar value
 
