@@ -1,5 +1,17 @@
 =head1 Flow control
 
+=head2 Four values of false
+
+There are four ways to have a false value in Perl:
+
+    my  $false = undef;
+        $false = "";
+        $false = 0;
+        $false = "0";
+
+The last one is false because "0" becomes 0 in numeric
+context, which is false by the third rule.
+
 =head2 postfix controls
 
 A simple C<if> or C<unless> block might look like this:
@@ -18,7 +30,7 @@ This also works for C<while> and C<for>.
 
     print $i++ . "\n" while $i < 10;
 
-=head2 For loops (for and foreach are really synonyms)
+=head2 C<for> loops
 
 There are three styles of for loops.
 
@@ -41,7 +53,7 @@ You may see C<foreach> used in place of C<for>.  The two
 are interchangable.  Most people use C<foreach> for the
 last two styles of loops above.
 
-=head2 do
+=head2 C<do> blocks
 
 C<do> allows Perl to use a block where a statement is expected.
 
@@ -63,7 +75,7 @@ As a special case, C<while> runs the block at least once.
 
     do { action(); } while action_needed;
 
-=head2 if/elsif/else BUT NO case
+=head2 Perl has no C<switch> or C<case>
 
 If you're coming from another language, you might be used
 to C<case> statements.  Perl doesn't have them.
@@ -82,18 +94,6 @@ The closest we have is C<elsif>:
     }
 
 There is no way to fall through cases cleanly.
-
-=head2 Four values of false
-
-There are four ways to have a false value in Perl:
-
-    my  $false = undef;
-        $false = "";
-        $false = 0;
-        $false = "0";
-
-The last one is false because "0" becomes 0 in numeric
-context, which is false by the third rule.
 
 =head2 next/last/continue/redo
 

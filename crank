@@ -91,6 +91,10 @@ sub pod2html {
     $parser->output_string( \$html );
     $parser->parse_file( $podfile );
 
+    # Manually adjust the stuff we passed thru earlier
+    $html =~ s{P<(.+?)>}{<a href="http://perldoc.perl.org/$1.html">$1</a>}g;
+    $html =~ s{M<(.+?)>}{<a href="http://search.cpan.org/perldoc?$1">$1</a>}g;
+
     return $html;
 }
 
@@ -106,17 +110,15 @@ sub VERSION { '0.01' };
 sub new {
     my $self = shift->SUPER::new(@_);
 
-    $self->accept_codes( qw( P M ) );
+    my @passthru = qw( P M ); # P = Perldoc, M = Module
+    $self->accept_codes( @passthru );
 
     my $tagmap = $self->{Tagmap};
 
-    # Perldoc links
-    $tagmap->{P} = qq{<a href="http://perldoc.perl.org/};
-    $tagmap->{'/P'} = qq{.html">this page</a>};
-
-    # Module links
-    $tagmap->{M} = qq{<a href="http://search.cpan.org/perldoc?};
-    $tagmap->{'/M'} = qq{">here</a>};
+    for my $code ( @passthru ) {
+        $tagmap->{$code} = "$code<";
+        $tagmap->{"/$code"} = ">";
+    }
 
     return $self;
 }
