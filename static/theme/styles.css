@@ -26,7 +26,7 @@ img {
 }
 
 #container {
-    background: #ffffff repeat-y right url(images/sidebar_left.png); /* This Is The BG Color Of The Main Div */
+    background: #ffffff repeat-y left url(images/sidebar_left_bg.png); 
     margin: 0px auto; /* Right And Left Margin Widths To Auto */
     text-align: left; /* Hack To Keep IE5 Windows Happy */
     border-right: 1px solid #a0a9a7;
@@ -69,7 +69,8 @@ img {
 }
 
 #contentContainer {
-    margin-right: 150px;
+    margin-left: 150px;
+    margin-right: 0px;
     position: relative;
     z-index: 99;
 }
@@ -83,7 +84,7 @@ img {
 #sidebarContainer {
     position: relative;
     z-index: 100;
-    float: right;
+    float: left;
     width: 150px;
 }
 
