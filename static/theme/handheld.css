@@ -1,5 +1,3 @@
-/*<group=General Styles>*/
-
 body {
 	text-align: left;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -34,18 +32,6 @@ a:hover, a:active {
 img {
 	max-width: 99%;
 }
-
-.image-left {
-
-}
-
-.image-right {
-
-}
-	
-/*</group>*/
-
-/*<group=Layout>*/
 
 #container { 
 	background: #ffffff;
@@ -114,7 +100,7 @@ img {
 	margin-bottom: 5px;
 }
 
-#footer { 
+#footer {
 	width: auto;
 	text-align: left;
 	padding: 0px;
@@ -130,175 +116,6 @@ img {
 
 #footer a:hover, #footer a:active {
 }
-	
-/*</group>*/
-
-/*<group=Bread-crumb>*/
-
-#breadcrumbcontainer {
-	margin-bottom: 5px;
-}
-
-#breadcrumbcontainer ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-#breadcrumbcontainer li {
-	display: inline;
-	padding: 0;
-	margin: 0;
-}
-
-#breadcrumbcontainer a {
-	padding: 0;
-}
-
-#breadcrumbcontainer a:hover {
-
-}
-	
-/*</group>*/
-
-/*<group=Toolbar>*/
-
-/* Toolbar Styles */
-
-#navcontainer {
-	color: #000000;
-	margin: 0 0 10px 0;
-	padding: 0;
-}
-
-#navcontainer #current {
-
-}
-
-#navcontainer #current:hover {
-}
-
-#navcontainer .currentAncestor {
-
-}
-
-/* Parent - Level 0 */
-
-#navcontainer ul{
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
-}
-
-#navcontainer li {
-	margin: 0;
-	padding: 0;
-}
-
-#navcontainer a {
-	padding: 0;
-}
-
-#navcontainer a:hover {
-}
-
-#navcontainer a:active {
-}
-
-/* Child - Level 1 */
-
-#navcontainer ul ul {
-	list-style-type: none;
-	margin-left: 2px;
-	padding: 0;
-	color: black;
-}
-
-#navcontainer ul ul li {
-	padding-left: 5px;
-}
-
-#navcontainer ul ul a {
-	padding: 0;
-}
-
-#navcontainer ul ul a:hover{
-}
-
-#navcontainer ul ul #current{
-}
-
-/* Child - Level 2 */
-
-#navcontainer ul ul ul {
-
-}
-
-#navcontainer ul ul ul li {
-	padding-left: 10px;
-}
-
-#navcontainer ul ul ul a{
-}
-
-#navcontainer ul ul ul a:hover{
-
-}
-
-/* Child Level 3 */
-
-#navcontainer ul ul ul {
-
-}
-
-#navcontainer ul ul ul ul li {
-	padding-left: 15px;
-}
-
-#navcontainer ul ul ul ul a{
-}
-
-#navcontainer ul ul ul ul a:hover{
-
-}
-
-/* Child Level 4 */
-
-#navcontainer ul ul ul ul {
-
-}
-
-#navcontainer ul ul ul ul ul li {
-	padding-left: 20px;
-}
-
-#navcontainer ul ul ul ul ul a{
-}
-
-#navcontainer ul ul ul ul ul a:hover{
-
-}
-
-/* Child Level 5 */
-
-#navcontainer ul ul ul ul ul {
-
-}
-
-#navcontainer ul ul ul ul ul ul li { 
-}
-
-#navcontainer ul ul ul ul ul ul a{
-}
-
-#navcontainer ul ul ul ul ul ul a:hover{
-
-}
-
-/*</group>*/
-
-/*<group=Global Classes>*/
-
 blockquote, .standout {
 	margin: 0;
 	padding: 5px;
