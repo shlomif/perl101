@@ -1,19 +1,16 @@
-/*<group=General Styles>*/
-
 body {
-	color: #333333;
-	font: 0.75em/1.8em Helvetica, Arial, sans-serif;
-	margin: 0 20px 20px;
-	text-align: center;
-	background: repeat url(images/body_bg.png);
-	padding: 0;
+    color: #333333;
+    font: 0.75em/1.8em Helvetica, Arial, sans-serif;
+    margin: 0 20px 20px;
+    text-align: center;
+    background: repeat url(images/body_bg.png);
+    padding: 0;
 }
 
 p {
 }
 
 b, strong {
-
 }
 
 a:link, a:visited {
@@ -24,107 +21,103 @@ a:hover, a:active {
 }
 
 img {
-	border: none;
+    border: none;
 }
 
-#container { 
-	background: #ffffff repeat-y right url(images/sidebar_left.png); /* This Is The BG Color Of The Main Div */
-	margin: 0px auto; /* Right And Left Margin Widths To Auto */
-	text-align: left; /* Hack To Keep IE5 Windows Happy */
-	border-right: 1px solid #a0a9a7;
-	border-left: 1px solid #a0a9a7;
-	border-bottom: 1px solid #a0a9a7;
-	position: relative;
-}
-
-.clearer {
-	clear: both;
+#container {
+    background: #ffffff repeat-y right url(images/sidebar_left.png); /* This Is The BG Color Of The Main Div */
+    margin: 0px auto; /* Right And Left Margin Widths To Auto */
+    text-align: left; /* Hack To Keep IE5 Windows Happy */
+    border-right: 1px solid #a0a9a7;
+    border-left: 1px solid #a0a9a7;
+    border-bottom: 1px solid #a0a9a7;
+    position: relative;
 }
 
 #pageHeader {
-	background: #6b7b91;
-	border-bottom: 2px solid #818fa1;
-	padding: 10px 10px;
-	position: relative;
-	margin-top: -1px;
-	margin-bottom: -1px;
-	z-index: 0;
+    background: #6b7b91;
+    border-bottom: 2px solid #818fa1;
+    padding: 10px 10px;
+    position: relative;
+    margin-top: -1px;
+    margin-bottom: -1px;
+    z-index: 0;
 }
 
 #pageHeader img {
-	position: absolute;
-	left: 10;
-	top: 0;
+    position: absolute;
+    left: 10;
+    top: 0;
 }
 
 #pageHeader h1 {
-	color: #ffffff;
-	font-size: 2.5em;
-	letter-spacing: 1px;
-	margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 2.5em;
+    letter-spacing: 1px;
+    margin: 0 0 5px;
 }
 
 #pageHeader h2 {
-	color: #b5bdc8;
-	font-size: 0.9em;
-	margin-top: 25px;
-	margin-bottom: 0px;
-	margin-left: 5px;
+    color: #b5bdc8;
+    font-size: 0.9em;
+    margin-top: 25px;
+    margin-bottom: 0px;
+    margin-left: 5px;
     padding: 0px;
 }
 
 #contentContainer {
-	margin-right: 150px;
-	position: relative;
-	z-index: 99;
+    margin-right: 150px;
+    position: relative;
+    z-index: 99;
 }
 
 #contentContainer #content {
-	padding-top: 10px;
-	padding-right: 40px;
-	padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 40px;
+    padding-left: 10px;
 }
 
 #sidebarContainer {
-	float: right;
-	width: 150px;
+    float: right;
+    width: 150px;
 }
 
 #sidebarContainer #sidebar {
-	padding: 10px;
-	color: #505050;
+    padding: 10px;
+    color: #505050;
 }
 
 #sidebarContainer .sideHeader {
-	background: #d5dfd6;
-	color: #797f7a;
-	font-weight: bold;
-	height: 20px;
-	padding-left: 10px;
+    background: #d5dfd6;
+    color: #797f7a;
+    font-weight: bold;
+    height: 20px;
+    padding-left: 10px;
 }
 
 #footer {
-	border-top: 1px solid #eeeeee;
-	margin-top: 20px;
-	color: #909090;
+    border-top: 1px solid #eeeeee;
+    margin-top: 20px;
+    color: #909090;
 }
 
 #footer p {
-	margin: 0;
-	padding-top: 10px;
-	padding-bottom: 10px;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 #footer a:link, #footer a:visited {
-
 }
 
 #footer a:hover, #footer a:active {
 }
-blockquote, .standout {
-	color: #96a7bb;
-	border-top: 1px solid #eeeeee;
-	border-bottom: 1px solid #eeeeee;
+
+blockquote {
+    color: #96a7bb;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
 }
 
 h1 {
@@ -139,10 +132,6 @@ h3 {
 h4 {
 }
 
-.imageStyle {
-
-}
-
 /* Main content area unordered list styles */
 #contentContainer #content ul {
 }
@@ -152,8 +141,8 @@ h4 {
 
 /* Sidebar area unordered list styles */
 #sidebarContainer #sidebar ul {
-	margin: 0px;
-	padding: 0 10px;
+    margin: 0px;
+    padding: 0 10px;
     list-style: none;
 }
 
@@ -162,13 +151,7 @@ h4 {
 
 /* Table Styles */
 table {
-	font-size: 1em;
-}
-
-.form-input-field {
-}
-
-.form-input-button {
+    font-size: 1em;
 }
 
 pre, code {
