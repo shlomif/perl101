@@ -66,3 +66,22 @@ Do The Right Thing
 
 Perl tries to DTRT, where the Right Thing is often as close as
 possible to DWIM.
+
+=head2 script and program
+
+Perl programs are often called "scripts", similar to a Windows batch
+file, or a Unix shell script.  They're not.  Perl programs are
+programs.
+
+Perl has the heritage of being called a "scripting language",
+especially since it became so wildly popular in the 1990s when "web
+scripting" helped drive the birth of the Web.  However, Perl is
+every bit as much of a programming language as Java or C++ or Ruby
+or COBOL or any other language you can name.  To call it a "scripting
+language" is to deny its power, flexibility and elegance.
+
+Languages such as Perl, Python, PHP and Ruby that are lumped under
+the second-class name "scripting language" should more properly be
+called "dynamic languages."  Learning to think of Perl as a programming
+language will help you appreciate the power of Perl, and help elevate
+Perl's status where it belongs.
