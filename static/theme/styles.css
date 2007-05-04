@@ -33,6 +33,7 @@ img {
     border-left: 1px solid #a0a9a7;
     border-bottom: 1px solid #a0a9a7;
     position: relative;
+    width: auto;
 }
 
 #pageHeader {
@@ -80,6 +81,8 @@ img {
 }
 
 #sidebarContainer {
+    position: relative;
+    z-index: 100;
     float: right;
     width: 150px;
 }
