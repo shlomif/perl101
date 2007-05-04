@@ -640,37 +640,6 @@ table {
 	z-index: 205;
 }
 
-.movie-thumbnail-frame:hover {
-}
-
-.movie-thumbnail-caption {
-}
-	
-/*</group>*/
-
-/*<group=Single Page (Movie View)>*/
-
-.movie-background {
-}
-
-.movie-title {
-	font-size: 1.9em;
-	letter-spacing: 1px;
-	font-weight: bold;
-}
-
-.movie-frame {
-
-}
-	
-/*</group>*/
-
-
-/*</group>*/
-
-/*<group=Contact Form>*/
-.message-text { 
-} 
 
 .required-text {
 } 
@@ -685,6 +654,6 @@ table {
 
 pre, code {
     font: fixed;
-    font-size: 8pt;
+    font-size: 150%;
     color: blue;
 }
