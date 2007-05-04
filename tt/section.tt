@@ -22,7 +22,7 @@
         <link rel="stylesheet"
             type="text/css"
             media="screen"
-            href="static/theme/css/width/width_default.css" />
+            href="static/theme/css/width/width_variable.css" />
         <link rel="stylesheet"
             type="text/css"
             media="screen"
