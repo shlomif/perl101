@@ -70,7 +70,7 @@ img {
 }
 
 #contentContainer {
-    margin-left: 150px;
+    margin-left: 200px;
     margin-right: 0px;
     position: relative;
     z-index: 99;
@@ -84,6 +84,7 @@ img {
 
 #sidebarContainer {
     position: relative;
+    margin-right: 10px;
     z-index: 100;
     float: left;
     width: 20%;
@@ -93,10 +94,7 @@ img {
     padding: 10px;
     color: #505050;
     font-family: sans-serif;
-    text-indent: -20%;
-    padding-left: +20%;
     background: #d5dfd6;
-    width: 160px;
 }
 
 #sidebarContainer .sideHeader {
