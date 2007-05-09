@@ -66,6 +66,15 @@ The Perl user groups around the world.  Helped out The Perl Foundation.
 =back
 
 
+=head2 Mailing lists
+
+=over
+
+=item * Dozens of mailing lists at L<http://lists.perl.org>
+
+=back
+
+
 =head2 Perlmonks
 
 =over

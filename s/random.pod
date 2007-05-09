@@ -45,3 +45,5 @@ Rails-like frameworks
 =head2 Getopt::Long
 
 =head2 Modules vs. distributions
+
+=head2 Mention that PCRE is not really P-C
