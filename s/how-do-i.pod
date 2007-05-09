@@ -1,4 +1,4 @@
-=head1 Common Modules
+=head1 How do I...
 
 =head2 How do I get data from a database?
 
@@ -33,4 +33,7 @@ L<http://search.cpan.org>.
 
 If you're parsing HTML so that you can extract links or images from
 a web page, use C<WWW::Mechanize> which handles it for you.
+
+=head2 How do I parse XML?
+
 
