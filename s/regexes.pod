@@ -164,3 +164,5 @@ But what study does is build a table of the 256 possible bytes and
 where they first appear, so that in this case, the scanner can jump
 right to that position and start matching.
 
+
+=head2 Handle multi-line regexes
