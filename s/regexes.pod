@@ -5,8 +5,45 @@ make sure that you understand these concepts.  For tutorials, see
 P<perlrequick> or P<perlretut>.  For the definitive documentation,
 see P<perlre>.
 
+=head2 Matches and replacements return a quantity.
 
-=head2 XXX capture variables are only valid if the regex matches
+The C<m//> and C<s///> operators return the number of matches or
+replacements they made, respectively.  You can either use the number
+directly, or check it for truth.
+
+    if ( $str =~ /Diggle|Shelley/ ) {
+        print "We found Pete or Steve!\n";
+    }
+
+    if ( my $n = ($str =~ s/this/that/g) ) {
+        print qq{Replaced $n occurrence(s) of "this"\n};
+    }
+
+=head2 Don't use capture variables without checking that the match succeeded.
+
+The capture variables, C<$1>, etc, are not valid unless the match
+succeeded, and they're not cleared, either.
+
+    # BAD: Not checked, but at least it "works".
+    my $str = 'Perl 101 rocks.';
+    $str =~ /(\d+)/;
+    print "Number: $1"; # Prints "Number: 101";
+
+    # WORSE: Not checked, and the result is not what you'd expect
+    $str =~ /(Python|Ruby)/;
+    print "Language: $1"; # Prints "Language: 101";
+
+Instead, you must check the return value from the match:
+
+    # GOOD: Check the results
+    my $str = 'Perl 101 rocks.';
+    if ( $str =~ /(\d+)/ ) {
+        print "Number: $1"; # Prints "Number: 101";
+    }
+
+    if ( $str =~ /(Python|Ruby)/ ) {
+        print "Language: $1"; # Never gets here
+    }
 
 =head2 XXX m// in list context gives a list of matches
 
