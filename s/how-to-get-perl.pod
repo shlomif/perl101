@@ -34,7 +34,7 @@ distribution.
 
 =head2 Windows Perl: ActiveState
 
-Originators of Windows on Perl, and still very much involved in the
+Originators of Perl on Windows, and still very much involved in the
 community, ActiveState releases their own version of Perl with a
 module installation system called PPM.  If you don't want to deal with
 the "hassle" of managing your Perl install yourself, this may be for you.

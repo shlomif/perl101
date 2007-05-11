@@ -16,6 +16,7 @@ to this site, drop Andy Lester a note at andy [at] perl.org.
 =head1 Thanks
 
 Thanks to the following folks for their contributions:
+Clyde Forrester,
 Kent Cowgill,
 Elias Lutfallah,
 Elliot Shank,
