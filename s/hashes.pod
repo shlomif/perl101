@@ -69,6 +69,8 @@ If your hash key is a single word, you don't need quotes around it.
 
 =head2 Hash keys are unique.
 
+XXX
+
 =head2 Hashes can only contain scalars
 
 The values in a Perl hash may only be scalars.  It is not possible
@@ -85,7 +87,11 @@ The order of C<keys %hash> and C<values %hash> is effectively random.
 They will differ between runs of the program.  It is not related
 to the order in which things were added.
 
-The idea of "sorting a hash" does not exist in Perl.
+=head2 You cannot "sort a hash"
+
+The idea of "sorting a hash" does not exist in Perl, because hashes
+are unordered.  You can sort the keys of a hash, or the values of
+a hash, as they are just lists.
 
 =head2 When to use hash, when to use array
 
