@@ -47,6 +47,45 @@ only set to "\n" by default.
 Set C<$/> to read a paragraph at a time.  Set C<$/> to C<undef> to
 read the entire file at once.  See P<perlvar> for details.
 
+=head2 Slurp an entire file at once
+
+Typically you'll see novices read a file using one of thse two methods:
+
+    open (FILE,$filename) || die "Cannot open '$filename': $!";
+    undef $/;
+    my $file_as_string = <FILE>;
+
+or
+
+    open (FILE,$filename) || die "Cannot open '$filename': $!";
+    my $file_as_string = join '', <FILE>;
+
+Of those two, choose the former.  The second one reads all the lines
+into an array, and the glomps together a big string.  The first one
+just reads into a string, without creating the intervening list of lines.
+
+The best way yet is like so:
+
+    my $file_as_string = do {
+        open( my $fh, $filename ) or die "Can't open $filename: $!";
+        local $/ = undef;
+        <$fh>;
+    };
+
+The C<do()> block returns the last value evaluated in the block.
+This method localizes the C<$/> so that it gets set back outside
+the scope of the block.  Without localizing C<$/>, it retains the
+value being set to it and another piece of code might not be expecting
+it to have been set to C<undef>.
+
+Here's another way:
+
+    use File::Slurp qw( read_file );
+    my $file_as_string = read_file( $filename );
+
+File::Slurp is a handy module for reading and writing a file at a
+time, and it does magic fast processing on the back end.
+
 =head2 Get lists of files with C<glob()>
 
 Use standard shell globbing patterns to get a list of files.
