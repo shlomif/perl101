@@ -203,3 +203,7 @@ right to that position and start matching.
 
 
 =head2 Handle multi-line regexes
+
+=head2 Use re => debug
+
+    -Mre=debug

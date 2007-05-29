@@ -36,4 +36,12 @@ a web page, use C<WWW::Mechanize> which handles it for you.
 
 =head2 How do I parse XML?
 
+=head2 How do I know if a URL is valid?
 
+=head2 How do I do screen access?
+
+=head2 How do I do colors?
+
+=head2 How do I do readkey?
+
+=head2 How do I do passwords?

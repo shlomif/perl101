@@ -113,7 +113,47 @@ C<pop> removes from the end of an array:
 
     my $went_home = pop @customers;
 
-=head2 XXX Explain array slices
+=head2 Extract sections of an array with array slices
+
+Array slices are just array accesses with multiple indices.
+
+    my @a = 'a'..'z'; # 26 letters
+
+    # a, e, i, o, u...
+    my @vowels = @a[0,4,8,14,20];
+
+    # And sometimes "y"
+    push( @vowels, $a[-2] ) if rand > .5;
+
+Note that when accessing an array slice, the sigil is C<@>, not
+C<$>, because you're returning an array, not a scalar.  A common
+mistake for beginners is to access an array element with a C<@>
+sigil, not C<$>, and get back a slice, which is a list:
+
+    # WRONG: Returns a 1-element list, or 1 in scalar context
+    my $z = @a[-1];
+
+    # RIGHT: Returns a single scalar element
+    my $z = $a[-1];
+
+=head2 Assign chunks of an array with array slices
+
+You can have array slices as I<lvalue>s, or values on the left side
+of the equals sign that can be assigned to.
+
+    # Replace vowels with uppercase versions
+    @a[0,4,8,14,20] = qw( A E I O U );
+
+    # Swap first and last elements
+    @a[1,-1] = @a[-1,1];
+
+Note that the left and right slices must be of the same size.  Any
+missing values on the right side of the equals sign will be replaced
+with undef.
+
+=head2 splice XXX
+
+Explain splice XXX
 
 =head2 Process arrays easily with C<map>
 
