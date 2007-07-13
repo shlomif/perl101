@@ -46,6 +46,11 @@ or escape the C<@>
 A good color-coding editor will help you prevent this problem in
 the first place.
 
+=head2 Use C<length()> to get the length of a string
+
+    my $str = "Chicago Perl Mongers";
+    print length( $str ); # 20
+
 =head2 Use C<substr()> to extract strings
 
 C<substr()> does all kinds of cool string extraction.
