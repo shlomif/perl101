@@ -18,7 +18,7 @@ The elements do not interpolate, so:
 
     my @array = qw( $100,000 );
 
-The one element is '$100,000'.
+The single element of C<@array> is '$100,000'.
 
 =head2 Access arrays with numeric values
 
@@ -145,7 +145,7 @@ of the equals sign that can be assigned to.
     @a[0,4,8,14,20] = qw( A E I O U );
 
     # Swap first and last elements
-    @a[1,-1] = @a[-1,1];
+    @a[0,-1] = @a[-1,0];
 
 Note that the left and right slices must be of the same size.  Any
 missing values on the right side of the equals sign will be replaced

@@ -2,7 +2,8 @@
 
 =head2 Hashes are key/value pairs
 
-If you can look it up by name, you want a hash.
+If you can look it up by name, you want a hash.  The keys to a hash
+must be unique, but the values can be any scalar.
 
 They used to be called "associative arrays", but don't think of them as arrays.
 
@@ -26,6 +27,15 @@ it quotes the previous word:
         Curly => 'Howard',
         Iggy => 'Pop',
     );
+
+A hash in list context becomes a list of key/value pairs.
+
+    my @hash_as_an_array = %stooges;
+    # Contains ( 'Curly', 'Haward', 'Larry', 'Fine', etc... )
+
+Just as the order of keys and values from a hash is effectively
+random, the order of the key/value pairs in a flattened hash is
+effectively random.
 
 =head2 Access individual hash entries with squiggle braces
 
@@ -67,10 +77,6 @@ If your hash key is a single word, you don't need quotes around it.
 
     $stooge{Curly} = 'Howard';
 
-=head2 Hash keys are unique.
-
-XXX
-
 =head2 Hashes can only contain scalars
 
 The values in a Perl hash may only be scalars.  It is not possible
@@ -79,7 +85,7 @@ to contain an array or a list in an array.
     $hash{comedians} = @stooges;
     # Assigns the length of @stooges to the value
 
-If you want to store an array in a hash, you'll need to use L<references>.
+If you want to store an array in a hash, you'll need to use references.
 
 =head2 Hashes are unordered
 
@@ -92,6 +98,17 @@ to the order in which things were added.
 The idea of "sorting a hash" does not exist in Perl, because hashes
 are unordered.  You can sort the keys of a hash, or the values of
 a hash, as they are just lists.
+
+=head2 Combine hashes with list assignment
+
+To combine two hashes, look at them as lists and assign them to a hash.
+
+    my %new_hash = (%hash1, %hash2);
+
+The right-hand side of the equals is a long list of key/value pairs
+from both of the hashes.  The list is then assigned to C<%new_hash>.
+If any keys in C<%hash2> duplicate keys in C<%hash1>, the C<%hash2>
+key/value pair take priority because they're assigned later.
 
 =head2 When to use hash, when to use array
 
