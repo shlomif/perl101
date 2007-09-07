@@ -14,6 +14,7 @@ crank:
 	rsync -azu --delete \
 		--exclude=.svn --exclude='*~' \
 		s/ 101/s/
+	cp s/*.ico 101/
 
 clean:
 	rm -fr 101/
