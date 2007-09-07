@@ -1,24 +1,5 @@
 =head1 Constructs
 
-=head2 Heredocs
-
-=over
-
-=item * Allows unbroken text until the next marker
-
-=item * Interpolated unless marker is in single quotes
-
-=back
-
-    my $page = <<HERE;
-    <html>
-        <head><title>$title</title></head>
-        <body>This is a page.</body>
-    </html>
-    HERE
-
-XXX Discuss dangers of heredocs.
-
 =head2 C-style loops are usually unnecessary
 
 =over

@@ -90,3 +90,29 @@ becomes C<"abd">.
 
 Note that you must use the C<++> operator.  In the other two cases
 above, the string C<"abc"> is converted to C<0> and then incremented.
+
+=head2 Create long strings with the C<''> operators
+
+You can create long strings with 
+
+=head2 Create long strings with heredocs
+
+Heredocs are 
+
+=over
+
+=item * Allows unbroken text until the next marker
+
+=item * Interpolated unless marker is in single quotes
+
+=back
+
+    my $page = <<HERE;
+    <html>
+        <head><title>$title</title></head>
+        <body>This is a page.</body>
+    </html>
+    HERE
+
+XXX Discuss dangers of heredocs.
+
