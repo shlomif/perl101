@@ -36,6 +36,10 @@ a web page, use C<WWW::Mechanize> which handles it for you.
 
 =head2 How do I parse XML?
 
+See the list of Recommended XML Modules at the Perl 5 wiki.
+
+L<http://www.perlfoundation.org/perl5/index.cgi?recommended_xml_modules>
+
 =head2 How do I know if a URL is valid?
 
 =head2 How do I do screen access?
