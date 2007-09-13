@@ -63,9 +63,12 @@ You can pass any anything to a subroutine that you want.
     my $n = square( 'Dog food', 14.5, 'Blah blah blah' );
 
 Only the first argument is used by the function.  For that matter,
-you can do this:
+you can call the function with any number of arguments, even no
+arguments:
 
     my $n = square();
+
+and Perl won't complain.
 
 The module M<Params::Validate> solves many of these validation
 problems.
