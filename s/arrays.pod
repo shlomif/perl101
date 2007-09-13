@@ -183,7 +183,7 @@ if you don't care about C<@array>.
 =head2 Select items out of an array with C<grep>
 
 C<grep> is essentially a foreach loop that returns a list, but
-unlike C<grep>, will only return elements that cause the condition
+unlike C<map>, will only return elements that cause the condition
 to return true.
 
     my @array = ( 0, 1, 2, 3, 4, 5 );
