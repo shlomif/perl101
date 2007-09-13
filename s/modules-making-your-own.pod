@@ -1,5 +1,11 @@
 =head1 Modules: Making your own
 
+=head2 Read about CPAN modules
+
+The definitive book, even though it's a few years old, is Sam
+Tregar's I<Writing Perl Modules For CPAN>.  It's available for free
+download at L<http://apress.com/book/free>.
+
 =head2 Create new modules with Module::Starter
 
 Module::Starter and its command-line tool F<module-starter> creates
