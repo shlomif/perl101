@@ -41,24 +41,24 @@ effectively random.
 
 Get hash values with squiggly braces instead of square braces.
 
-    print $stooge{'Iggy'};
+    print $stooges{'Iggy'};
     # Prints "Pop"
 
 Set values that way, too.
 
-    $stooge{'Shemp'} = 'Howard';
+    $stooges{'Shemp'} = 'Howard';
 
 Overwrite existing values:
 
-    $stooge{'Iggy'} = 'Ignatowski';
+    $stooges{'Iggy'} = 'Ignatowski';
 
 Delete an entry from the hash:
 
-    delete $stooge{'Curly'};
+    delete $stooges{'Curly'};
 
 Note that C<delete> does not delete a file.  C<unlink> does that.
 
-    unlink $stooge{'Moe'};
+    unlink $stooges{'Moe'};
     # Deletes a file called 'Howard';
 
 =head2 Get the keys/values of a hash
@@ -75,7 +75,7 @@ The order of the keys and values are guaranteed to match up to each other.
 
 If your hash key is a single word, you don't need quotes around it.
 
-    $stooge{Curly} = 'Howard';
+    $stooges{Curly} = 'Howard';
 
 =head2 Hashes can only contain scalars
 
@@ -132,6 +132,8 @@ If you have a bag of things, unordered, that you want to look up, use a hash.
 
 =back
 
-=head1 To add
+=head1 To add (patches welcome!)
 
 =head2 Access hash slices
+
+=head2 Using exists & defined
