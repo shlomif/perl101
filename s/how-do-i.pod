@@ -46,6 +46,26 @@ L<http://www.perlfoundation.org/perl5/index.cgi?recommended_xml_modules>
 
 =head2 How do I do colors?
 
-=head2 How do I do readkey?
+Use Term::ANSIColor.  Example wanted.
 
-=head2 How do I do passwords?
+=head2 How do I do readkey?  How do I enter passwords without seeing them entered?
+
+Use Term::ReadKey (L<http://search.cpan.org/dist/TermReadKey>).
+It's a standard core module.
+
+    use Term::ReadKey;
+
+    ReadMode('noecho');
+    my $passwd;
+    my $pwcheck;
+
+    print 'password: ';
+    chomp($passwd = <STDIN>);
+    print "\n";
+
+    print 'verify: ';
+    chomp($pwcheck = <STDIN>);
+    print "\n";
+    ReadMode('normal');
+
+    print "You entered [$passwd] and [$pwcheck]\n";
