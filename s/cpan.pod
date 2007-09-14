@@ -11,6 +11,12 @@ It stands for Comprehensive Perl Archive Network.
 L<http://search.cpan.org> is the standard front-end to search the
 CPAN.  It also includes links to most of the rest of these sites.
 
+=head2 Use the alternate search at kobesearch.cpan.org
+
+There's a different interface to search.cpan.org at kobesearch.cpan.org.
+It's maintained by Randy Kobes and has some different features and
+a prettier look.
+
 =head2 Find opinions about modules at cpanratings.perl.org
 
 L<http://cpanratings.perl.org> lets you rate and comment on modules
