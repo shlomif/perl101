@@ -134,6 +134,8 @@ If you have a bag of things, unordered, that you want to look up, use a hash.
 
 =head1 To add (patches welcome!)
 
+=head2 defined and exists and the difference
+
 =head2 Access hash slices
 
 =head2 Using exists & defined
