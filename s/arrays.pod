@@ -22,12 +22,13 @@ The single element of C<@array> is '$100,000'.
 
 =head2 Access arrays with numeric values
 
-To get a single scalar out of an array, access it with the C<[]>
-and a C<$> sigil.  All arrays in Perl start at 0.
+To get a single scalar out of an array, access it with the C<[]> and a
+C<$> sigil.  All arrays in Perl start at 0.
 
     $stooges[1] # Curly
 
-Arrays can also be accessed from the end by using negative offsets from the end.
+Arrays can also be accessed from the end by using negative offsets from
+the end.
 
     $stooges[-1] # Iggy
 
@@ -45,7 +46,8 @@ Some people like to explicitly use C<scalar>.  Some don't.
     my $stooge_count = @stooges;        # 4
 
 
-Don't take the length of an array with C<length>.  That gives the length of a string.
+Don't take the length of an array with C<length>.  That gives the length
+of a string.
 
     my $moe_length = length $stooges[@stooges/2];
                      length $stooges[2];
@@ -74,20 +76,21 @@ Unlike PHP, arrays flatten into one big list when combined:
     my @ingredients = ( @other_sandwich, @sandwich );
     # ( 'B', 'L', 'T', 'PB', 'J' )
 
-This means you can't have an array "contain" another array, or a
-hash.  To do that, you need references.
+This means you can't have an array "contain" another array, or a hash.
+To do that, you need references L<http://perl101.org/references.html>.
 
 =head2 Lists can have extra commas
 
 One of the greatest features of Perl is the ability to have an extra
-comma at the end of a list.
+comma at the end of a list. For example:
 
     my @array = (
         'This thing',
         'That thing',
     );
 
-Then when you add another thing
+This makes adding or deleting items super easy when you edit your code,
+since you don't have to treat the last as a special case:
 
     my @array = (
         'This thing',
@@ -151,9 +154,36 @@ Note that the left and right slices must be of the same size.  Any
 missing values on the right side of the equals sign will be replaced
 with undef.
 
-=head2 splice XXX
+=head2 Modify arrays in-place with C<splice>
 
-Explain splice XXX
+C<splice> lets you splice arrays into other arrays. Let's look at a few
+common ways of doing it wrong that should illustrate its usefulness:
+
+    my @a = qw(Steve Stu Stan);
+    $a[1] = ['Stewart', 'Zane'];
+    # @a = ('Steve', ARRAY(0x841214c), 'Stan') 
+    # Memory address to an array reference
+
+    my @a = qw(Steve Stu Stan);
+    my @b = qw(Stewart Zane);
+    $a[1] = @b;
+    # @a = ('Steve', 2, 'Stan') 
+    # Returns a scalar reference, the length of @b
+
+Now let's use C<splice>:
+
+    @a = qw(Steve Stu Stan);
+    splice @a, 1, 1, 'Stewart', 'Zane';
+    # @a = ('Steve', 'Stewart', 'Zane', 'Stan') 
+    # This is just what we wanted
+
+Let's break down the argument list for C<splice>: first, we name the
+array we're operating on (C<@a>); second, we define the offset (how far
+into the list we want the splice to start); third, we specify the length
+of the splice (how far forward from the offset we'll be deleting to make
+room for the new list); finally, we list the items we want inserted.
+
+If all else fails, C<perldoc -f splice>. 
 
 =head2 Process arrays easily with C<map>
 
@@ -168,7 +198,7 @@ You can use it to convert an array into a hash:
 or to transform a list:
 
     my @array = ( 'ReD', 'bLue', 'GrEEN' );
-    my @fixed_array = map(ucfirst, map(lc, @array));
+    my @fixed_array = map(ucfirst, map(lc, @array)); # note the nested 'map' functions
     # @fixed_array = ( 'Red', 'Blue', 'Green' )
 
 Watch out, though: If you modify C<$_>, you will modify the
@@ -178,12 +208,10 @@ source data.  This means the above might be changed to:
     map { $_ = ucfirst lc $_ } @array;
     # @array = ( 'Red', 'Blue', 'Green' )
 
-if you don't care about C<@array>.
-
 =head2 Select items out of an array with C<grep>
 
 C<grep> is essentially a foreach loop that returns a list, but
-unlike C<map>, will only return elements that cause the condition
+unlike C<map>, it will only return elements that cause the condition
 to return true.
 
     my @array = ( 0, 1, 2, 3, 4, 5 );
@@ -197,4 +225,20 @@ It will modify the source data the same way as C<map>, however:
     # @array = ( 0, 9, 18, 27, 36, 45 );
     # @new_array = ( 9, 18, 27, 36, 45 );
 
-XXX Put an example about regexes
+We can also pass regular expressions into C<grep>; in this example,
+we want only people with the surname 'Doe' put into our new array:
+
+    my @people = (
+        'John Doe',
+        'Jane Doe',
+        'Joe Sixpack',
+        'John Q. Public',
+    );
+
+    my @does = grep { $_ =~ /\bDoe$/ } @people;
+    # @does = ('John Doe', 'Jane Doe');
+
+or even shorter
+
+    my @does = grep { /\bDoe$/ } @people;
+
