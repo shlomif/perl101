@@ -2,10 +2,11 @@
 
 =head2 Hashes are key/value pairs
 
-If you can look it up by name, you want a hash.  The keys to a hash
-must be unique, but the values can be any scalar.
+If you can look it up by name, you want a hash.  The keys to a hash must
+be unique, but the values can be any scalar.
 
-They used to be called "associative arrays", but don't think of them as arrays.
+Sometimes you'll still see people call them "associative arrays", but
+don't think of them as arrays.
 
 =head2 Create hashes as lists of key/value pairs
 
@@ -134,7 +135,36 @@ If you have a bag of things, unordered, that you want to look up, use a hash.
 
 =head1 To add (patches welcome!)
 
-=head2 defined and exists and the difference
+=head2 The difference between C<defined> and C<exists>
+
+Use C<defined> to see whether a hash element has a value other than
+C<undef>. It will return true if the hash element has any value other
+than C<undef>, even 0 and "" (the empty string), which evaluate to false.
+
+Use C<exists> to see whether a hash element has ever been initialized,
+even if it is not defined (i.e., it has the value 'undef').
+
+    my %h;
+    $h{'foo'} = undef;
+
+    defined $h{'foo'} ? print 1 : print 0;
+    # $h{'foo'} is not defined, so it prints 0
+    exists $h{'foo'} ? print 1 : print 0;
+    # but it has been initialized nonetheless, and so this line prints 1
+
+A hash element can be true only if it's defined.  It can be defined only
+if it exists.
+
+However, a hash element can exist without being defined.  This means it
+will not return true even though it exists.
+
+    if ( $h{'foo'} ) {
+        print 'true';
+    }
+    else {
+        print 'false';
+    }
+    # prints 'false'; since $h{'foo'} is not defined, it cannot be true
 
 =head2 Access hash slices
 
