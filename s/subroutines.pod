@@ -41,7 +41,7 @@ The arguments passed to a subroutine are aliases to the real arguments.
     print "$foo\n"; # prints 3
 
     sub incr1 {
-        return $[0]+1;
+        return $_[0]+1;
     }
 
 This can be good if you want it to be:
