@@ -2,24 +2,24 @@
 	crank \
 	clean
 
+BUILD=build
+SOURCE=s
+
+BUILDSYNC=rsync -azu --delete --exclude=.git --exclude='*~'
+
 default: crank
 
 crank:
-	rm -fr 101/*.html
-	mkdir 101/ || true > /dev/null 2>&1
-	perl crank 101.pod
-	rsync -azu --delete \
-		--exclude=.svn --exclude='*~' \
-		static/ 101/static/
-	rsync -azu --delete \
-		--exclude=.svn --exclude='*~' \
-		s/ 101/s/
-	cp s/*.ico 101/
+	rm -fr $(BUILD)/*.html
+	mkdir -p $(BUILD)/ || true > /dev/null 2>&1
+	perl crank --podpath=$(SOURCE) --buildpath=$(BUILD)
+	$(BUILDSYNC) static/ $(BUILD)/static/
+	cp $(SOURCE)/*.ico $(BUILD)/
 
 clean:
-	rm -fr 101/
+	rm -fr $(BUILD)
 
 # This is only useful for Andy
 rsync:
-	rsync -azu -e ssh --delete \
-	    101/ petdance@midhae.pair.com:~/p/
+	rsync -azu -e ssh --delete --verbose \
+	    $(BUILD)/ andy@huggy.petdance.com:/srv/p101
