@@ -18,7 +18,7 @@ to this site, drop Andy Lester a note at andy [at] perl.org.
 Thanks to the following folks for their contributions:
 Drew Stephens,
 Usman Jan,
-Adam Sj&oslash;gren,
+Adam SjE<oslash>gren,
 Jeremiah Foster,
 Ben Hengst,
 Amanda with no last name,
