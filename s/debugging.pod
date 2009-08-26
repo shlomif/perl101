@@ -2,18 +2,77 @@
 
 =head2 Turn on C<strict> and C<warnings>
 
-The very first thing you must always check when debugging your code
-is whether the C<strict> and C<warnings> pragmata are turned on.
-Make sure you have
+Whenever debugging code, make sure the C<strict> and C<warnings>
+pragmata are turned on.
+
+Put these two lines
 
     use strict;
     use warnings;
 
 at the top of any program you're trying to debug, or may want to
-debug in the future.  That really means every program ever, no?
+debug in the future.  (If you think about it, that's every program
+ever, isn't it?)
 
-See L<http://www.perlmonks.org/?node_id=482733> for another story
-of C<strict> and C<warnings>.
+The L<http://perldoc.perl.org/strict.html> strict pragma forces you
+to use a number of features that allow Perl to find errors during
+compile time.  First and foremost, under C<strict>, variables must
+be declared before they are used; in most cases, this means using
+C<my>:
+
+    use strict;
+    my $foo = 7;                # OK, normal variable
+    print "foo is $fooo\n";     # Perl complains and aborts compilation
+
+Without C<strict>, Perl would happily run the above programming,
+and you would be sad, wondering why C<$foo> didn't have a value.
+Enabling strictures can save a lot of headache induced by typos.
+
+Additionally, C<strict> disallows the use of most barewords:
+
+    no strict;
+    $foo = Lorem;
+    print "$foo\n";         # Prints "Lorem"
+
+    use strict;
+    my $foo = ipsum;        # Complains about bareword
+    $foo = (
+        Lorem   => 'ipsum'  # OK, barewords allowed on left of =>
+    );
+
+    $SIG{PIPE} = handler;   # Complains
+    $SIG{PIPE} = \&handler; # OK
+    $SIG{PIPE} = "handler"; # Also, OK, but above is preferred
+
+Finally, enabling C<strict> throws a runtime error if you use
+L<http://perldoc.perl.org/perlref.html#Symbolic-references> symbolic
+references:
+
+    no strict;
+    $name = "foo";
+    $$name = "bar";             # Sets the variable $foo to 1
+    print "$name $$name\n";     # Prints "foo bar"
+
+    use strict;
+    my $name = "foo";
+    $$name = "bar";             # Complains: can't use "foo" as ref
+
+The C<warnings> pragma enables a whole host of useful complaints from
+Perl, letting you know about things in your program that you most likely
+didn't intend:
+
+    use warnings;
+    my $foo = ;
+    $foo += 3;
+    my $foo = 1;            # Compains: redeclaration of variable
+
+    my $bar = '12fred34';
+    my $baz = $bar + 1;     # Complains: Argument "12fred34" isn't numeric
+                            # Complains: Name "main::baz" used only once
+
+See the strict documentation L<strict> and L<warnings> for futher
+information.  For some horror stories about leaving out L<strict>,
+see L<http://www.perlmonks.org/?node_id=482733>.
 
 =head2 Check the return of every C<open>
 
