@@ -4,8 +4,7 @@ If we can improve perl101.org in any way, please let us know with this form.
 <p>
 </p>
 <form method="post" action="/cgi-sys/formmail.pl" enctype="application/x-www-form-urlencoded">
-    <input name="subject" value="p101: [% htmlfile %]" type="hidden">
-    <input name="recipient" value="andy@petdance.com" type="hidden" />
+    <input name="subject" value="p101: [% htmlfile %]" type="hidden" />
 
     <input name="return_link_url" value="http://perl101.org/[% htmlfile %]" type="hidden" />
     <input name="return_link_title" value="Return to Perl 101" type="hidden" />
@@ -25,7 +24,7 @@ If we can improve perl101.org in any way, please let us know with this form.
                 <td>
                     <textarea name="text" rows="10" cols="50"></textarea>
                     <br />
-                    <input name=".submit" value="Send" type="submit">
+                    <input name=".submit" value="Send" type="submit" />
                 </td>
             </tr>
         </tbody>
