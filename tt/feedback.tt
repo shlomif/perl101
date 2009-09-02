@@ -25,7 +25,7 @@ If we can improve perl101.org in any way, please let us know with this form.
                     <td>
                         <textarea name="text" rows="10" cols="50"></textarea>
                         <br />
-                        <input name=".submit" value="Send" type="submit" onsubmit="send_mail(); return false;" />
+                        <input name=".submit" value="Send" type="submit" onclick="send_mail(); return false;" />
                     </td>
                 </tr>
             </tbody>
