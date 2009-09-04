@@ -1,0 +1,6 @@
+[% IF error %]
+    Sorry, we had an error processing your form.<br/>
+    [% error %]
+[% ELSE %]
+    Thank you for your feedback!
+[% END %]
