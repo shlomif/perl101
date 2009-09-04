@@ -15,6 +15,43 @@
             type="text/css"
             media="handheld"
             href="static/theme/handheld.css" />
+        <script type="text/javascript" src="/static/js/jemplate.js"></script>
+        <script type="text/javascript" src="/static/js/jmpls.js"></script>
+        <script type="text/javascript">
+            function send_mail() {
+                var subject           = document.getElementById('subject').value;
+                var realname          = document.getElementById('realname').value;
+                var email             = document.getElementById('email').value;
+                var text              = document.getElementById('text').value;
+                var return_link_url   = document.getElementById('return_link_url').value;
+                var return_link_title = document.getElementById('return_link_title').value;
+
+                if ( email == "" ) {
+                    alert('Name is mandatory');
+                    return false;
+                }
+
+                if ( realname == "" ) {
+                    alert('Name is mandatory');
+                    return false;
+                }
+
+                if ( text == "" ) {
+                    alert('Text is mandatory');
+                    return false;
+                }
+
+                var href = '/formmail.pl?subject=' + subject         +
+                           '&realname='            + realname        +
+                           '&email='               + email           +
+                           '&text='                + text            +
+                           '&return_link_url='     + return_link_url +
+                           '&return_link_title='   + return_link_title;
+
+                var json = Jemplate.Ajax.get(href);
+                var res = Jemplate.process('show.tt', json);
+            }
+        </script>
     </head>
     <body>
         <div id="container">
