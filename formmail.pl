@@ -7,6 +7,7 @@ use strict;
 use warnings;
 
 use CGI; # or CGI::Simple ?
+use JSON::XS;
 use Email::Stuff;
 
 sub error {
