@@ -17,7 +17,9 @@ GetOptions(
     'buildpath:s' => \$buildpath,
 ) or exit;
 
--d $buildpath && -w $buildpath or die;
+if ( ! -d $buildpath || ! -w $buildpath ) {
+    die "Buildpath ($buildpath) doesn't exist or is not writable";
+}
 
 my %defaults = (
     INCLUDE_PATH => [ qw( tt ) ],
