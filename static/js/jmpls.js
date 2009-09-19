@@ -17,10 +17,10 @@ Jemplate.templateMap['show.tt'] = function(context) {
     try {
 //line 6 "show.tt"
 if (stash.get('error')) {
-output += '\n    Sorry, we had an error processing your form.<br/>\n    ';
+output += '\n    Sorry, we had an error processing your form:<br/>\n    <div style="color: red">';
 //line 3 "show.tt"
 output += stash.get('error');
-output += '\n';
+output += '</div>\n';
 }
 else {
 output += '\n    Thank you for your feedback!\n';

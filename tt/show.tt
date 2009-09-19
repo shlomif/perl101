@@ -1,6 +1,6 @@
 [% IF error %]
-    Sorry, we had an error processing your form.<br/>
-    [% error %]
+    Sorry, we had an error processing your form:<br/>
+    <div style="color: red">[% error %]</div>
 [% ELSE %]
     Thank you for your feedback!
 [% END %]
