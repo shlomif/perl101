@@ -1,8 +1,5 @@
 #!/usr/bin/perl
 
-# TODO:
-#   - use Jemplate
-
 use strict;
 use warnings;
 
@@ -11,18 +8,20 @@ use JSON::XS;
 use Email::Stuff;
 
 sub error {
-    my $cgi = shift;
+    my $error_msg = shift;
 
     # we don't really need those since we're updating the page with Jemplate
     #my $return_link_url   = $cgi->param('return_link_url')   || q{};
     #my $return_link_title = $cgi->param('return_link_title') || q{};
 
+    print encode_json { error => $error_msg }; 
+
+    exit 0;
 }
 
 my $cgi = CGI->new();
 
-# make sure the form was submitted
-$cgi->param('submit') || error($cgi);
+print $cgi->header( -charset => 'UTF-8' );
 
 my $subject   = $cgi->param('subject')  || q{};
 my $name      = $cgi->param('realname') || q{};
@@ -33,7 +32,7 @@ my $from      = qq{$name <$email>};
 
 if ( !$name || !$text ) {
     # a name and text are essential
-    error($cgi);
+    error('Missing name or text');
 }
 
 Email::Stuff->from($from)
@@ -41,4 +40,6 @@ Email::Stuff->from($from)
             ->text_body($text)
             ->subject($subject)
             ->send;
+
+print encode_json { success => 'imminent' };
 
