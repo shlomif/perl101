@@ -25,7 +25,7 @@ if (typeof Jemplate == 'undefined') {
 Jemplate.VERSION = '0.22';
 
 Jemplate.process = function() {
-    var jemplate = new Jemplate(Jemplate.prototype.config);
+    var jemplate = new Jemplate();
     return jemplate.process.apply(jemplate, arguments);
 }
 
@@ -36,83 +36,38 @@ if (! Jemplate.templateMap)
 
 var proto = Jemplate.prototype = {};
 
-proto.config = {
-    AUTO_RESET: true,
-    BLOCKS: {},
-    CONTEXT: null,
-    DEBUG_UNDEF: false,
-    DEFAULT: null,
-    ERROR: null,
-    EVAL_JAVASCRIPT: false,
-    GLOBAL : true,
-	SCOPE : this,
-    FILTERS: {},
-    INCLUDE_PATH: [''],
-    INTERPOLATE: false,
-    OUTPUT: null,
-    PLUGINS: {},
-    POST_PROCESS: [],
-    PRE_PROCESS: [],
-    PROCESS: null,
-    RECURSION: false,
-    STASH: null,
-    TOLERANT: null,
-    VARIABLES: {},
-    WRAPPER: []
-};
-
-proto.defaults = {
-    AUTO_RESET: true,
-    BLOCKS: {},
-    CONTEXT: null,
-    DEBUG_UNDEF: false,
-    DEFAULT: null,
-    ERROR: null,
-    EVAL_JAVASCRIPT: false,
-    GLOBAL : true,
-	SCOPE : this,
-    INCLUDE_PATH: [''],
-    INTERPOLATE: false,
-    OUTPUT: null,
-    PLUGINS: {},
-    POST_PROCESS: [],
-    PRE_PROCESS: [],
-    PROCESS: null,
-    RECURSION: false,
-    STASH: null,
-    TOLERANT: null,
-    VARIABLES: {},
-    WRAPPER: []
-};
-
-
-Jemplate.init = function(config) {
- 
-    Jemplate.prototype.config = config || {};
-    
-    for (var i in Jemplate.prototype.defaults) {
-        if(typeof Jemplate.prototype.config[i] == "undefined") {
-            Jemplate.prototype.config[i] = Jemplate.prototype.defaults[i];
-        }
-    }
-}
-
 proto.init = function(config) {
-    
-    this.config = config || {};
-    
-    for (var i in Jemplate.prototype.defaults) {
-        if(typeof this.config[i] == "undefined") {
-            this.config[i] = Jemplate.prototype.defaults[i];
-        }
-    }
+    this.config = config ||
+    {
+        AUTO_RESET: true,
+        BLOCKS: {},
+        CONTEXT: null,
+        DEBUG_UNDEF: false,
+        DEFAULT: null,
+        ERROR: null,
+        EVAL_JAVASCRIPT: false,
+        FILTERS: {},
+        INCLUDE_PATH: [''],
+        INTERPOLATE: false,
+        OUTPUT: null,
+        PLUGINS: {},
+        POST_PROCESS: [],
+        PRE_PROCESS: [],
+        PROCESS: null,
+        RECURSION: false,
+        STASH: null,
+        TOLERANT: null,
+        VARIABLES: {},
+        WRAPPER: []
+    };
 }
 
 proto.process = function(template, data, output) {
     var context = this.config.CONTEXT || new Jemplate.Context();
     context.config = this.config;
 
-    context.stash = new Jemplate.Stash(this.config.STASH, this.config);
+    context.stash = this.config.STASH || new Jemplate.Stash();
+    context.stash.__config__ = this.config;
 
     context.__filter__ = new Jemplate.Filter();
     context.__filter__.config = this.config;
@@ -124,17 +79,7 @@ proto.process = function(template, data, output) {
 
     var proc = function(input) {
         try {
-            if (typeof context.config.PRE_PROCESS == 'string') context.config.PRE_PROCESS = [context.config.PRE_PROCESS];                
-            for (var i = 0; i < context.config.PRE_PROCESS.length; i++) {
-                context.process(context.config.PRE_PROCESS[i]);
-            }
-            
             result = context.process(template, input);
-            
-            if (typeof context.config.POST_PROCESS == 'string') context.config.PRE_PROCESS = [context.config.POST_PROCESS];
-            for (i = 0; i < context.config.POST_PROCESS.length; i++) {
-                context.process(context.config.POST_PROCESS[i]);
-            }
         }
         catch(e) {
             if (! String(e).match(/Jemplate\.STOP\n/))
@@ -216,8 +161,7 @@ proto.plugin = function(name, args) {
         throw "Unknown plugin name ':" + name + "'";
 
     // The Context object (this) is passed as the first argument to the plugin.
-	var func = eval(name);
-    return new func(this, args);
+    return new window[name](this, args);
 }
 
 proto.filter = function(text, name, args) {
@@ -371,16 +315,8 @@ proto.filters.replace = function(text, args) {
 // Jemplate.Stash class
 //------------------------------------------------------------------------------
 if (typeof Jemplate.Stash == 'undefined') {
-    Jemplate.Stash = function(stash, config) {
-        this.__config__ = config;
-		
-		this.data = {
-			GLOBAL : this.__config__.SCOPE			
-		};
-		this.LOCAL_ANCHOR = {};
-		this.data.LOCAL = this.LOCAL_ANCHOR;
-		
-		this.update(stash);
+    Jemplate.Stash = function() {
+        this.data = {};
     };
 }
 
@@ -388,10 +324,7 @@ proto = Jemplate.Stash.prototype;
 
 proto.clone = function(args) {
     var data = this.data;
-    this.data = {
-		GLOBAL : this.__config__.SCOPE
-	};
-	this.data.LOCAL = this.LOCAL_ANCHOR;
+    this.data = {};
     this.update(data);
     this.update(args);
     this.data._PARENT = data;
@@ -404,275 +337,87 @@ proto.declone = function(args) {
 proto.update = function(args) {
     if (typeof args == 'undefined') return;
     for (var key in args) {
-        if (key != 'GLOBAL' && key != 'LOCAL') {
-	        this.set(key, args[key]);
-		}
+        var value = args[key];
+        this.set(key, value);
     }
 }
 
-proto.get = function(ident, args) {
+proto.get = function(key) {
     var root = this.data;
-    
-    var value;
-    
-    if ( (ident instanceof Array) || (typeof ident == 'string' && /\./.test(ident) ) ) {
-        
-        if (typeof ident == 'string') {
-            ident = ident.split('.');
-            var newIdent = [];
-            for (var i = 0; i < ident.length; i++) {
-                newIdent.push(ident.replace(/\(.*$/,''));
-                newIdent.push(0);
-            }
-            ident = newIdent;
-        }
-        
-        for (var i = 0; i < ident.length; i += 2) {
-            var dotopArgs = ident.slice(i, i+2);
-            dotopArgs.unshift(root);
-            value = this._dotop.apply(this, dotopArgs);
+    if (key instanceof Array) {
+        for (var i = 0; i < key.length; i += 2) {
+            var args = key.slice(i, i+2);
+            args.unshift(root);
+            value = this._dotop.apply(this, args);
             if (typeof value == 'undefined')
                 break;
             root = value;
         }
     }
     else {
-        value = this._dotop(root, ident, args);
+        value = this._dotop(root, key);
     }
 
-    if (typeof value == 'undefined' || value == null) {
+    if (typeof value == 'undefined') {
         if (this.__config__.DEBUG_UNDEF)
-            throw("undefined value found while using DEBUG_UNDEF");
+            throw("undefined value found while using DEGUG_UNDEF");
         value = '';
     }
 
     return value;
 }
 
-
-
-proto.set = function(ident, value, set_default) {
-    
-    var root, result, error;
-    
-    root = this.data;
-    
-    while (true) {
-        if ( (ident instanceof Array) || (typeof ident == 'string' && /\./.test(ident) ) ) {
-            
-            if (typeof ident == 'string') {
-                ident = ident.split('.');
-                var newIdent = [];
-                for (var i = 0; i < ident.length; i++) {
-                    newIdent.push(ident.replace(/\(.*$/,''));
-                    newIdent.push(0);
-                }
-                ident = newIdent;
-            }
-            
-            for (var i = 0; i < ident.length - 2; i += 2) {
-                var dotopArgs = ident.slice(i, i+2);
-                dotopArgs.unshift(root);
-                dotopArgs.push(1);
-                result = this._dotop.apply(this, dotopArgs);
-                if (typeof value == 'undefined')
-                    break;
-                root = result;
-            }
-            
-            var assignArgs = ident.slice(ident.length-2, ident.length);
-            assignArgs.unshift(root);
-            assignArgs.push(value);
-            assignArgs.push(set_default);
-            
-            
-            result = this._assign.apply(this, assignArgs);
-        } else {
-            result = this._assign(root, ident, 0, value, set_default);
-        }
-        break;
+proto.set = function(key, value, set_default) {
+    if (key instanceof Array) {
+        var data = this.get(key[0]) || {};
+        key = key[2];
     }
-    
-    return (typeof result != 'undefined') ? result : '';
+    else {
+        data = this.data;
+    }
+    if (! (set_default && (typeof data[key] != 'undefined')))
+        data[key] = value;
 }
 
-
-
-proto._dotop = function(root, item, args, lvalue) {    
-    if (root == this.LOCAL_ANCHOR) root = this.data;
-	var atroot = root == this.data;
-    
-    var value,result = undefined;
-    
-   	var is_function_call = args instanceof Array;
-   	
-   	args = args || [];
-    
-    if (typeof root == 'undefined' || typeof item == 'undefined' || typeof item == 'string' && item.match(/^[\._]/)) {
+proto._dotop = function(root, item, args) {
+    if (typeof item == 'undefined' ||
+        typeof item == 'string' && item.match(/^[\._]/)) {
         return undefined;
     }
 
-
-    //root is complex object, not scalar
-    if (atroot || (root instanceof Object && !(root instanceof Array)) || root == this.data.GLOBAL) {
-        
-		if (typeof root[item] != 'undefined' && root[item] != null && (!is_function_call || !this.hash_functions[item])) { //consider undefined == null
-            if (typeof root[item] == 'function') {
-                result = root[item].apply(root,args);
-            } else {
-                return root[item];
-            }
-        } /*
-        	//this section was for automatic global scope access
-        	else if (atroot && typeof this.data.GLOBAL[item] != 'undefined' && this.__config__.GLOBAL && item != 'LOCAL' ) {
-            
-            if (typeof this.data.GLOBAL[item] == 'function' ) {
-                result = this.data.GLOBAL[item].apply(root,args);
-            } else {
-                return this.data.GLOBAL[item];
-            }
-        }*/ else if (lvalue) {
-            return root[item] = {};
-        } else if (this.hash_functions[item] && !atroot || item == 'import') {
-            args.unshift(root);
-            result = this.hash_functions[item].apply(this,args);
-        } else if (item instanceof Array) {
-            result = {};
-            
-            for (var i = 0; i < item.length; i++) result[item[i]] = root[item[i]];
-            return result;
-        }
-    } else if (root instanceof Array) {
-        if (this.list_functions[item]) {
-            args.unshift(root);
-            result = this.list_functions[item].apply(this,args);
-        } else if (typeof item == 'string' && /^-?\d+$/.test(item) || typeof item == 'number' ) {
-            if (typeof root[item] != 'function') return root[item];
-            result = root[item].apply(this, args);
-        } else if (item instanceof Array) {
-            for (var i = 0; i < item.length; i++) result.push(root[item[i]]);
-            return result;
-        }
-    } /*else if ( (root.constructor != Object) && (root instanceof Object) ) {
-        //this section was proposed for calling method on blessed reference in Perl
-		//not sure how well it is playing with javascript
-		try {
-            result = root[item].apply(root,args);
-        } catch (e) {
-            var my_class = root.constructor.name;
-            
-            if (false) throw "Cant locate method"; 
-            
-            if (root instanceof Array) {
-                if (this.list_functions[item]) {
-                    args.unshift(root);
-                    result = this.list_functions[item].apply(this,args);
-                } else if (typeof item == 'string' && /^-?\d+$/.test(item) || typeof item == 'number' ) {
-                    if (typeof root[item] != 'function') return root[item];
-                    result = root[item].apply(this, args);
-                } else if (item instanceof Array) {
-                    for (var i = 0; i < item.length; i++) result.push(root[item[i]]);
-                    return result;
-                }
-            } else if (typeof root == 'object') {
-                if (typeof root[item] != 'undefined' && root[item] != null) {//consider undefined == null
-                    if (typeof root[item] == 'function') {
-                        result = root[item].apply(this,args);
-                    } else {
-                        return root[item];
-                    }
-                } else if (this.hash_functions[item]) {
-                    args.unshift(root);
-                    result = this.hash_functions[item].apply(this,args);
-                } 
-            } else if (this.string_functions[item]) {
-                args.unshift(root);
-                result = this.string_functions[item].apply(this, args);
-            } else if (this.list_functions[item]) {
-                args.unshift([root]);
-                result = this.list_functions[item].apply(this,args);
-            } 
-            
-        }
-    }*/ else if (this.string_functions[item] && !lvalue) {
-        args.unshift(root);
-        result = this.string_functions[item].apply(this, args);
-    } else if (this.list_functions[item] && !lvalue) {
-        args.unshift([root]);
-        result = this.list_functions[item].apply(this,args);
-    } else {
-        result = undefined;
+    if ((! args) &&
+        (typeof root == 'object') &&
+        (!(root instanceof Array) || (typeof item == 'number')) &&
+        (typeof root[item] != 'undefined')) {
+        var value = root[item];
+        if (typeof value == 'function')
+            value = value.apply(root);
+        return value;
     }
-    
-    
-    if (result instanceof Array) {
-		if (typeof result[0] == 'undefined' && typeof result[1] != 'undefined') {
-	        throw result[1];
-	    }
-	}
-    
-    return result;
 
-}
+    if (typeof root == 'string' && this.string_functions[item])
+        return this.string_functions[item](root, args);
+    if (root instanceof Array && this.list_functions[item])
+        return this.list_functions[item](root, args);
+    if (typeof root == 'object' && this.hash_functions[item])
+        return this.hash_functions[item](root, args);
+    if (typeof root[item] == 'function')
+        return root[item].apply(root, args);
 
-
-proto._assign = function(root, item, args, value, set_default) {
-    var atroot = root == this.data;
-    var result;
-    
-    args = args || [];
-    
-    if (typeof root == 'undefined' || typeof item == 'undefined' || typeof item == 'string' && item.match(/^[\._]/)) {
-        return undefined;
-    }
-    
-    if (atroot || root.constructor == Object || root == this.data.GLOBAL) {
-//this section was for automatic global scope access    	
-//		if (atroot && this.__config__.GLOBAL && typeof root[item] == 'undefined' && typeof this.data.GLOBAL[item] != 'undefined' && !set_default) { 
-//            return this.data.GLOBAL[item] = value;
-//        }
-		
-		if (root == this.LOCAL_ANCHOR) root = this.data;
-			 
-		if (!(set_default && typeof root[item] != 'undefined')) {
-            if (atroot && item == 'GLOBAL') throw "Attempt to modify GLOBAL access modifier"
-			if (atroot && item == 'LOCAL') throw "Attempt to modify LOCAL access modifier"
-			
-			return root[item] = value;
-        } 
-    } else if ((root instanceof Array) && (typeof item == 'string' && /^-?\d+$/.test(item) || typeof item == 'number' )) {
-        if (!(set_default && typeof root[item] != 'undefined')) {
-            return root[item] = value;
-        }
-    } else if ( (root.constructor != Object) && (root instanceof Object) ) {
-        try {
-            result = root[item].apply(root,args);
-        } catch (e) {
-        }
-    } else {
-        throw 'dont know how to assign to [' + root + '.' + item +']';
-    }
-    
     return undefined;
 }
 
-
 proto.string_functions = {};
 
-// typeof
-proto.string_functions['typeof'] = function(value) {
-    return typeof value;
-}
-
 // chunk(size)     negative size chunks from end
-proto.string_functions.chunk = function(string, size) {
-    //var size = args;
+proto.string_functions.chunk = function(string, args) {
+    var size = args[0];
     var list = new Array();
     if (! size)
         size = 1;
     if (size < 0) {
         size = 0 - size;
-        for (var i = string.length - size; i >= 0; i = i - size)
+        for (i = string.length - size; i >= 0; i = i - size)
             list.unshift(string.substr(i, size));
         if (string.length % size)
             list.unshift(string.substr(0, string.length % size));
@@ -704,15 +449,15 @@ proto.string_functions.list = function(string) {
 }
 
 // match(re)       get list of matches
-proto.string_functions.match = function(string, re, modifiers) {
-    var regexp = new RegExp(re, modifiers);
+proto.string_functions.match = function(string, args) {
+    var regexp = new RegExp(args[0], 'gm');
     var list = string.match(regexp);
     return list;
 }
 
 // repeat(n)       repeated n times
 proto.string_functions.repeat = function(string, args) {
-    var n = args || 1;
+    var n = args[0] || 1;
     var output = '';
     for (var i = 0; i < n; i++) {
         output += string;
@@ -720,17 +465,19 @@ proto.string_functions.repeat = function(string, args) {
     return output;
 }
 
-// replace(re, sub, global)    replace instances of re with sub
-proto.string_functions.replace = function(string, re, sub, modifiers) {
-    var regexp = new RegExp(re,modifiers);    
-    if (! sub) sub  = '';
-
-    return string.replace(regexp, sub);
+// replace(re, sub)    replace instances of re with sub
+proto.string_functions.replace = function(string, args) {
+    var regexp = new RegExp(args[0], 'gm');
+    var sub = args[1];
+    if (! sub)
+        sub  = '';
+    var output = string.replace(regexp, sub);
+    return output;
 }
 
 // search(re)      true if value matches re
-proto.string_functions.search = function(string, re) {
-    var regexp = new RegExp(re);
+proto.string_functions.search = function(string, args) {
+    var regexp = new RegExp(args[0]);
     return (string.search(regexp) >= 0) ? 1 : 0;
 }
 
@@ -740,8 +487,8 @@ proto.string_functions.size = function(string) {
 }
 
 // split(re)       split string on re
-proto.string_functions.split = function(string, re) {
-    var regexp = new RegExp(re);
+proto.string_functions.split = function(string, args) {
+    var regexp = new RegExp(args[0]);
     var list = string.split(regexp);
     return list;
 }
@@ -750,18 +497,8 @@ proto.string_functions.split = function(string, re) {
 
 proto.list_functions = {};
 
-// typeof
-proto.list_functions['typeof'] = function(list) {
-    return 'array';
-};
-
-
-proto.list_functions.list = function(list) {
-    return list;
-};
-
-proto.list_functions.join = function(list, str) {
-    return list.join(str);
+proto.list_functions.join = function(list, args) {
+    return list.join(args[0]);
 };
 
 proto.list_functions.sort = function(list,key) {
@@ -789,8 +526,8 @@ proto.list_functions.nsort = function(list) {
     return list.sort(function(a, b) { return (a-b) });
 }
 
-proto.list_functions.grep = function(list, re) {
-    var regexp = new RegExp(re);
+proto.list_functions.grep = function(list, args) {
+    var regexp = new RegExp(args[0]);
     var result = [];
     for (var i = 0; i < list.length; i++) {
         if (list[i].match(regexp))
@@ -819,7 +556,7 @@ proto.list_functions.reverse = function(list) {
     return result;
 }
 
-proto.list_functions.merge = function(list /*, ... args */) {
+proto.list_functions.merge = function(list, args) {
     var result = [];
     var push_all = function(elem) {
         if (elem instanceof Array) {
@@ -832,25 +569,28 @@ proto.list_functions.merge = function(list /*, ... args */) {
         }
     }
     push_all(list);
-    for (var i = 1; i < arguments.length; i++) {
-        push_all(arguments[i]);
+    for (var i = 0; i < args.length; i++) {
+        push_all(args[i]);
     }
     return result;
 }
 
-proto.list_functions.slice = function(list, start, end) {
-    return list.slice(start, end);
+proto.list_functions.slice = function(list, args) {
+    return list.slice(args[0], args[1]);
 }
 
-proto.list_functions.splice = function(list /*, ... args */ ) {
-    var args = Array.prototype.slice.call(arguments);
-    args.shift();
-    
-    return list.splice.apply(list,args);
+proto.list_functions.splice = function(list, args) {
+    if (args.length == 1)
+        return list.splice(args[0]);
+    if (args.length == 2)
+        return list.splice(args[0], args[1]);
+    if (args.length == 3)
+        return list.splice(args[0], args[1], args[2]);
+    return null;
 }
 
-proto.list_functions.push = function(list, value) {
-    list.push(value);
+proto.list_functions.push = function(list, args) {
+    list.push(args[0]);
     return list;
 }
 
@@ -858,8 +598,8 @@ proto.list_functions.pop = function(list) {
     return list.pop();
 }
 
-proto.list_functions.unshift = function(list, value) {
-    list.unshift(value);
+proto.list_functions.unshift = function(list, args) {
+    list.unshift(args[0]);
     return list;
 }
 
@@ -885,11 +625,6 @@ proto.list_functions.last = function(list) {
 
 proto.hash_functions = {};
 
-// typeof
-proto.hash_functions['typeof'] = function(hash) {
-    return 'object';
-};
-
 
 // each            list of alternating keys/values
 proto.hash_functions.each = function(hash) {
@@ -900,17 +635,20 @@ proto.hash_functions.each = function(hash) {
 }
 
 // exists(key)     does key exist?
-proto.hash_functions.exists = function(hash, key) {
-    return ( typeof( hash[key] ) == "undefined" ) ? 0 : 1;
+proto.hash_functions.exists = function(hash, args) {
+    return ( typeof( hash[args[0]] ) == "undefined" ) ? 0 : 1;
 }
 
+// FIXME proto.hash_functions.import blows everything up
+//
 // import(hash2)   import contents of hash2
 // import          import into current namespace hash
-proto.hash_functions['import'] = function(hash, hash2) {    
-    for ( var key in hash2 )
-        hash[key] = hash2[key];
-    return '';
-}
+//proto.hash_functions.import = function(hash, args) {
+//    var hash2 = args[0];
+//    for ( var key in hash2 )
+//        hash[key] = hash2[key];
+//    return '';
+//}
 
 // keys            list of keys
 proto.hash_functions.keys = function(hash) {
@@ -921,10 +659,10 @@ proto.hash_functions.keys = function(hash) {
 }
 
 // list            returns alternating key, value
-proto.hash_functions.list = function(hash, what) {
-    //var what = '';
-    //if ( args )
-        //what = args[0];
+proto.hash_functions.list = function(hash, args) {
+    var what = '';
+    if ( args )
+        what = args[0];
 
     var list = new Array();
     var key;
@@ -950,11 +688,6 @@ proto.hash_functions.nsort = function(hash) {
     for (var key in hash)
         list.push(key);
     return list.sort(function(a, b) { return (a-b) });
-}
-
-// item           return a value by key
-proto.hash_functions.item = function(hash, key) {
-    return hash[key];
 }
 
 // size            number of pairs
@@ -983,8 +716,8 @@ proto.hash_functions.values = function(hash) {
 }
 
 //  delete
-proto.hash_functions.remove = function(hash, key) {
-    return delete hash[key];
+proto.hash_functions.remove = function(hash, args) {
+    return delete hash[args[0]];
 }
 proto.hash_functions['delete'] = proto.hash_functions.remove;
 
@@ -1007,9 +740,6 @@ if (typeof Jemplate.Iterator == 'undefined') {
             this.object_keys = object_keys.sort();
             this.size = object_keys.length;
             this.max  = this.size -1;
-        } else if (typeof object == 'undefined' || object == null || object == '') {
-            this.object = null;
-            this.max  = -1;
         }
     }
 }
@@ -1046,7 +776,7 @@ proto.get_next = function(should_init) {
             return [this.object_keys[index], false];
         }
     } else {
-        if (index <= this.max) {
+        if (index < object.length) {
             this.prev = index > 0 ? object[index - 1] : "";
             this.next = index < this.max ? object[index +1] : "";
             return [object[index], false];
