@@ -41,15 +41,18 @@
                     return false;
                 }
 
-                var href = '/formmail.pl?subject=' + subject         +
-                           '&realname='            + realname        +
-                           '&email='               + email           +
-                           '&text='                + text            +
-                           '&return_link_url='     + return_link_url +
-                           '&return_link_title='   + return_link_title;
+                var href = '/cgi-bin/formmail.pl?subject=' + subject         +
+                                   '&realname='            + realname        +
+                                   '&email='               + email           +
+                                   '&text='                + text            +
+                                   '&return_link_url='     + return_link_url +
+                                   '&return_link_title='   + return_link_title;
 
-                var json = Jemplate.Ajax.get(href);
-                var res = Jemplate.process('show.tt', json);
+                var res  = Jemplate.process(
+                    'show.tt',
+                    href,
+                    '#feedback_form'
+                );
             }
         </script>
     </head>

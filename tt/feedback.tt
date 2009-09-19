@@ -4,7 +4,7 @@ If we can improve perl101.org in any way, please let us know with this form.
 <p>
 </p>
 <div name="feedback_form" id="feedback_form">
-    <form method="post" action="/cgi-sys/formmail.pl" enctype="application/x-www-form-urlencoded">
+    <form method="#" enctype="application/x-www-form-urlencoded">
         <input name="subject" id="subject" value="p101: [% htmlfile %]" type="hidden" />
 
         <input name="return_link_url" id="return_link_url" value="http://perl101.org/[% htmlfile %]" type="hidden" />
