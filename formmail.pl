@@ -13,8 +13,9 @@ use Email::Stuff;
 sub error {
     my $cgi = shift;
 
-    my $return_link_url   = $cgi->param('return_link_url')   || q{};
-    my $return_link_title = $cgi->param('return_link_title') || q{};
+    # we don't really need those since we're updating the page with Jemplate
+    #my $return_link_url   = $cgi->param('return_link_url')   || q{};
+    #my $return_link_title = $cgi->param('return_link_title') || q{};
 
 }
 
