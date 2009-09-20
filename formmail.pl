@@ -35,6 +35,9 @@ if ( !$name || !$text ) {
     error('Missing name or text');
 }
 
+# this should work but it didn't for me
+# maybe it was my sendmail definitions
+# but i didn't have the time to debug it
 Email::Stuff->from($from)
             ->to($recipient)
             ->text_body($text)
