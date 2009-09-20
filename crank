@@ -131,6 +131,9 @@ sub new {
         $tagmap->{"/$code"} = ">";
     }
 
+    $tagmap->{'VerbatimFormatted'} =
+        qq{\n<pre class="prettyprint lang-perl">\n};
+
     return $self;
 }
 
