@@ -15,8 +15,10 @@
             type="text/css"
             media="handheld"
             href="static/theme/handheld.css" />
+        <link href="/static/theme/prettify.css" type="text/css" rel="stylesheet" />
         <script type="text/javascript" src="/static/js/jemplate.js"></script>
-        <script type="text/javascript" src="/static/js/jmpls.js"></script>
+        <script type="text/javascript" src="/static/js/jmpls.js"></script>     
+        <script type="text/javascript" src="/static/js/prettify.js"></script>
         <script type="text/javascript">
             function send_mail() {
                 var subject           = document.getElementById('subject').value;
