@@ -58,7 +58,7 @@
             }
         </script>
     </head>
-    <body>
+    <body onload="prettyPrint()">
         <div id="container">
             <!-- Start container -->
             <div id="pageHeader">
