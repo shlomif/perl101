@@ -46,8 +46,9 @@ Perl101.org code has several components:
 
 * The CGI scripts used for mailing and image creation, in the main folder:
     Right now there are only two scripts:
-        - "auth.pl": this script is not production-ready yet. It's supposed to
-          create captchas for the feedback form.
+        - "auth.pl": this script is not production-ready yet. It's creates
+          captchas for the feedback form. It will try to create them in the
+          default 'captcha' folder. You'll probably have to create it.
         - "formmail.pl": this script sends the form submitted (via AJAX)
           and returns an answer or error.
 

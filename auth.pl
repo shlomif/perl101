@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 
+use File::stat;
 use File::Spec;
 use File::Slurp;
 use Digest::MD5 'md5_hex';
@@ -11,14 +12,19 @@ use Authen::Captcha;
 use GD::SecurityImage;
 
 sub create_formula {
-    my @operators = ( qw( + - * / ) );
     my @numbers   = ( 0 .. 20 );
+    my %operators = (
+        '+' => sub { $_[0] + $_[1] },
+        '-' => sub { $_[0] - $_[1] },
+        '*' => sub { $_[0] * $_[1] },
+        '/' => sub { $_[0] * $_[1] },
+    );
     my ( $num1, $op, $num2, $accepted );
 
     while ( ! $accepted ) {
-        $num1 = $numbers[   rand scalar @numbers   ];
-        $num2 = $numbers[   rand scalar @numbers   ];
-        $op   = $operators[ rand scalar @operators ];
+        $num1 = $numbers[ rand scalar @numbers ];
+        $num2 = $numbers[ rand scalar @numbers ];
+        $op   = ( keys %operators )[ rand scalar keys %operators ];
 
         # avoiding edge cases in division
         if ( $op eq '/' ) {
@@ -34,7 +40,7 @@ sub create_formula {
         $accepted++;
     }
 
-    return "$num1  $op  $num2";
+    return [ "$num1  $op  $num2", $operators{$op}->( $num1, $num2 ) ];
 }
 
 sub create_image {
@@ -44,7 +50,7 @@ sub create_image {
     my $image = GD::SecurityImage->new(
         width   => 100,
         height  => 50,
-        lines   => 5,
+        lines   => 3,
         #gd_font => 'giant',
         rndmax  => 3,
     );
@@ -55,19 +61,31 @@ sub create_image {
     return $image;
 }
 
-my $cgi           = CGI::Simple->new();
-my $cur_dir       = File::Spec->curdir();
-my $data_folder   = $cur_dir;
-my $output_folder = $cur_dir;
-my $formula       = create_formula();
-my $md5sum        = md5_hex($formula);
-my $image         = create_image($formula);
+my $cgi                  = CGI::Simple->new();
+my $data_folder          = 'captchas';
+my ( $formula, $result ) = @{ create_formula() };
+my $md5sum               = md5_hex($result);
+my $image                = create_image($formula);
+my $really_delete        = 1;  # set to 0 or '' for testing purposes
+my $captcha_timeout      = 10; # allow them to exit for 1 minute
+
+-d $data_folder || die "Cannot find data folder ($data_folder)";
 
 my ( $image_data, $mime_type, $random_number ) = $image->out;
+my $image_filename = File::Spec->catfile( $data_folder, "$md5sum.png" );
 
-write_file(
-    File::Spec->catfile( $data_folder, "$md5sum.png" ),
-    { binmode => ':raw' },
-    $image_data,
-);
+# write the new file
+write_file( $image_filename, { binmode => ':raw' }, $image_data );
+
+# delete older files
+my $captcha_regex = qr/^\w+\.png$/;
+
+foreach my $file ( read_dir($data_folder) ) {
+    $file =~ $captcha_regex || next;
+    my $filename = File::Spec->catfile( $data_folder, $file );
+
+    if ( stat($filename)->ctime() < ( time() - $captcha_timeout ) ) {
+        $really_delete && unlink $filename;
+    }
+}
 
