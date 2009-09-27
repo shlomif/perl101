@@ -85,7 +85,7 @@
                     [% INCLUDE 'feedback.tt' %]
                     <div id="footer">
                         <!-- Start Footer -->
-                        <p>&copy; 2007 Andy Lester</p>
+                        <p>&copy; 2007-2009 Andy Lester</p>
                     </div><!-- End Footer -->
                 </div><!-- End content -->
             </div><!-- End main content wrapper -->
