@@ -1,0 +1,25 @@
+These are short installation instructions. They contain what needs to be done
+in order to install and play around with the Perl101.org codebase.
+
+- Install a webserver (apache, lighttpd, etc.).
+- Create the "build" folder for the "crank" script.
+- Make sure that the "href" path defined in "section.tt"'s javascript matches
+  where your CGI folder will be. It assumes it well be in "/cgi-bin".
+- Make sure that the path for the captcha pictures hardcoded in
+  "tt/show_captcha.tt" is good for you.
+- If you need to adjust the path in "show_captcha.tt", recompile the templates
+  using the following command:
+  $ jemplate --compile tt/show_captcha.tt tt/show_result.tt > static/js/jmpls.js
+  (you must have Jemplate installed)
+- Run the crank script.
+- Copy the built HTML files in your "build" folder into the document root of
+  your Perl101.
+- Copy the "static" folder to the same document root.
+- Copy over the formmail.pl and auth.pl into the appropriate CGI folder
+  (usually this would be "cgi-bin")
+- Make sure the paths for $data_folder in both files reflects where you want
+  to keep the captchas. I would recommend writing a full path.
+- Change the $recipient to your email address in "formmail.pl".
+  (you can comment off the entire Email::Stuff part to avoid emails entirely)
+
+Written by Sawyer X (2009)
