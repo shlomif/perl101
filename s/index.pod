@@ -9,8 +9,9 @@ what they don't know.  Perl101.org hopes to change that.
 
 =head1 perl101.org source
 
-The source for this site is kept at Google Code, at
-L<http://code.google.com/p/perl101/>.  If you'd like to help add
+The source for this site is kept on github at
+L<http://github.com/petdance/perl101>.
+If you'd like to help add
 to this site, drop Andy Lester a note at andy [at] perl.org.
 
 =head1 Thanks
