@@ -5,16 +5,12 @@
 BUILD=build
 SOURCE=s
 
-BUILDSYNC=rsync -azu --delete --exclude=.git --exclude='*~'
-
 default: crank
 
-crank:
-	rm -fr $(BUILD)/*.html
+crank: clean
 	mkdir -p $(BUILD)/ || true > /dev/null 2>&1
 	perl crank --podpath=$(SOURCE) --buildpath=$(BUILD)
-	$(BUILDSYNC) static/ $(BUILD)/static/
-	cp $(SOURCE)/*.ico $(BUILD)/
+	cp -R static/* $(BUILD)/
 
 clean:
 	rm -fr $(BUILD)
