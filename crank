@@ -55,7 +55,7 @@ for ( get_sections( $podpath ) ) {
 for my $vars ( @podfiles ) {
     $vars->{content} = pod2html( $vars->{podfile} );
     $vars->{sidelinks} = \@sidelinks;
-    $tt->process( 'section.tt', $vars, $vars->{htmlfile} ) || die $tt->error;
+    $tt->process( 'page.ttml', $vars, $vars->{htmlfile} ) || die $tt->error;
 }
 
 sub get_sections {

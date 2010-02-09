@@ -17,7 +17,7 @@
             href="theme/handheld.css" />
         <link href="theme/prettify.css" type="text/css" rel="stylesheet" />
         <script type="text/javascript" src="/js/jemplate.js"></script>
-        <script type="text/javascript" src="/js/jmpls.js"></script>     
+        <script type="text/javascript" src="/js/jmpls.js"></script>
         <script type="text/javascript" src="/js/prettify.js"></script>
         <script type="text/javascript">
             function send_mail() {
