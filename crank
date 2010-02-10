@@ -6,6 +6,7 @@ use warnings;
 use Carp::Always;
 use Getopt::Long;
 use File::Slurp;
+use Pod::Simple 3.13;
 
 use Template ();
 use Template::Constants qw( :debug :chomp );
