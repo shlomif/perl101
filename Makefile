@@ -15,6 +15,9 @@ crank: clean
 clean:
 	rm -fr $(BUILD)
 
+test:
+	prove t/html.t
+
 # This is only useful for Andy
 rsync:
 	rsync -azu -e ssh --delete --verbose \
