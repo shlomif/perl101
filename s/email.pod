@@ -4,8 +4,7 @@
 
 In general, you can't.  There are several methods available to see
 if it looks reasonable, but there is no way to determine if an
-address is actually deliverable without actually attempting 
-delivery.
+address is actually deliverable without actually attempting delivery.
 
 Using regular expressions:
 
@@ -25,14 +24,14 @@ the modules available on L<http://search.cpan.org>, such as:
 
 C<Email::Valid> makes it easy to determine if an email address is
 well-formed:
-    
+
     use Email::Valid;
 
     print ( Email::Valid->address( 'someone@gmail.com' ) ? 'Yes' : 'No' ); # prints Yes
     print ( Email::Valid->address( 'someone#gmail.com' ) ? 'Yes' : 'No' ); # prints No
 
 C<Email::Valid> can also tell you why an address is invalid:
-    
+
     print "Invalid address: $Email::Valid::Details \n"
         unless Email::Valid->address( 'you#foo.bar' );
 
