@@ -15,7 +15,7 @@ crank: clean
 clean:
 	rm -fr $(BUILD)
 
-test:
+test: crank
 	prove t/html.t
 
 # This is only useful for Andy
