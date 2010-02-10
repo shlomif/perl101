@@ -44,29 +44,16 @@ img {
     position: relative;
     margin-top: -1px;
     margin-bottom: -1px;
+    height:60px;
     z-index: 0;
 }
 
-#pageHeader img {
-    position: absolute;
-    left: 10;
-    top: 0;
-}
 
 #pageHeader h1 {
     color: #ffffff;
     font-size: 2.5em;
     letter-spacing: 1px;
     margin: 0 0 5px;
-}
-
-#pageHeader h2 {
-    color: #b5bdc8;
-    font-size: 0.9em;
-    margin-top: 25px;
-    margin-bottom: 0px;
-    margin-left: 5px;
-    padding: 0px;
 }
 
 #contentContainer {
@@ -91,18 +78,21 @@ img {
 }
 
 #sidebarContainer #sidebar {
-    padding: 10px;
+    padding: 0px 10px 0px 10px;
     color: #505050;
     font-family: sans-serif;
-    background: #d5dfd6;
+    background: #eee;
 }
 
 #sidebarContainer .sideHeader {
-    background: #d5dfd6;
-    color: #797f7a;
-    font-weight: bold;
-    height: 20px;
-    padding-left: 0px;
+    background: #41436d;
+    color: #fff;
+    padding:7px 0px 5px 15px;
+    font-family:sans-serif;
+    font-weight:bold;
+    font-size:12px;
+    letter-spacing:-0.05em;
+    text-transform:uppercase;
 }
 
 #footer {
@@ -155,12 +145,27 @@ h4 {
 /* Sidebar area unordered list styles */
 #sidebarContainer #sidebar ul {
     margin: 0px;
-    padding: 0 10px;
+    padding: 0px ;
     list-style: none;
+    font-size:88%;
 }
 
 #sidebarContainer #sidebar li {
 }
+
+#sidebarContainer a {
+  text-decoration:none;
+  display:block;
+  color:#41436d;
+  border-bottom:1px solid #c4c4c4;
+  padding:10px 0px 10px 4px
+}
+
+#sidebarContainer a:hover {
+  background-color:#fafafa;
+  color:#de8329;
+}
+
 
 /* Table Styles */
 pre, code {
