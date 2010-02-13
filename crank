@@ -3,20 +3,42 @@
 use strict;
 use warnings;
 
-BEGIN {
-    eval 'use Carp::Always';
-}
+use Carp::Always;
+use Getopt::Long;
+use File::Slurp;
+use Pod::Simple 3.13;
 
 use Template ();
 use Template::Constants qw( :debug :chomp );
 
+my $podpath   = 's';
+my $buildpath = 'build';
+
+GetOptions(
+    'podpath:s'   => \$podpath,
+    'buildpath:s' => \$buildpath,
+) or exit;
+
+if ( ! -d $buildpath || ! -w $buildpath ) {
+    die "Buildpath ($buildpath) doesn't exist or is not writable";
+}
+
 my %defaults = (
+<<<<<<< HEAD
     INCLUDE_PATH    => [ qw( tt ) ],
     OUTPUT_PATH     => $ENV{'PERL101_OUT_PATH'} || '/srv/p101/',
     DEBUG           => DEBUG_UNDEF,
     TRIM            => CHOMP_ALL,
     PRE_CHOMP       => 1,
     POST_CHOMP      => 1,
+=======
+    INCLUDE_PATH => [ qw( tt ) ],
+    OUTPUT_PATH  => $buildpath,
+    DEBUG        => DEBUG_UNDEF,
+    TRIM         => CHOMP_ALL,
+    PRE_CHOMP    => 1,
+    POST_CHOMP   => 1,
+>>>>>>> remotes/petdance/master
 );
 
 my $tt = Template->new( \%defaults );
@@ -25,18 +47,18 @@ my $vars = {};
 my @podfiles;
 my @sidelinks;
 
-for ( get_sections( 's/' ) ) {
+for ( get_sections( $podpath ) ) {
     my ($sectionfile, $sectiontext) = @{$_};
 
-    my $podfile = "s/$sectionfile.pod";
+    my $podfile  = "$podpath/$sectionfile.pod";
     my $htmlfile = "$sectionfile.html";
     push( @sidelinks, {
         filename => $htmlfile,
-        text => $sectiontext,
+        text     => $sectiontext,
     } );
     push( @podfiles, {
-        section => $sectiontext,
-        podfile => $podfile,
+        section  => $sectiontext,
+        podfile  => $podfile,
         htmlfile => $htmlfile,
     } );
 }
@@ -44,7 +66,7 @@ for ( get_sections( 's/' ) ) {
 for my $vars ( @podfiles ) {
     $vars->{content} = pod2html( $vars->{podfile} );
     $vars->{sidelinks} = \@sidelinks;
-    $tt->process( 'section.tt', $vars, $vars->{htmlfile} ) || die $tt->error;
+    $tt->process( 'page.ttml', $vars, $vars->{htmlfile} ) || die $tt->error;
 }
 
 sub get_sections {
@@ -87,13 +109,16 @@ sub pod2html {
     $parser->html_header_after_title( '' );
     $parser->html_footer( '' );
 
+    # Manually adjust the stuff we passed thru earlier
+    my $podtext = read_file( $podfile );
+
+    $podtext =~ s{P<(.+?)>}{L<$1|http://perldoc.perl.org/$1.html>}g;
+    $podtext =~ s{M<(.+?)>}{L<$1|http://search.cpan.org/perldoc?$1>}g;
+
     $parser->complain_stderr( 1 );
     $parser->output_string( \$html );
-    $parser->parse_file( $podfile );
+    $parser->parse_string_document( $podtext );
 
-    # Manually adjust the stuff we passed thru earlier
-    $html =~ s{P<(.+?)>}{<a href="http://perldoc.perl.org/$1.html">$1</a>}g;
-    $html =~ s{M<(.+?)>}{<a href="http://search.cpan.org/perldoc?$1">$1</a>}g;
 
     return $html;
 }
@@ -119,6 +144,9 @@ sub new {
         $tagmap->{$code} = "$code<";
         $tagmap->{"/$code"} = ">";
     }
+
+    $tagmap->{'VerbatimFormatted'} =
+        qq{\n<pre class="prettyprint lang-perl">\n};
 
     return $self;
 }

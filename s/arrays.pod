@@ -5,8 +5,9 @@
 The C<qw> operator makes creating arrays easy.  It means "quote on
 whitespace into a list":
 
+    # Perl 5
     my @stooges = qw( Larry Curly Moe Iggy );
-
+    # or
     my @stooges = qw(
         Larry
         Curly
@@ -14,9 +15,21 @@ whitespace into a list":
         Iggy
     );
 
+In Perl 6, the C<qw> is simplified:
+
+    my @stooges = < Larry Curly Moe Iggy >;
+    # or
+    my @stooges = <
+        Larry
+        Curly
+        Moe
+        Iggy
+    >;
+
 The elements do not interpolate, so:
 
-    my @array = qw( $100,000 );
+    my @array = qw( $100,000 ); # Perl 5
+    my @array = < $100,000 >;   # Perl 6
 
 The single element of C<@array> is '$100,000'.
 

@@ -1,33 +1,34 @@
 <hr />
-<h3>We want your feedback</h3>
-If we can improve perl101.org in any way, please let us know with this form.
-<p>
-</p>
-<form method="post" action="/cgi-sys/formmail.pl" enctype="application/x-www-form-urlencoded">
-    <input name="subject" value="p101: [% htmlfile %]" type="hidden">
-    <input name="recipient" value="andy@petdance.com" type="hidden" />
+<div id="feedback_form">
+    <h3>We want your feedback</h3>
+    <p>
+    If we can improve perl101.org in any way, please let us know with this form.
+    </p>
+    <form method="#" enctype="application/x-www-form-urlencoded">
+        <input name="subject" id="subject" value="p101: [% htmlfile %]" type="hidden" />
 
-    <input name="return_link_url" value="http://perl101.org/[% htmlfile %]" type="hidden" />
-    <input name="return_link_title" value="Return to Perl 101" type="hidden" />
-    <table>
-        <tbody>
-            <tr>
-                <th align="right">Your name</th>
-                <td><input name="realname" type="text"></td>
-            </tr>
+        <input name="return_link_url" id="return_link_url" value="http://perl101.org/[% htmlfile %]" type="hidden" />
+        <input name="return_link_title" id="return_link_title" value="Return to Perl 101" type="hidden" />
+        <table>
+            <tbody>
+                <tr>
+                    <th align="right">Your name</th>
+                    <td><input name="realname" id="realname" type="text"></td>
+                </tr>
 
-            <tr>
-                <th align="right">Your email</th>
-                <td><input name="email" type="text"></td>
-            </tr>
-            <tr valign="top">
-                <th align="right">Your comment</th>
-                <td>
-                    <textarea name="text" rows="10" cols="50"></textarea>
-                    <br />
-                    <input name=".submit" value="Send" type="submit">
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</form>
+                <tr>
+                    <th align="right">Your email</th>
+                    <td><input name="email" id="email" type="text"></td>
+                </tr>
+                <tr valign="top">
+                    <th align="right">Your comment</th>
+                    <td>
+                        <textarea name="text" id="text" rows="10" cols="50"></textarea>
+                        <br />
+                        <input name=".submit" value="Send" type="submit" onclick="send_mail(); return false;" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
