@@ -55,7 +55,7 @@ L<http://search.cpan.org>.
 
 =head2 Online documentation
 
-There are some websites that HTMLify the Perl documentation.  Thw
+There are some websites that HTMLify the Perl documentation. The
 two biggest ones:
 
 =over
