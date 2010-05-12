@@ -65,3 +65,11 @@ two biggest ones:
 =item * L<http://search.cpan.org/> for modules
 
 =back
+
+=head2 Writing your own documentation
+
+Perl has a strong culture of documenting everything, and you are
+encouraged to get into this habit early on. You'll write your
+documentation using a format called POD, which is discussed <a 
+href="pod.html">in its own page</a>.
+
