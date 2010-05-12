@@ -17,6 +17,7 @@ to this site, drop Andy Lester a note at andy [at] perl.org.
 =head1 Thanks
 
 Thanks to the following folks for their contributions:
+Rich Bowen,
 Drew Stephens,
 Usman Jan,
 Adam SjE<oslash>gren,
