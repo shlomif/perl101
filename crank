@@ -7,6 +7,7 @@ use Carp::Always;
 use Getopt::Long;
 use File::Slurp;
 use Pod::Simple 3.13;
+use YAML qw( LoadFile );
 
 use Template ();
 use Template::Constants qw( :debug :chomp );
@@ -66,9 +67,10 @@ sub get_sections {
     opendir my $dh, $sourcedir or die "Can't open $sourcedir";
     my %pod = map { ($_,1) } grep { /\.pod$/ && -f "$sourcedir/$_" } readdir $dh;
 
+    my $config = LoadFile( 'config.yaml' );
+    my @sections = @{$config->{pages}};
     my @ordered_sections;
-    for my $section ( <DATA> ) {
-        chomp $section;
+    for my $section ( @sections ) {
         my $filename = make_filename( $section );
         delete $pod{"$filename.pod"} or die "$filename is in the section list but not in the source";
         push( @ordered_sections, [ $filename, $section ] );
@@ -141,45 +143,3 @@ sub new {
 
     return $self;
 }
-
-
-1;
-
-package main;
-
-__DATA__
-Index
-How to get Perl
-Terms
-Documentation
-Strings
-Numbers
-Arrays
-Hashes
-Regexes
-Flow Control
-Files
-Subroutines
-POD
-Debugging
-Modules
-Modules: Making your own
-External programs
-CPAN
-Constructs
-References
-Objects
-Special Variables
-Command-line Switches
-Advanced Functions
-Style
-Performance
-Traps
-Email
-How do I...?
-Developer Tools
-Websites
-Publications
-Community
-Random
-TODO
