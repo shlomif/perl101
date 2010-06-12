@@ -1,3 +1,7 @@
+podpath: s
+buildpath: build
+templatepath: tt
+
 pages:
     - Index
     - How to get Perl

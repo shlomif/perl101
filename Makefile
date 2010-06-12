@@ -7,13 +7,12 @@ SOURCE=s
 
 default: crank
 
-crank: clean
-	mkdir -p $(BUILD)/ || true > /dev/null 2>&1
-	perl crank --podpath=$(SOURCE) --buildpath=$(BUILD)
+crank:
+	podium clean build
 	cp -R static/* $(BUILD)/
 
 clean:
-	rm -fr $(BUILD)
+	podium clean
 
 test: crank
 	prove t/html.t
