@@ -1,0 +1,40 @@
+podpath: s
+buildpath: build
+templatepath: tt
+
+pages:
+    - Index
+    - How to get Perl
+    - Terms
+    - Documentation
+    - Strings
+    - Numbers
+    - Arrays
+    - Hashes
+    - Regexes
+    - Flow Control
+    - Files
+    - Subroutines
+    - POD
+    - Debugging
+    - Modules
+    - 'Modules: Making your own'
+    - External programs
+    - CPAN
+    - Constructs
+    - References
+    - Objects
+    - Special Variables
+    - Command-line Switches
+    - Advanced Functions
+    - Style
+    - Performance
+    - Traps
+    - Email
+    - How do I...?
+    - Developer Tools
+    - Websites
+    - Publications
+    - Community
+    - Random
+    - TODO

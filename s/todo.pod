@@ -1,5 +1,11 @@
 =head1 Things to do here at perl101.org
 
+=head2 Handle Perl 6
+
+Ultimately I'd like to have perl101 show both the Perl 6 and Perl
+5 ways of doing things.  This way we show new people to Perl 6 how
+to do things, and can also act as a Perl 5-to-Perl 6 phrasebook.
+
 =head1 Site functionality
 
 =head2 Include the FAQ

@@ -61,7 +61,7 @@ or
     my $file_as_string = join '', <FILE>;
 
 Of those two, choose the former.  The second one reads all the lines
-into an array, and the glomps together a big string.  The first one
+into an array, and then glomps together a big string.  The first one
 just reads into a string, without creating the intervening list of lines.
 
 The best way yet is like so:
