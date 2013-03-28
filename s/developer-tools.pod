@@ -2,12 +2,12 @@
 
 =head2 Profiling performance
 
-Use Devel::DProf
+Use L<Devel::NYTProf>, or less preferably L<Devel::DProf>.
 
 =head2 Analyzing code quality
 
-Use Perl::Critic.  It's basically F<lint> for Perl.
+Use L<Perl::Critic>.  It's basically F<lint> for Perl.
 
 =head2 Analyzing a variable's structure
 
-Use Data::Dumper
+Use L<Data::Dumper>.
