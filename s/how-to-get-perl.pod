@@ -19,15 +19,15 @@ You will need a compiler, a shell, and some system libraries.  Perl's
 C<Configure> script will tell you if you're missing something.
 
 If you're on Windows, you may not have a compiler to use.  Look
-onward to Vanilla, Strawberry and ActiveState.
+onward to Strawberry or ActiveState.
 
-=head2 Windows Perl: Vanilla/Strawberry
+=head2 Windows Perl: Strawberry
 
-L<http://www.vanillaperl.com>
+L<http://www.strawberryperl.com>
 
-Vanilla and Strawberry Perl are two Windows Perl distributions that
-come with a compiler and enough of an environment to get Perl compiling
-and running on that platform.
+Strawberry Perl is a Windows Perl distribution that
+comes with a CPAN client, a working compiler and a lot of modules
+already pre-installed. 
 
 Unless you have a very specific need, you want the Strawberry Perl
 distribution.
