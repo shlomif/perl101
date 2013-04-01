@@ -7,8 +7,8 @@ statement.
 
     $ perl -v
 
-    This is perl, v5.8.6 built for darwin-thread-multi-2level
-    (with 3 registered patches, see perl -V for more detail)
+    This is perl 5, version 16, subversion 1 (v5.16.1) built for 
+    darwin-thread-multi-2level
     ....
 
 =head2 Perl source
