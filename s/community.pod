@@ -88,18 +88,12 @@ The Perl user groups around the world.  Helped out The Perl Foundation.
 =back
 
 
-=head2 use.perl
+=head2 blogs.perl.org
 
 =over
 
-=item * L<http://use.perl.org>
+=item * L:<http://blogs.perl.org>
 
-=item * Slash-based site where Perl people keep journals.  Front page publishes Perl news of the day.
+=item * Perl users blogging about perl
 
 =back
-
-=head2 Perlcast
-
-Perlcast is a podcast for the Perl community created by Josh McAdams.
-
-L<http://perlcast.com>
