@@ -7,7 +7,3 @@ Buzz blog reports on news in the community.  CPAN Watch documents
 noteworthy CPAN uploads.  Project Hum tells about what's happening
 in projects around the community.
 
-=head2 use.perl.org
-
-The other big Perl news site, L<http://use.perl.org>.
-
