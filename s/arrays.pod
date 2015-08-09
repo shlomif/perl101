@@ -174,20 +174,20 @@ common ways of doing it wrong that should illustrate its usefulness:
 
     my @a = qw(Steve Stu Stan);
     $a[1] = ['Stewart', 'Zane'];
-    # @a = ('Steve', ARRAY(0x841214c), 'Stan') 
+    # @a = ('Steve', ARRAY(0x841214c), 'Stan')
     # Memory address to an array reference
 
     my @a = qw(Steve Stu Stan);
     my @b = qw(Stewart Zane);
     $a[1] = @b;
-    # @a = ('Steve', 2, 'Stan') 
+    # @a = ('Steve', 2, 'Stan')
     # Returns a scalar reference, the length of @b
 
 Now let's use C<splice>:
 
     @a = qw(Steve Stu Stan);
     splice @a, 1, 1, 'Stewart', 'Zane';
-    # @a = ('Steve', 'Stewart', 'Zane', 'Stan') 
+    # @a = ('Steve', 'Stewart', 'Zane', 'Stan')
     # This is just what we wanted
 
 Let's break down the argument list for C<splice>: first, we name the
@@ -196,7 +196,7 @@ into the list we want the splice to start); third, we specify the length
 of the splice (how far forward from the offset we'll be deleting to make
 room for the new list); finally, we list the items we want inserted.
 
-If all else fails, C<perldoc -f splice>. 
+If all else fails, C<perldoc -f splice>.
 
 =head2 Process arrays easily with C<map>
 

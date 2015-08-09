@@ -16,7 +16,7 @@ difficult.
 Even with the horrible names, using underscores makes things
 more readable:
 
-    my $variable_that_contains_data = 
+    my $variable_that_contains_data =
         some_subroutine_that_mucks_with_data( $some_awful_variable );
 
 =head2 warnings & strict

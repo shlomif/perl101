@@ -93,11 +93,11 @@ above, the string C<"abc"> is converted to C<0> and then incremented.
 
 =head2 Create long strings with the C<''> operators
 
-You can create long strings with 
+You can create long strings with
 
 =head2 Create long strings with heredocs
 
-Heredocs are 
+Heredocs are
 
 =over
 

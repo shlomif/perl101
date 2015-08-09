@@ -14,7 +14,7 @@ sub error {
     #my $return_link_url   = $cgi->param('return_link_url')   || q{};
     #my $return_link_title = $cgi->param('return_link_title') || q{};
 
-    print encode_json { error => $error_msg }; 
+    print encode_json { error => $error_msg };
 
     exit 0;
 }

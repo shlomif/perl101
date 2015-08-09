@@ -7,7 +7,7 @@ statement.
 
     $ perl -v
 
-    This is perl 5, version 16, subversion 1 (v5.16.1) built for 
+    This is perl 5, version 16, subversion 1 (v5.16.1) built for
     darwin-thread-multi-2level
     ....
 
@@ -27,7 +27,7 @@ L<http://www.strawberryperl.com>
 
 Strawberry Perl is a Windows Perl distribution that
 comes with a CPAN client, a working compiler and a lot of modules
-already pre-installed. 
+already pre-installed.
 
 Unless you have a very specific need, you want the Strawberry Perl
 distribution.

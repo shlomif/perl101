@@ -70,6 +70,6 @@ two biggest ones:
 
 Perl has a strong culture of documenting everything, and you are
 encouraged to get into this habit early on. You'll write your
-documentation using a format called POD, which is discussed <a 
+documentation using a format called POD, which is discussed <a
 href="pod.html">in its own page</a>.
 

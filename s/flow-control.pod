@@ -82,7 +82,7 @@ to C<case> statements.  Perl doesn't have them.
 
 The closest we have is C<elsif>:
 
-    if ($condition_one) { 
+    if ($condition_one) {
         action_one();
     }
     elsif ($condition_two) {
